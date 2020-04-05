@@ -17,9 +17,6 @@ function App() {
               <span className="linkSpan">
                 <Link to={'/table'}>Expandable Table</Link>
               </span>
-              <span className="linkSpan">
-                <Link to={'https://reactjs.org'} target="_blank">React Docs</Link>
-              </span>
             </div>
           )} />
           <Route path="/books" render={() => (
