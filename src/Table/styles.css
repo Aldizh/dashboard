@@ -1,0 +1,10 @@
+.ui.table {
+  width: 80%;
+  display: inline-table;
+}
+
+.ui.table thead th {
+  background: rgb(29 90 185);
+  color: white;
+}
+
