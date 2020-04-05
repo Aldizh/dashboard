@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
-          <Route exact={true} path="/" render={() => (
+          <Route exact={true} path="/dashboard" render={() => (
             <div className="AppLinks">
               <span className="linkSpan">
                 <Link to={'/books'}>Book Fetcher App</Link>
