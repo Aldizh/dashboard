@@ -1,6 +1,7 @@
 import React from 'react';
-import Fetcher from './dataFetcher'
+import Fetcher from './Fetcher'
 import Table from './Table'
+import ListPage from "./ListPage"
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import './App.css';
 
@@ -10,18 +11,24 @@ function App() {
       <header className="App-header">
         <Router>
           <Route exact={true} path="/dashboard" render={() => (
-            <div className="AppLinks">
-              <span className="linkSpan">
-                <Link to={'/books'}>Book Fetcher App</Link>
-              </span>
-              <span className="linkSpan">
-                <Link to={'/table'}>Expandable Table</Link>
-              </span>
-            </div>
+            <React.Fragment>
+              <ul>
+                <li>
+                  <Link to={'/books'}>Book Fetcher Api</Link>
+                </li>
+                <li>
+                  <Link to={'/table'}>Expandable Table</Link>
+                </li>
+                <li>
+                  <Link to={'/list_page'}>Filterable Table</Link>
+                </li>
+              </ul>
+              <hr />
+            </React.Fragment>
           )} />
           <Route path="/books" render={() => (
               <React.Fragment>
-                <Link to={'/'}>
+                <Link to={'/dashboard'}>
                   Home
                 </Link>
                 <Fetcher />
@@ -30,11 +37,21 @@ function App() {
           <Route path="/table" render={() => (
               <React.Fragment>
                 <div className="homeNav">
-                  <Link to={'/'}>
+                  <Link to={'/dashboard'}>
                     Home
                   </Link>
                 </div>
                 <Table />
+              </React.Fragment>
+          )} />
+          <Route path="/list_page" render={() => (
+              <React.Fragment>
+                <div className="homeNav">
+                  <Link to={'/dashboard'}>
+                    Home
+                  </Link>
+                </div>
+                <ListPage />
               </React.Fragment>
           )} />
         </Router>

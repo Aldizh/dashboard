@@ -78,6 +78,49 @@ const ExapndableTable = () => {
   const [allItemRows, setData] = useState([])
 
   useEffect(() => {
+    const handleRowClick = (rowId) => {
+      const currentExpandedRows = expandedRows;
+      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+  
+      const newExpandedRows = isRowCurrentlyExpanded
+        ? currentExpandedRows.filter(id => id !== rowId)
+        : currentExpandedRows.concat(rowId);
+  
+      setExpanded(newExpandedRows);
+    }
+    
+    const renderItemCaret = (rowId) => {
+      const currentExpandedRows = expandedRows
+      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+
+      if (isRowCurrentlyExpanded) {
+        return <Icon name="caret down" />;
+      } else {
+        return <Icon name="caret right" />;
+      }
+    }
+
+    const renderItem = (item, index) => {
+      const itemRows = [
+        <Table.Row onClick={() => handleRowClick(index)} key={"row-data-" + index}>
+          {/* <Table.Cell>{renderItemCaret(index)}</Table.Cell> */}
+          <Table.Cell>{item.type}</Table.Cell>
+          <Table.Cell>{item.status}</Table.Cell>
+          <Table.Cell>{item.date}</Table.Cell>
+          <Table.Cell>{item.tasks}</Table.Cell>
+        </Table.Row>
+      ];
+  
+      if (expandedRows.includes(index)) {
+        itemRows.push(
+          <Table.Row key={"row-expanded-" + index}>
+            <Table.Cell colSpan="5">{renderItemDetails(item)}</Table.Cell>
+          </Table.Row>
+        );
+      }
+  
+      return itemRows;
+    }
     let allItemRows = [];
     tempData.forEach((item, index) => {
       const perItemRows = renderItem(item, index);
@@ -85,28 +128,6 @@ const ExapndableTable = () => {
     });
     setData(allItemRows)
   }, [expandedRows])
-
-  const handleRowClick = (rowId) => {
-    const currentExpandedRows = expandedRows;
-    const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
-
-    const newExpandedRows = isRowCurrentlyExpanded
-      ? currentExpandedRows.filter(id => id !== rowId)
-      : currentExpandedRows.concat(rowId);
-
-    setExpanded(newExpandedRows);
-  }
-
-  const renderItemCaret = (rowId) => {
-    const currentExpandedRows = expandedRows
-    const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
-
-    if (isRowCurrentlyExpanded) {
-      return <Icon name="caret down" />;
-    } else {
-      return <Icon name="caret right" />;
-    }
-  }
 
   const renderItemDetails = (item) => (
     <Segment basic>
@@ -116,40 +137,16 @@ const ExapndableTable = () => {
     </Segment>
   )
 
-  const renderItem = (item, index) => {
-    const itemRows = [
-      <Table.Row onClick={() => handleRowClick(index)} key={"row-data-" + index}>
-        <Table.Cell>{renderItemCaret(index)}</Table.Cell>
-        <Table.Cell>{item.type}</Table.Cell>
-        <Table.Cell>{item.status}</Table.Cell>
-        <Table.Cell>{item.date}</Table.Cell>
-        <Table.Cell>{item.tasks}</Table.Cell>
-      </Table.Row>
-    ];
-
-    if (expandedRows.includes(index)) {
-      itemRows.push(
-        <Table.Row key={"row-expanded-" + index}>
-          <Table.Cell colSpan="5">{renderItemDetails(item)}</Table.Cell>
-        </Table.Row>
-      );
-    }
-
-    return itemRows;
-  }
-
   return (
     <Table selectable>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell />
           <Table.HeaderCell>Activity Type</Table.HeaderCell>
           <Table.HeaderCell>Overall Status</Table.HeaderCell>
           <Table.HeaderCell>Date Created</Table.HeaderCell>
           <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
-
       <Table.Body>{allItemRows}</Table.Body>
     </Table>
   );

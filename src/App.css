@@ -11,19 +11,12 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.AppLinks {
-  display: grid;
-}
-
-.App-link {
-  color: #0f5ef0;
-}
-
-.linkSpan {
-  padding: 5px;
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
 }
 
 h1 {
