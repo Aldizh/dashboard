@@ -19,7 +19,7 @@ const styles = {
   }
 };
 
-const ToolbarComponent = props => {
+const ToolbarComponent = () => {
   const [data, dispatch] = useListPageContext();
   const { chips = [] } = data
 
@@ -45,28 +45,24 @@ const ToolbarComponent = props => {
       <div className="col-1-1 tableHeader">
         <div className="toolbar">
           <div className="wrapper">
-            {chips.map(data => (
-              <React.Fragment key={data.code}>
-                <Chip
-                  key={data.code}
-                  label={data.filterText}
-                  onClick={() => {
-                    toggleChips(data);
-                    props.fetchMembershipDetails();
+            {chips.map(chip => (
+              <Chip
+                key={chip.code}
+                label={chip.filterText}
+                onClick={() => {
+                  toggleChips(chip);
+                }}
+                className={"memberChip"}
+              >
+                <img
+                  style={styles.img}
+                  src="/images/close-circle.png"
+                  alt="Remove Chip Icon"
+                  onTouchTap={() => {
+                    toggleChips(chip)
                   }}
-                  className={"memberChip"}
-                >
-                  <img
-                    style={styles.img}
-                    src="/images/close-circle.png"
-                    alt="Remove Chip Icon"
-                    onTouchTap={() => {
-                      toggleChips(data)
-                      props.fetchMembershipDetails();
-                    }}
-                  />
-                </Chip>
-              </React.Fragment>
+                />
+              </Chip>
             ))}
           </div>
         </div>
@@ -77,7 +73,7 @@ const ToolbarComponent = props => {
           <Button
             label="Add"
             color="primary"
-            style={Object.assign({}, { marginRight: 25 })}
+            style={{ marginRight: 25 }}
           />
         </div>
       </div>
@@ -88,7 +84,6 @@ const ToolbarComponent = props => {
 ToolbarComponent.propTypes = {
   data: PropTypes.array,
   toggleChips: PropTypes.func,
-  fetchMembershipDetails: PropTypes.func
 };
 
 export default ToolbarComponent;

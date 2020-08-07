@@ -1,5 +1,6 @@
 export const initialMembers = [
   {
+    id: 1,
     name: "John",
     country: "Germany",
     membership_type: "Basic",
@@ -9,6 +10,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 2,
     name: "Jack",
     country: "Germany",
     membership_type: "Premium",
@@ -18,6 +20,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 3,
     name: "Jim",
     country: "India",
     membership_type: "Basic",
@@ -27,6 +30,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 4,
     name: "Jules",
     country: "India",
     membership_type: "Premium",
@@ -36,6 +40,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 5,
     name: "Jonathan",
     country: "Spain",
     membership_type: "Basic",
@@ -45,6 +50,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 6,
     name: "Just do it",
     country: "Spain",
     membership_type: "Premium",
@@ -54,6 +60,7 @@ export const initialMembers = [
     to_date: "30th Jun, 2017"
   },
   {
+    id: 7,
     name: "Justice for all",
     country: "Pan Europe",
     membership_type: "Basic",

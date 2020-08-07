@@ -1,11 +1,15 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+import { find, propEq } from "ramda";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useListPageContext } from "./context"
+import {
+  initialMembers
+} from './mockData'
 
 const styles = theme => ({
   root: {
@@ -15,8 +19,17 @@ const styles = theme => ({
   }
 });
 
+const calcuateFilteredData = (chips) => {
+  let newMembers = []
+  chips.forEach((currChip) => {
+    const member = find(propEq(currChip.filterBy, currChip.code), initialMembers) || find(propEq(currChip.filterBy, currChip.filterText), initialMembers)
+    if (member) newMembers.push(member)
+  })
+  return newMembers
+}
+
 const SectionList = (props) => {
-  const { classes, data, filterBy, isIchecked } = props;
+  const { classes, filterFacets, members, filterBy, isIchecked } = props;
 
   const [state, setState] = useState({
     checked: [0]
@@ -33,6 +46,7 @@ const SectionList = (props) => {
       newchips.splice(index, 1);
     }
     dispatch({ type: 'update_chips', data: newchips })
+    dispatch({ type: 'update_members', data: calcuateFilteredData(newchips) })
   };
 
   const handleToggle = (item, filterBy) => () => {
@@ -59,9 +73,9 @@ const SectionList = (props) => {
 
   return (
     <List className={classes.root}>
-      {data.map(item => (
+      {filterFacets.map(item => (
         <ListItem
-          key={item.code}
+          key={`#${item.code}`}
           dense
           button
           onClick={handleToggle(item, filterBy)}
@@ -80,17 +94,16 @@ const SectionList = (props) => {
 
 SectionList.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.array,
+  filterFacets: PropTypes.array,
   searchText: PropTypes.string,
   filterBy: PropTypes.string,
   toggleChips: PropTypes.func,
-  fetchMembershipDetails: PropTypes.func,
   isIchecked: PropTypes.func
 };
 
 export default withStyles(styles)(SectionList);
 // <List style={Object.assign({}, Style.SectionList)}>
-//   {props.data.map((item, index) => {
+//   {props.filterFacets.map((item, index) => {
 //     if (
 //       item.description
 //         .toLowerCase()
@@ -108,7 +121,6 @@ export default withStyles(styles)(SectionList);
 //                   item.description,
 //                   props.filterBy
 //                 );
-//                 // props.fetchMembershipDetails();
 //               }}
 //               defaultChecked={props.isIchecked(item.description)}
 //             />

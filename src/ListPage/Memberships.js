@@ -66,7 +66,7 @@ const MemberSetup = props => {
   };
 
   return (
-    <React.Fragment>
+    <div className="addMembershipSection">
       <h3>Add new member</h3>
       <form ref={formEl} onSubmit={handleSubmit}>
         <div className="col-1-1 addRowsDiv">
@@ -181,7 +181,7 @@ const MemberSetup = props => {
           </Button>
         </div>
       </form>
-    </React.Fragment>
+    </div>
   );
 };
 

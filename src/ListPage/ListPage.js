@@ -79,6 +79,7 @@ const ListPage = props => {
 
   return (
     <StateProvider initialState={{chips: initialChipData, members: initialMembers}}>
+      {
       <div className='col-1-1' style={{ display: 'flex', background: '#fff' }}>
         <div
           className='col-2-12'
@@ -101,42 +102,45 @@ const ListPage = props => {
               />
               <Divider />
             </div>
-            <div style={Object.assign({}, { minHeight: '30%' })}>
+            <div>
               <h3 style={Style.sideHeader}>Country Filter</h3>
               <Search
                 handleSearch={handleSearchCountries}
                 searchText={searchTextCountries}
               />
               <SubList
-                data={countries}
-                filterBy={'countries'}
+                filterFacets={countries}
+                members={members}
+                filterBy={'country'}
                 searchText={searchTextCountries}
                 isIchecked={isIchecked}
               />
             </div>
             <Divider />
-            <div style={Object.assign({}, { minHeight: '25%' })}>
+            <div>
               <h3 style={Style.sideHeader}>Currency Filter</h3>
               <Search
                 handleSearch={handleSearchCurrencies}
                 searchText={searchTextCurrencies}
               />
               <SubList
-                data={currencies}
+                filterFacets={currencies}
+                members={members}
                 filterBy={'currency'}
                 searchText={searchTextCurrencies}
                 isIchecked={isIchecked}
               />
             </div>
             <Divider />
-            <div style={Object.assign({}, { minHeight: '30%' })}>
+            <div>
               <h3 style={Style.sideHeader}>Membership Type Filter</h3>
               <Search
                 handleSearch={handleSearchMemberships}
                 searchText={searchTextMemberships}
               />
               <SubList
-                data={membershipTypes}
+                filterFacets={membershipTypes}
+                members={members}
                 filterBy={'membership_type'}
                 searchText={searchTextMemberships}
                 isIchecked={isIchecked}
@@ -154,21 +158,19 @@ const ListPage = props => {
         </div>
         <div
           className='col-10-12'
-          style={Object.assign(
-            {},
-            {
-              overflow: 'auto',
-              width: mainWidth,
-              marginLeft: '3%',
-              position: 'relative'
-            }
-          )}
+          style={{
+            overflow: 'auto',
+            width: mainWidth,
+            marginLeft: '3%',
+            position: 'relative'
+          }}
         >
           <Toolbar />
           <MuiTable />
           <Memberships />
         </div>
       </div>
+      }
     </StateProvider>
   );
 };

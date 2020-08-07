@@ -9,7 +9,7 @@
 }
 .addButton {
   height: 30px;
-  margin: 20px 46px 10px 0 !important;
+  margin: 35px 10px 0 !important;
   float: right;
 }
 .annualFeeField,
@@ -18,8 +18,7 @@
 }
 
 .tableHeader {
-  padding: 5;
-  background-color: "#f5f5f5";
+  padding: 5px;
 }
 
 .toolbar {
@@ -30,4 +29,8 @@
   display: "flex";
   flex-wrap: "wrap";
   padding-left: 10;
+}
+
+.addMembershipSection {
+  width: 98%;
 }

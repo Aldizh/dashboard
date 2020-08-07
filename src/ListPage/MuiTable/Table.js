@@ -13,6 +13,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  tableContainer: {
+    width: '98%',
+  }
 });
 
 export default function SimpleTable(props) {
@@ -20,11 +23,10 @@ export default function SimpleTable(props) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.tableContainer} component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">Country&nbsp;</TableCell>
             <TableCell align="right">Membership Type&nbsp;</TableCell>
@@ -36,10 +38,7 @@ export default function SimpleTable(props) {
         </TableHead>
         <TableBody>
           {data.members.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
+            <TableRow key={row.id}>
               <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.country}</TableCell>
               <TableCell align="right">{row.membership_type}</TableCell>
