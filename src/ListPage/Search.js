@@ -2,16 +2,22 @@ import React from "react"
 import "./search.css"
 import SearchSVG from "./images/search"
 
-const search = (props) => (
+type SearchTypes = {
+  searchBy: string,
+  searchText: String,
+  handleSearch: () => void
+}
+
+const Search = ({ searchBy, searchText, handleSearch }: SearchTypes) => (
   <div className="searchBox">
     <SearchSVG />
     <input
       type="text"
-      placeholder="Search"
-      value={props.searchText}
-      onChange={(e) => props.handleSearch(e.target.value)}
+      placeholder={`${searchBy} search`}
+      value={searchText}
+      onChange={(e) => handleSearch(e.target.value)}
     />
   </div>
 )
 
-export default search
+export default Search

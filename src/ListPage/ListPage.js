@@ -1,35 +1,20 @@
 import React, { useState } from 'react'
 import Divider from '@material-ui/core/Divider'
 import Memberships from './Memberships'
-import MuiTable from './MuiTable'
+import MuiTable from '../Components/MuiTable'
 import Search from './Search'
 import Toolbar from './toolbar'
-import Style from './styles'
 import { getMatchingData } from './utils/helpers'
 import SubList from './SubList'
 import { StateProvider } from './context'
 import { ReactComponent as LeftArrow } from './images/left_big.svg'
 import { ReactComponent as RightArrow } from './images/right_big.svg'
-import {
-  countries as initialCountries,
-  currencies as initialCurrencies,
-  membershipTypes as initialMembershipTypes,
-  chipData as initialChipData,
-  initialMembers
-} from './mockData'
+import { generateData } from './mockData'
 
 const ListPage = props => {
-  const [members, setMembers] = useState(initialMembers);
-  const [countries, setCountries] = useState(
-    initialCountries || props.countries
-  );
-  const [currencies, setCurrencies] = useState(
-    initialCurrencies || props.currencies
-  );
-  const [membershipTypes, setMembershipTypes] = useState(
-    initialMembershipTypes || props.membershipTypes
-  );
-  const [chipData, setChipData] = useState(initialChipData || props.chipData);
+  const [rows, countriesReference, currenciesReference, membershipTypesReference, initialChipData] = generateData();
+  const [members, setMembers] = useState(rows);
+  const [chipData, setChipData] = useState(initialChipData);
 
   const [searchTextCountries, setSearchTextCountries] = useState('');
   const [searchTextCurrencies, setSearchTextCurrencies] = useState('');
@@ -54,62 +39,54 @@ const ListPage = props => {
   };
 
   const handleSearchCountries = text => {
-    const matchedCountries = text
-      ? getMatchingData(text, countries)
-      : initialCountries;
     setSearchTextCountries(text);
-    setCountries(matchedCountries);
   };
 
   const handleSearchCurrencies = text => {
-    const matchedCurrencies = text
-      ? getMatchingData(text, currencies)
-      : initialCurrencies;
     setSearchTextCurrencies(text);
-    setCurrencies(matchedCurrencies);
   };
 
   const handleSearchMemberships = text => {
-    const matchedMembershipTypes = text
-      ? getMatchingData(text, membershipTypes)
-      : initialMembershipTypes;
     setSearchTextMemberships(text);
-    setMembershipTypes(matchedMembershipTypes);
   };
 
   return (
-    <StateProvider initialState={{chips: initialChipData, members: initialMembers}}>
-      {
-      <div className='col-1-1' style={{ display: 'flex', background: '#fff' }}>
+    <StateProvider initialState={{chips: initialChipData, members: rows}}>
+      {<div className='col-1-1 mainContent'>
         <div
           className='col-2-12'
-          style={{ width: sideWidth, overflowY: 'scroll', maxHeight: '850px', padding: '10px' }}
+          style={{ width: sideWidth, overflowY: 'scroll', maxHeight: '780px', padding: '10px' }}
         >
           <div style={Object.assign({}, { display: mainDisplay })}>
-            <div style={{ position: 'relative', top: 8 }}>
-              <h3
+            <div className="sidebarHeader">
+              <div
                 style={Object.assign(
                   {},
-                  { display: 'inline-block', marginLeft: 12 }
+                  { float: 'left', padding: 5, width: '50%', textAlign: 'left' }
                 )}
               >
                 Filters
-              </h3>
-              <LeftArrow
-                style={Object.assign({}, { marginTop: 12, float: 'right' })}
-                onClick={handleToggle}
-                alt='left'
-              />
-              <Divider />
+              </div>
+              <div
+                style={Object.assign(
+                  {},
+                  { float: 'right', padding: 5, width: '50%', textAlign: 'right' }
+                )}>
+                <LeftArrow
+                  onClick={handleToggle}
+                  alt='left'
+                />
+              </div>
             </div>
+            <Divider />
             <div>
-              <h3 style={Style.sideHeader}>Country Filter</h3>
               <Search
                 handleSearch={handleSearchCountries}
                 searchText={searchTextCountries}
+                searchBy={'country'}
               />
               <SubList
-                filterFacets={countries}
+                filterFacets={countriesReference}
                 members={members}
                 filterBy={'country'}
                 searchText={searchTextCountries}
@@ -118,13 +95,13 @@ const ListPage = props => {
             </div>
             <Divider />
             <div>
-              <h3 style={Style.sideHeader}>Currency Filter</h3>
               <Search
                 handleSearch={handleSearchCurrencies}
                 searchText={searchTextCurrencies}
+                searchBy={'currency'}
               />
               <SubList
-                filterFacets={currencies}
+                filterFacets={currenciesReference}
                 members={members}
                 filterBy={'currency'}
                 searchText={searchTextCurrencies}
@@ -133,13 +110,13 @@ const ListPage = props => {
             </div>
             <Divider />
             <div>
-              <h3 style={Style.sideHeader}>Membership Type Filter</h3>
               <Search
                 handleSearch={handleSearchMemberships}
                 searchText={searchTextMemberships}
+                searchBy={'membership type'}
               />
               <SubList
-                filterFacets={membershipTypes}
+                filterFacets={membershipTypesReference}
                 members={members}
                 filterBy={'membership_type'}
                 searchText={searchTextMemberships}
@@ -159,18 +136,16 @@ const ListPage = props => {
         <div
           className='col-10-12'
           style={{
-            overflow: 'auto',
             width: mainWidth,
             marginLeft: '3%',
             position: 'relative'
           }}
         >
-          <Toolbar />
+          <Toolbar members={members} />
           <MuiTable />
-          <Memberships />
         </div>
-      </div>
-      }
+      </div>}
+      <Memberships />
     </StateProvider>
   );
 };

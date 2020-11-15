@@ -7,9 +7,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useListPageContext } from "./context"
-import {
-  initialMembers
-} from './mockData'
 
 const styles = theme => ({
   root: {
@@ -19,10 +16,11 @@ const styles = theme => ({
   }
 });
 
-const calcuateFilteredData = (chips) => {
+const calcuateFilteredData = (chips, members) => {
+  if (!chips.length) return members
   let newMembers = []
   chips.forEach((currChip) => {
-    const member = find(propEq(currChip.filterBy, currChip.code), initialMembers) || find(propEq(currChip.filterBy, currChip.filterText), initialMembers)
+    const member = find(propEq(currChip.filterBy, currChip.code), members) || find(propEq(currChip.filterBy, currChip.filterText), members)
     if (member) newMembers.push(member)
   })
   return newMembers
@@ -34,7 +32,6 @@ const SectionList = (props) => {
   const [state, setState] = useState({
     checked: [0]
   });
-
   const [{chips}, dispatch] = useListPageContext();
 
   const toggleChips = chip => {
@@ -46,7 +43,7 @@ const SectionList = (props) => {
       newchips.splice(index, 1);
     }
     dispatch({ type: 'update_chips', data: newchips })
-    dispatch({ type: 'update_members', data: calcuateFilteredData(newchips) })
+    dispatch({ type: 'update_members', data: calcuateFilteredData(newchips, members) })
   };
 
   const handleToggle = (item, filterBy) => () => {

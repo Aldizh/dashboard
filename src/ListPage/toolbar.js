@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { find, propEq } from "ramda";
 import { PropTypes } from "prop-types";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -19,7 +20,18 @@ const styles = {
   }
 };
 
-const ToolbarComponent = () => {
+const calcuateFilteredData = (chips, members) => {
+  if (!chips.length) return members
+  let newMembers = []
+  chips.forEach((currChip) => {
+    const member = find(propEq(currChip.filterBy, currChip.code), members) || find(propEq(currChip.filterBy, currChip.filterText), members)
+    if (member) newMembers.push(member)
+  })
+  return newMembers
+}
+
+
+const ToolbarComponent = ({members}) => {
   const [data, dispatch] = useListPageContext();
   const { chips = [] } = data
 
@@ -32,16 +44,11 @@ const ToolbarComponent = () => {
       newchips.splice(index, 1);
     }
     dispatch({ type: 'update_chips', data: newchips })
+    dispatch({ type: 'update_members', data: calcuateFilteredData(newchips, members) })
   };
 
   return (
     <React.Fragment>
-      <div className="col-1-1 tableHeader">
-        <h1 style={Object.assign({}, Style.fontFamily, { marginLeft: 15 })}>
-          Selected Chips
-        </h1>
-        <Divider />
-      </div>
       <div className="col-1-1 tableHeader">
         <div className="toolbar">
           <div className="wrapper">

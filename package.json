@@ -5,11 +5,11 @@
   "homepage": "http://aldizh.github.io/dashboard",
   "dependencies": {
     "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "0.18.1",
-    "material-ui": "0.20.2",
     "moment": "^2.2.24",
     "ramda": "0.24.0",
     "react": "^16.13.1",
@@ -19,6 +19,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
+    "faker": "^5.1.0",
     "gh-pages": "2.2.0"
   },
   "scripts": {

@@ -1,16 +1,17 @@
 .mainContent {
   display: flex;
-  background: #fff;
 }
-
-.addRowsDiv {
+.sidebarHeader {
+  margin: 0 auto;
+  width: 100%;
   display: inline-flex;
-  border: 1px solid #666;
+  font-weight: bold;
+  font-size: 16px;
 }
 .addButton {
   height: 30px;
-  margin: 35px 10px 0 !important;
-  float: right;
+  margin-bottom: 10px!important;
+  float: none;
 }
 .annualFeeField,
 .datePickerField {
@@ -29,8 +30,4 @@
   display: "flex";
   flex-wrap: "wrap";
   padding-left: 10;
-}
-
-.addMembershipSection {
-  width: 98%;
 }

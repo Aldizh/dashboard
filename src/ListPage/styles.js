@@ -9,13 +9,6 @@ export default {
   fontFamily: {
     fontFamily
   },
-  fullWidth: {
-    float: "left",
-    width: "100%"
-  },
-  bodyWrapper: {
-    padding: "10px 0"
-  },
   inputField: {
     textAlign: "left"
   },
@@ -61,26 +54,6 @@ export default {
     fontSize: 12
   },
   buttonBackgroundColor: backgroundColor,
-  formHeader: {
-    textAlign: "left",
-    textTransform: "capitalize",
-    fontFamily,
-    fontSize: 16,
-    color: "#706E6E",
-    marginTop: 20,
-    marginBottom: 10,
-    fontWeight: 500
-  },
-  sideHeader: {
-    textAlign: "left",
-    textTransform: "capitalize",
-    fontSize: 16,
-    color: "#706E6E",
-    paddingTop: 10,
-    paddingLeft: 12,
-    marginBottom: 5,
-    fontWeight: 500
-  },
   innerHeader: {
     fontSize: 18,
     margin: 0,
