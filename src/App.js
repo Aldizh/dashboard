@@ -15,32 +15,32 @@ function App() {
             <NavBar />
             <ul>
               <li>
-                <Link to={'/books'}>Book Fetcher Api</Link>
+                <Link to={'/dashboard/books'}>Book Fetcher Api</Link>
               </li>
               <li>
-                <Link to={'/expand_table'}>Expandable Table</Link>
+                <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
               </li>
               <li>
-                <Link to={'/filter_table'}>Filterable Table</Link>
+                <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
               </li>
             </ul>
           </React.Fragment>
         )} />
-        <Route path="/books" render={() => (
+        <Route path="/dashboard/books" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
             <Fetcher />
           </React.Fragment>
         )} />
-        <Route path="/expand_table" render={() => (
+        <Route path="/dashboard/expand_table" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
             <Table />
           </React.Fragment>
         )} />
-        <Route path="/filter_table" render={() => (
+        <Route path="/dashboard/filter_table" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />

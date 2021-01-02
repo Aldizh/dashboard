@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import './styles.css'
 
 const NavBar = (props) => {
@@ -20,9 +21,9 @@ const NavBar = (props) => {
 
   return (
     <div className="topnav">
-      <a href="/dashboard">Home</a>
-      <a href="/filter_table">Filterable Table</a>
-      <a href="/expand_table">Expandable Table</a>
+      <Link to={'/dashboard'}>Home</Link>
+      <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
+      <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
     </div>
   );
 }
