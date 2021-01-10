@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "0.18.1",
+    "canvasjs-react-charts": "1.0.5",
     "moment": "^2.2.24",
     "ramda": "0.24.0",
     "react": "^16.13.1",
