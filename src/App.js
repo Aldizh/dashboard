@@ -15,7 +15,7 @@ function App() {
             <NavBar />
             <ul>
               <li>
-                <Link to={'/dashboard/books'}>Book Fetcher Api</Link>
+                <Link to={'/dashboard/stocks'}>Stock Tracker</Link>
               </li>
               <li>
                 <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
@@ -26,7 +26,7 @@ function App() {
             </ul>
           </React.Fragment>
         )} />
-        <Route path="/dashboard/books" render={() => (
+        <Route path="/dashboard/stocks" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
