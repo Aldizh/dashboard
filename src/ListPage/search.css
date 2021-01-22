@@ -6,9 +6,12 @@
 .searchBox input {
   border-radius: 3px;
   border: 1px solid #c1c1c1;
-  padding-left: 26px;
   font-size: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
-  width: 182px;
+  width: 98%;
+}
+
+.MuiListItem-gutters {
+  padding-left: 0!important;
 }

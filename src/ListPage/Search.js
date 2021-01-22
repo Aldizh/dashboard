@@ -10,13 +10,13 @@ type SearchTypes = {
 
 const Search = ({ searchBy, searchText, handleSearch }: SearchTypes) => (
   <div className="searchBox">
-    <SearchSVG />
     <input
       type="text"
-      placeholder={`${searchBy} search`}
+      placeholder={`${searchBy} Search`}
       value={searchText}
       onChange={(e) => handleSearch(e.target.value)}
     />
+    <SearchSVG />
   </div>
 )
 

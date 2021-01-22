@@ -1,17 +1,31 @@
 /* App.js */
 import React from 'react'
 import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
- 
+
+const defaultApiData = {
+  'Time Series (Daily)': {}
+}
+
+const parseApiKeys = (res) => {
+  if (!res['Time Series (Daily)']) return []
+  return Object.keys(res['Time Series (Daily)'])
+}
+
+const parseApiValues = (res) => {
+  if (!res['Time Series (Daily)']) return []
+  return Object.values(res['Time Series (Daily)'])
+}
+
 class Canvas extends React.Component {
   state = {
     dataPoints: []
   }
 
   componentDidMount() {
-    const { data } = this.props
+    const { data = defaultApiData } = this.props
     const dataPoints = []
-    const timeIntervalKeys = Object.keys(data['Time Series (Daily)'])
-    const timeIntervalValues = Object.values(data['Time Series (Daily)'])
+    const timeIntervalKeys = parseApiKeys(data)
+    const timeIntervalValues = parseApiValues(data)
     for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
@@ -23,10 +37,10 @@ class Canvas extends React.Component {
   }
 
   componentWillReceiveProps() {
-    const { data } = this.props
+    const { data  = defaultApiData } = this.props
     const dataPoints = []
-    const timeIntervalKeys = Object.keys(data['Time Series (Daily)'])
-    const timeIntervalValues = Object.values(data['Time Series (Daily)'])
+    const timeIntervalKeys = parseApiKeys(data)
+    const timeIntervalValues = parseApiValues(data)
     for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
@@ -43,7 +57,7 @@ class Canvas extends React.Component {
 
 	render() {
     const { data, symbol } = this.props
-    const times = Object.keys(data['Time Series (Daily)'])
+    const times = parseApiKeys(data)
 		const options = {
       theme: "light2",
 			title: {
@@ -75,7 +89,7 @@ class Canvas extends React.Component {
         }
       }
     }
-    
+
     const containerProps = {
       width: "100%",
       height: "450px",
@@ -84,7 +98,7 @@ class Canvas extends React.Component {
 
 		return (
       <div>
-        <CanvasJSChart containerProps={containerProps}  options={options} 
+        <CanvasJSChart containerProps={containerProps}  options={options}
           onRef={ref => this.chart = ref}
         />
         {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}

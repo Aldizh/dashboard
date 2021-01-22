@@ -22,6 +22,7 @@ const NavBar = (props) => {
   return (
     <div className="topnav">
       <Link to={'/dashboard'}>Home</Link>
+      <Link to={'/dashboard/stocks'}>Stock Symbol Tracker</Link>
       <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
       <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
     </div>

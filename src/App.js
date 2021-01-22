@@ -13,40 +13,49 @@ function App() {
         <Route exact={true} path="/dashboard" render={() => (
           <React.Fragment>
             <NavBar />
-            <ul>
-              <li>
-                <Link to={'/dashboard/stocks'}>Stock Tracker</Link>
-              </li>
-              <li>
-                <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
-              </li>
-              <li>
-                <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
-              </li>
-            </ul>
+            <div class="container">
+              <div class="helper">
+                <ul>
+                  <li>
+                    <Link to={'/dashboard/stocks'}>Stock Tracker</Link>
+                  </li>
+                  <li>
+                    <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
+                  </li>
+                  <li>
+                    <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </React.Fragment>
-        )} />
-        <Route path="/dashboard/stocks" render={() => (
+        )}
+      />
+      <Route path="/dashboard/stocks"
+        render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
             <Fetcher />
           </React.Fragment>
-        )} />
-        <Route path="/dashboard/expand_table" render={() => (
+        )}
+      />
+      <Route path="/dashboard/expand_table" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
             <Table />
           </React.Fragment>
-        )} />
-        <Route path="/dashboard/filter_table" render={() => (
+        )}
+      />
+      <Route path="/dashboard/filter_table" render={() => (
           <React.Fragment>
             <NavBar />
             <hr />
             <ListPage />
           </React.Fragment>
-        )} />
+        )}
+      />
       </Router>
     </div>
   );

@@ -89,16 +89,16 @@ const ExapndableTable = () => {
       setExpanded(newExpandedRows);
     }
     
-    const renderItemCaret = (rowId) => {
-      const currentExpandedRows = expandedRows
-      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+    // const renderItemCaret = (rowId) => {
+    //   const currentExpandedRows = expandedRows
+    //   const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
 
-      if (isRowCurrentlyExpanded) {
-        return <Icon name="caret down" />;
-      } else {
-        return <Icon name="caret right" />;
-      }
-    }
+    //   if (isRowCurrentlyExpanded) {
+    //     return <Icon name="caret down" />;
+    //   } else {
+    //     return <Icon name="caret right" />;
+    //   }
+    // }
 
     const renderItem = (item, index) => {
       const itemRows = [

@@ -83,7 +83,7 @@ const ListPage = props => {
               <Search
                 handleSearch={handleSearchCountries}
                 searchText={searchTextCountries}
-                searchBy={'country'}
+                searchBy={'Country'}
               />
               <SubList
                 filterFacets={countriesReference}
@@ -98,7 +98,7 @@ const ListPage = props => {
               <Search
                 handleSearch={handleSearchCurrencies}
                 searchText={searchTextCurrencies}
-                searchBy={'currency'}
+                searchBy={'Currency'}
               />
               <SubList
                 filterFacets={currenciesReference}
@@ -113,7 +113,7 @@ const ListPage = props => {
               <Search
                 handleSearch={handleSearchMemberships}
                 searchText={searchTextMemberships}
-                searchBy={'membership type'}
+                searchBy={'Membership Type'}
               />
               <SubList
                 filterFacets={membershipTypesReference}
