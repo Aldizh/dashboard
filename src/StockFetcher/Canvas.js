@@ -6,12 +6,14 @@ const defaultApiData = {
   'Time Series (Daily)': {}
 }
 
-const parseApiKeys = (res) => {
+// Get x axis data (simple date or datetime)
+const getXData = (res) => {
   if (!res['Time Series (Daily)']) return []
   return Object.keys(res['Time Series (Daily)'])
 }
 
-const parseApiValues = (res) => {
+// Get y axis data (price corresponding to it)
+const getYData = (res) => {
   if (!res['Time Series (Daily)']) return []
   return Object.values(res['Time Series (Daily)'])
 }
@@ -24,8 +26,8 @@ class Canvas extends React.Component {
   componentDidMount() {
     const { data = defaultApiData } = this.props
     const dataPoints = []
-    const timeIntervalKeys = parseApiKeys(data)
-    const timeIntervalValues = parseApiValues(data)
+    const timeIntervalKeys = getXData(data)
+    const timeIntervalValues = getYData(data)
     for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
@@ -39,8 +41,8 @@ class Canvas extends React.Component {
   componentWillReceiveProps() {
     const { data  = defaultApiData } = this.props
     const dataPoints = []
-    const timeIntervalKeys = parseApiKeys(data)
-    const timeIntervalValues = parseApiValues(data)
+    const timeIntervalKeys = getXData(data)
+    const timeIntervalValues = getYData(data)
     for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
@@ -57,7 +59,7 @@ class Canvas extends React.Component {
 
 	render() {
     const { data, symbol } = this.props
-    const times = parseApiKeys(data)
+    const times = getXData(data)
 		const options = {
       theme: "light2",
 			title: {

@@ -2,10 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import { Paper } from '@material-ui/core';
-import StcokFetcher from "./StockFetcher"
-import Table from './Table'
-import ListPage from "./ListPage"
-import NavBar from "./Components/NavBar"
+import StcokFetcher from 'StockFetcher'
+import Table from 'Components/ExpandableTable'
+import ListPage from 'ListPage'
+import NavBar from 'Components/NavBar'
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +47,7 @@ function App() {
               </div>
               <div className="paper">
                 <Paper elevation={3}>
-                  <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
+                  <Link to={'/dashboard/filter_table'}>List Page</Link>
                 </Paper>
               </div>
             </div>

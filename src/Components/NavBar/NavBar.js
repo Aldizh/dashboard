@@ -23,7 +23,7 @@ const NavBar = (props) => {
     <div className="topnav">
       <Link to={'/dashboard'}>Home</Link>
       <Link to={'/dashboard/stocks'}>Stock Symbol Tracker</Link>
-      <Link to={'/dashboard/filter_table'}>Filterable Table</Link>
+      <Link to={'/dashboard/filter_table'}>List Page</Link>
       <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
     </div>
   );
