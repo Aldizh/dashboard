@@ -4,7 +4,6 @@ import Memberships from './Memberships'
 import MuiTable from '../Components/MuiTable'
 import Search from './Search'
 import Toolbar from './toolbar'
-import { getMatchingData } from './utils/helpers'
 import SubList from './SubList'
 import { StateProvider } from './context'
 import { ReactComponent as LeftArrow } from './images/left_big.svg'
@@ -145,7 +144,11 @@ const ListPage = props => {
           <MuiTable />
         </div>
       </div>}
-      <Memberships />
+      <Memberships
+        countriesReference={countriesReference}
+        currenciesReference={currenciesReference}
+        membershipTypesReference={membershipTypesReference}
+      />
     </StateProvider>
   );
 };

@@ -3,17 +3,7 @@
   background-image: url(background.jpg);
   background-repeat: no-repeat;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  overflow: hidden;
-  margin:0 auto;
-  width:300px;
 }
 
 h1 {
@@ -21,14 +11,14 @@ h1 {
   font-size: 16px;
 }
 
-.container {
-  display: table;
-  height: 100%;
-  position: absolute;
-  width: 100%;
+.paper {
+  display: grid;
+  width: 30.33%;
+  padding: 5px;
 }
 
-.helper {
-  display: table-cell;
-  vertical-align: middle;
+.MuiPaper-root a {
+  position: relative;
+  top: 45%;
+  text-decoration: none;
 }

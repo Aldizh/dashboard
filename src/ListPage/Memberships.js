@@ -1,14 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { find, propEq } from "ramda";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from '@material-ui/core/styles';
 import { useListPageContext } from "./context";
-import { generateData } from "./mockData";
 import "./styles.css";
-
-const [rows, countriesReference, currenciesReference, membershipTypesReference, initialChipData] = generateData();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +23,17 @@ const MemberSetup = props => {
   const [country, setCountry] = useState({ code: "" });
   const [currency, setCurrency] = useState({ code: "" });
 
+  const { countriesReference, currenciesReference, membershipTypesReference } = props
   const [data, dispatch] = useListPageContext();
   const { members } = data
+
+  const clearForm = () => {
+    setName("")
+    setFee(0)
+    setType("")
+    setCountry("")
+    setCurrency("")
+  }
 
   const handleFormChange = (event, id) => {
     const fieldId = id || event.target.id;
@@ -67,6 +73,7 @@ const MemberSetup = props => {
       to_date: "30th Jun, 2017"
     });
     dispatch({ type: 'update_members', data: updatedMembers })
+    clearForm()
   };
 
   const classes = useStyles();

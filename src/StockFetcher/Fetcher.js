@@ -25,7 +25,7 @@ function throttle(func, delay) {
   }
 }
 
-function App() {
+function Fetcher() {
   const [symbol, setSymbol] = useState(STOCK_SYMBOL);
 
   const { data: { data }, isLoading, isError, doFetch } = useDataApi(getQueryUrl(symbol))
@@ -72,4 +72,4 @@ function App() {
   );
 }
 
-export default App;
+export default Fetcher;
