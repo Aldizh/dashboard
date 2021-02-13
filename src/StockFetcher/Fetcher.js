@@ -8,11 +8,24 @@ import Typography from '@material-ui/core/Typography';
 import Canvas from "./Canvas"
 import useDataApi from "hooks/useData"
 
-const APLHA_API_KEY = '1PXX8A1J2QJQFTBP'
-const STOCK_SYMBOL = 'C'
+const API_KEY = '1PXX8A1J2QJQFTBP'
+const TICKER = 'JPM'
+const seriesType = 'TIME_SERIES_DAILY_ADJUSTED' // type of query
+const overView = 'OVERVIEW' // type of query
 
-const getQueryUrl = (symbol) => {
-  return `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&interval=Daily&apikey=${APLHA_API_KEY}`
+// regex to look for any point in the string that has a multiple of 3 digits in a row after it,
+export const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const getSeriesData = (symbol) => {
+  const baseUrl = 'https://www.alphavantage.co/query'
+  return `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=Daily&apikey=${API_KEY}`
+}
+
+const getFundamentals = (symbol) => {
+  const baseUrl = 'https://www.alphavantage.co/query'
+  return `${baseUrl}?function=${overView}&symbol=${symbol}&apikey=${API_KEY}`
 }
 
 const metaChangeHandler = (response) => {
@@ -26,10 +39,14 @@ const metaChangeHandler = (response) => {
 }
 
 function Fetcher() {
-  const [symbol, setSymbol] = useState(STOCK_SYMBOL);
+  const [symbol, setSymbol] = useState(TICKER);
   const [metaData, setMetaData] = useState([])
 
-  const { data: { data }, isLoading, isError, doFetch } = useDataApi(getQueryUrl(symbol)) 
+  const { data, isLoading, isError, doFetch } = useDataApi(getSeriesData(symbol)) 
+  const spyData = useDataApi(getSeriesData('SPY'))
+  
+  const fundamentals = useDataApi(getFundamentals(symbol))
+  const { Name, Exchange, Sector, MarketCapitalization = 0 } = fundamentals.data.data
   
   useEffect(() => {
     let lastTime = 0
@@ -37,7 +54,7 @@ function Fetcher() {
     const timeFrame = 2000 // throttle requests within this time frame
 
     if (!isLoading && (now - lastTime >= timeFrame)) {
-      doFetch(getQueryUrl(symbol))
+      doFetch(getSeriesData(symbol))
       lastTime = now
     }
   }, [symbol, doFetch])
@@ -51,7 +68,7 @@ function Fetcher() {
     <Fragment>
       <form
         onSubmit={event => {
-          doFetch(getQueryUrl(symbol))
+          doFetch(getSeriesData(symbol))
           event.preventDefault();
         }}
       >
@@ -71,7 +88,7 @@ function Fetcher() {
         <div>
           <p>{data["Meta Data"] && data["Meta Data"].symbol}</p>
           <div style={{ margin: '10px auto', width: '70%' }}>
-            {metaData.map(el => (
+            {/* {metaData.map(el => (
               <Card variant="outlined">
                 <CardContent>
                   <Typography color="textSecondary" gutterBottom>
@@ -79,10 +96,26 @@ function Fetcher() {
                   </Typography>
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
+            <Card variant="outlined">
+              <CardContent>
+                <Typography color="textPrimary" gutterBottom>
+                  {Name}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  Exchange: {Exchange}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  Sector: {Sector}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  Market CAP: ${numberWithCommas(MarketCapitalization)}
+                </Typography>
+              </CardContent>
+            </Card>
           </div>
           {/* <p>{data["Time Series (5min)"]}</p> */}
-          <Canvas symbol={symbol} data={data} />
+          <Canvas symbol={symbol} data={data.data} spyData={spyData.data.data} />
         </div>
       )}
     </Fragment>

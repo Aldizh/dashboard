@@ -6,6 +6,9 @@ const defaultApiData = {
   'Time Series (Daily)': {}
 }
 
+// price calculation rebased to $100 for comparison
+const getBaseWeightedPrice = (price, startingPrice) => Number((100 / startingPrice) * price)
+
 // Get x axis data (simple date or datetime)
 const getXData = (res) => {
   if (!res['Time Series (Daily)']) return []
@@ -20,36 +23,36 @@ const getYData = (res) => {
 
 class Canvas extends React.Component {
   state = {
-    dataPoints: []
+    dataPoints: [],
+    spyDataPoints: []
   }
 
   componentDidMount() {
-    const { data = defaultApiData } = this.props
+    const { data  = defaultApiData, spyData } = this.props
     const dataPoints = []
     const timeIntervalKeys = getXData(data)
-    const timeIntervalValues = getYData(data)
-    for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
+    const timeIntervalValues = getYData(data) || [{"4. close": 0.00}]
+    const lastIndex = timeIntervalKeys.length - 1
+    const earliestDataPoint = timeIntervalValues[lastIndex] ? timeIntervalValues[lastIndex]["4. close"] : 0
+    for ( var i = lastIndex; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
-        y: Number(timeIntervalValues[i]["4. close"])
+        y: getBaseWeightedPrice(timeIntervalValues[i]["4. close"], earliestDataPoint)
       });
     }
-    this.setState({dataPoints})
-    this.chart.render();
-  }
 
-  componentWillReceiveProps() {
-    const { data  = defaultApiData } = this.props
-    const dataPoints = []
-    const timeIntervalKeys = getXData(data)
-    const timeIntervalValues = getYData(data)
-    for ( var i = timeIntervalKeys.length - 1; i > 0; i--) {
-      dataPoints.push({
-        x: new Date(timeIntervalKeys[i]),
-        y: Number(timeIntervalValues[i]["4. close"])
+    const spyDataPoints = []
+    const spyTimeIntervalKeys = getXData(spyData)
+    const spyTimeIntervalValues = getYData(spyData) || [{"4.close": 0.00}]
+    const earliestSPYDataPoint =  spyTimeIntervalValues[lastIndex] ? spyTimeIntervalValues[lastIndex]["4. close"] : 0
+    for ( var i = lastIndex; i > 0; i--) {
+      spyDataPoints.push({
+        x: new Date(spyTimeIntervalKeys[i]),
+        y: getBaseWeightedPrice(spyTimeIntervalValues[i]["4. close"], earliestSPYDataPoint)
       });
     }
-    this.setState({dataPoints})
+    this.setState({dataPoints, spyDataPoints})
+
     this.chart.render();
   }
 
@@ -58,12 +61,13 @@ class Canvas extends React.Component {
   }
 
 	render() {
-    const { data, symbol } = this.props
+    const { data, spyData,  symbol } = this.props
     const times = getXData(data)
 		const options = {
       theme: "light2",
+      animationEnabled: true,
 			title: {
-				text: `Daily stock Price of ${symbol}`
+				text: `Daily stock Price of ${symbol} vs SPY`
 			},
 			axisY: {
 				title: "Price in USD",
@@ -77,13 +81,29 @@ class Canvas extends React.Component {
           return CanvasJS.formatDate( e.value, "DD MMM");
         },
       },
-			data: [{
-        type: "spline",
-        xValueType: "dateTime",
-				xValueFormatString: "DD MMM YYYY",
-				yValueFormatString: "$##.00",
-				dataPoints: this.state.dataPoints,
-      }],
+      toolTip: {
+        shared: true
+      },
+			data: [
+        {
+          type: "spline",
+          name: `${symbol}`,
+					showInLegend: true,
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM YYYY",
+          yValueFormatString: "$##.00",
+          dataPoints: this.state.dataPoints
+        },
+        {
+          type: "spline",
+          name: 'SPY',
+					showInLegend: true,
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM YYYY",
+          yValueFormatString: "$##.00",
+          dataPoints: this.state.spyDataPoints,
+        }
+      ],
       navigator: {
         slider: {
           minimum: new Date(times[0]),
