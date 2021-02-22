@@ -11,10 +11,10 @@ h1 {
   font-size: 16px;
 }
 
-.paper {
-  display: grid;
-  width: 30.33%;
-  padding: 5px;
+.titleDesc {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .MuiPaper-root a {

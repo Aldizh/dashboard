@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
-import { Paper } from '@material-ui/core';
+import { Grid, Paper, Typography } from '@material-ui/core';
 import StcokFetcher from 'StockFetcher'
 import Table from 'Components/ExpandableTable'
 import ListPage from 'ListPage'
@@ -9,20 +9,17 @@ import NavBar from 'Components/NavBar'
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
+  toolbar: theme.mixins.toolbar,
   root: {
-    margin: 0,
-    position: 'absolute',
-    top: '50%',
-    '-ms-transform': 'translateY(-50%)',
-    transform: 'translateY(-50%)',
-
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    '& > *': {
-      height: theme.spacing(30),
-    },
+    flexGrow: 1,
   },
+  paper: {
+    height: 140,
+    width: 250,
+  },
+  control: {
+    padding: theme.spacing(2),
+  }
 }));
 
 function App() {
@@ -34,23 +31,25 @@ function App() {
         <Route exact={true} path="/dashboard" render={() => (
           <React.Fragment>
             <NavBar />
-            <div className={classes.root}>
-              <div className="paper">
-                <Paper elevation={0}>
+            <hr />
+            <p className="titleDesc">React Projects</p>
+            <Grid container justify="center" className={classes.root} spacing={3}>
+              <Grid container justify="center" item xs={12} sm={4} lg={4}>
+                <Paper className={classes.paper} elevation={0}>
                   <Link to={'/dashboard/stocks'}>Stock Tracker</Link>
                 </Paper>
-              </div>
-              <div className="paper">
-                <Paper>
+              </Grid>
+              <Grid container justify="center" item xs={12} sm={4} lg={4}>
+                <Paper className={classes.paper}>
                   <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
                 </Paper>
-              </div>
-              <div className="paper">
-                <Paper elevation={3}>
-                  <Link to={'/dashboard/filter_table'}>List Page</Link>
+              </Grid>
+              <Grid container justify="center" item xs={12} sm={4} lg={4}>
+                <Paper className={classes.paper}>
+                <Link to={'/dashboard/filter_table'}>List Page</Link>
                 </Paper>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
           </React.Fragment>
         )}
       />

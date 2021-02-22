@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import './styles.css'
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  function handleHomeClickResponsive() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 
   useEffect(() => {
 
@@ -20,11 +27,14 @@ const NavBar = (props) => {
   }, [])
 
   return (
-    <div className="topnav">
-      <Link to={'/dashboard'}>Home</Link>
-      <Link to={'/dashboard/stocks'}>Stock Symbol Tracker</Link>
-      <Link to={'/dashboard/filter_table'}>List Page</Link>
-      <Link to={'/dashboard/expand_table'}>Expandable Table</Link>
+    <div className="topnav" id="myTopnav">
+      <a href={'/dashboard'}>Home</a>
+      <a href={'/dashboard/stocks'}>Stock Symbol Tracker</a>
+      <a href={'/dashboard/filter_table'}>List Page</a>
+      <a href={'/dashboard/expand_table'}>Expandable Table</a>
+      <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
+        <i className="fa fa-bars"></i>
+      </a>
     </div>
   );
 }
