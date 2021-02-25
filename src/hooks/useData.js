@@ -1,12 +1,9 @@
 import React, {
-  Fragment,
   useState,
   useEffect,
   useReducer
 } from "react"
 import axios from "axios"
-
-const initialData = { data: { "Meta Data": { 'symbol': 'C'}, "Time Series (Daily)": {} }}
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -34,7 +31,7 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useDataApi = (initialUrl) => {
+const useDataApi = (initialUrl, initialData = {}) => {
   const [url, setUrl] = useState(initialUrl);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -57,11 +54,9 @@ const useDataApi = (initialUrl) => {
     fetchData();
   }, [url]);
 
-  const doFetch = url => {
-    setUrl(url);
-  };
+  const doFetch = url => setUrl(url)
 
-  return { ...state, doFetch };
-};
+  return { ...state, doFetch }
+}
 
-export default useDataApi;
+export default useDataApi

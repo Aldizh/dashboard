@@ -18,6 +18,9 @@ export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const initialTimeSeriesData = { data: { "Meta Data": { 'symbol': ''}, "Time Series (Daily)": {} }}
+const initialFundamentals = { data: { Name: '', Exchange: '', Sector: '', MarketCapitalization: '' } }
+
 const getSeriesData = (symbol) => {
   const baseUrl = 'https://www.alphavantage.co/query'
   return `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=Daily&apikey=${API_KEY}`
@@ -28,47 +31,55 @@ const getFundamentals = (symbol) => {
   return `${baseUrl}?function=${overView}&symbol=${symbol}&apikey=${API_KEY}`
 }
 
-const metaChangeHandler = (response) => {
-  let metaData = []
-  let parsedRes = response["Meta Data"]
-  if (!parsedRes) return []
-  for (let el of Object.keys(parsedRes)) {
-    metaData.push(`${el} - ${parsedRes[el]}`)
-  }
-  return metaData
-}
-
 function Fetcher() {
-  const [symbol, setSymbol] = useState(TICKER);
-  const [metaData, setMetaData] = useState([])
+  const [symbol, setSymbol] = useState(TICKER)
+  const [search, setSearch] = useState('')
 
-  const { data, isLoading, isError, doFetch } = useDataApi(getSeriesData(symbol)) 
-  const spyData = useDataApi(getSeriesData('SPY'))
-  
-  const fundamentals = useDataApi(getFundamentals(symbol))
-  const { Name, Exchange, Sector, MarketCapitalization = 0 } = fundamentals.data.data
+  const { data, isLoading, isError, doFetch } = useDataApi(getSeriesData(search), initialTimeSeriesData)
+  const spyData = useDataApi(getSeriesData('SPY'), initialTimeSeriesData)
   
   useEffect(() => {
-    let lastTime = 0
-    const now = new Date()
-    const timeFrame = 2000 // throttle requests within this time frame
-
-    if (!isLoading && (now - lastTime >= timeFrame)) {
-      doFetch(getSeriesData(symbol))
-      lastTime = now
+    if (search) {
+      let lastTime = 0
+      const now = new Date()
+      const timeFrame = 2000 // throttle requests within this time frame
+  
+      if (!isLoading && (now - lastTime >= timeFrame)) {
+        doFetch(getSeriesData(search))
+        lastTime = now
+      }
     }
-  }, [symbol, doFetch])
+  }, [search, doFetch])
+
+    
+  const {
+    data: fundamentalsData,
+    isLoading: fundamentalsIsLoading,
+    isError: fundamentalsIsError,
+    doFetch: fundamentalsFoFetch
+  } = useDataApi(getFundamentals(search), initialFundamentals)
+  const { Name, Exchange, Sector, MarketCapitalization = 0 } = fundamentalsData.data
 
   useEffect(() => {
-    setMetaData(metaChangeHandler(data))
-  }, [data])
+    if (search) {
+      let lastTime = 0
+      const now = new Date()
+      const timeFrame = 2000 // throttle requests within this time frame
+  
+      if (!fundamentalsIsLoading && (now - lastTime >= timeFrame)) {
+        fundamentalsFoFetch(getFundamentals(search))
+        lastTime = now
+      }
+    }
+  }, [search, fundamentalsFoFetch])
 
+  const apiError = isError || fundamentalsIsError || data.data.Note || fundamentalsData.data.Note
 
   return (
     <Fragment>
       <form
         onSubmit={event => {
-          doFetch(getSeriesData(symbol))
+          doFetch(getSeriesData(search))
           event.preventDefault();
         }}
       >
@@ -77,14 +88,12 @@ function Fetcher() {
           value={symbol}
           onChange={event => setSymbol(event.target.value)}
         />
-        <button type="submit">Search</button>
+        <button onClick={() => setSearch(symbol)} type="submit">Search</button>
       </form>
-
-      {isError && <div>Something went wrong ...</div>}
-
-      {isLoading ? (
-        <div>Loading ...</div>
-      ) : (
+      {!search && <div>Click search to get data for ticker symbol...</div>}
+      {apiError && <div>{data.data.Note}</div>}
+      {search && isLoading && <div>Loading ...</div>}
+      {!apiError && search && !isLoading && (
         <div>
           <p>{data["Meta Data"] && data["Meta Data"].symbol}</p>
           <div style={{ margin: '10px auto', width: '70%' }}>
@@ -115,7 +124,7 @@ function Fetcher() {
             </Card>
           </div>
           {/* <p>{data["Time Series (5min)"]}</p> */}
-          <Canvas symbol={symbol} data={data.data} spyData={spyData.data.data} />
+          <Canvas search={search} data={data.data} spyData={spyData.data.data} />
         </div>
       )}
     </Fragment>

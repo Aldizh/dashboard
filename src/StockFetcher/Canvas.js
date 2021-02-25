@@ -11,13 +11,13 @@ const getBaseWeightedPrice = (price, startingPrice) => Number((100 / startingPri
 
 // Get x axis data (simple date or datetime)
 const getXData = (res) => {
-  if (!res['Time Series (Daily)']) return []
+  if (!res['Time Series (Daily)']) return ['2021-01-01']
   return Object.keys(res['Time Series (Daily)'])
 }
 
 // Get y axis data (price corresponding to it)
 const getYData = (res) => {
-  if (!res['Time Series (Daily)']) return []
+  if (!res['Time Series (Daily)']) return [{"4.close": 0.00}]
   return Object.values(res['Time Series (Daily)'])
 }
 
@@ -28,10 +28,10 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    const { data  = defaultApiData, spyData } = this.props
+    const { data = defaultApiData, spyData } = this.props
     const dataPoints = []
     const timeIntervalKeys = getXData(data)
-    const timeIntervalValues = getYData(data) || [{"4. close": 0.00}]
+    const timeIntervalValues = getYData(data)
     const lastIndex = timeIntervalKeys.length - 1
     const earliestDataPoint = timeIntervalValues[lastIndex] ? timeIntervalValues[lastIndex]["4. close"] : 0
     for ( var i = lastIndex; i > 0; i--) {
@@ -43,7 +43,7 @@ class Canvas extends React.Component {
 
     const spyDataPoints = []
     const spyTimeIntervalKeys = getXData(spyData)
-    const spyTimeIntervalValues = getYData(spyData) || [{"4.close": 0.00}]
+    const spyTimeIntervalValues = getYData(spyData)
     const earliestSPYDataPoint =  spyTimeIntervalValues[lastIndex] ? spyTimeIntervalValues[lastIndex]["4. close"] : 0
     for ( var i = lastIndex; i > 0; i--) {
       spyDataPoints.push({
@@ -61,13 +61,13 @@ class Canvas extends React.Component {
   }
 
 	render() {
-    const { data, spyData,  symbol } = this.props
+    const { data, search } = this.props
     const times = getXData(data)
 		const options = {
       theme: "light2",
       animationEnabled: true,
 			title: {
-				text: `Daily stock Price of ${symbol} vs SPY`
+				text: `Daily stock Price of ${search} vs SPY`
 			},
 			axisY: {
 				title: "Price in USD",
@@ -87,7 +87,7 @@ class Canvas extends React.Component {
 			data: [
         {
           type: "spline",
-          name: `${symbol}`,
+          name: `${search}`,
 					showInLegend: true,
           xValueType: "dateTime",
           xValueFormatString: "DD MMM YYYY",
