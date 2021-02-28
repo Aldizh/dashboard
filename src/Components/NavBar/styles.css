@@ -1,3 +1,7 @@
+.appBar {
+  border-bottom: '1px solid';
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   overflow: hidden;
@@ -24,6 +28,10 @@
 
 .current-link {
   color: blue;
+}
+
+.MuiToolbar-root {
+  justify-content: center;
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */

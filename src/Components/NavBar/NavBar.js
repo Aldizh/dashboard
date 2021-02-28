@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { AppBar, Toolbar } from '@material-ui/core'
 import './styles.css'
 
 const NavBar = (props) => {
@@ -27,15 +28,19 @@ const NavBar = (props) => {
   }, [])
 
   return (
-    <div className="topnav" id="myTopnav">
-      <a href={'/dashboard'}>Home</a>
-      <a href={'/dashboard/stocks'}>Stock Symbol Tracker</a>
-      <a href={'/dashboard/filter_table'}>List Page</a>
-      <a href={'/dashboard/expand_table'}>Expandable Table</a>
-      <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
-        <i className="fa fa-bars"></i>
-      </a>
-    </div>
+    <AppBar position="static" color="default" elevation={0} className='appBar'>
+    <Toolbar>
+      <div className="topnav" id="myTopnav">
+        <a href={'/dashboard'}>Dashboard</a>
+        <a href={'/dashboard/stocks'}>Stock Symbol Tracker</a>
+        <a href={'/dashboard/filter_table'}>List Page</a>
+        <a href={'/dashboard/expand_table'}>Expandable Table</a>
+        <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
+          <i className="fa fa-bars"></i>
+        </a>
+      </div>
+    </Toolbar>
+    </AppBar>
   );
 }
 
