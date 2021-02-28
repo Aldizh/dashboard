@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Divider from '@material-ui/core/Divider'
 import Memberships from './Memberships'
-import MuiTable from '../Components/MuiTable'
+import FilterTable from '../Components/FilterTable'
 import Search from './Search'
 import Toolbar from './toolbar'
 import SubList from './SubList'
@@ -141,7 +141,7 @@ const ListPage = props => {
           }}
         >
           <Toolbar members={members} />
-          <MuiTable />
+          <FilterTable />
         </div>
       </div>}
       <Memberships

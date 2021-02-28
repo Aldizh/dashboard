@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { find, propEq } from "ramda";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import { Grid, FormControl, TextField, MenuItem, InputLabel, Input, Select, Button} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useListPageContext } from "./context";
 import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
+    '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
     },
   },
 }));
@@ -22,10 +19,21 @@ const MemberSetup = props => {
   const [membership_type, setType] = useState({ code: "" });
   const [country, setCountry] = useState({ code: "" });
   const [currency, setCurrency] = useState({ code: "" });
+  const [from_date, setFromDate] = useState("");
 
   const { countriesReference, currenciesReference, membershipTypesReference } = props
   const [data, dispatch] = useListPageContext();
   const { members } = data
+
+
+  useEffect(() => {
+    setName('John')
+    setFee(10)
+    setCountry(countriesReference[0])
+    setCurrency(currenciesReference[0])
+    setType(membershipTypesReference[0])
+    setFromDate('2021-05-24')
+  }, [])
 
   const clearForm = () => {
     setName("")
@@ -33,6 +41,7 @@ const MemberSetup = props => {
     setType("")
     setCountry("")
     setCurrency("")
+    setFromDate("")
   }
 
   const handleFormChange = (event, id) => {
@@ -55,6 +64,9 @@ const MemberSetup = props => {
           membershipTypesReference
         ));
         break;
+      case "from_date":
+        setFromDate(event.target.value)
+        break;
       default:
         break;
     }
@@ -69,8 +81,8 @@ const MemberSetup = props => {
       membership_type: membership_type.description,
       currency: currency.description,
       annual_fee: annual_fee,
-      from_date: "30th Jun, 2016",
-      to_date: "30th Jun, 2017"
+      from_date: from_date,
+      to_date: "30th Jun, 2021"
     });
     dispatch({ type: 'update_members', data: updatedMembers })
     clearForm()
@@ -82,95 +94,96 @@ const MemberSetup = props => {
     <div>
       <h3>Add new member</h3>
       <form className={classes.root} noValidate autoComplete="off">
-        <TextField
-          label="Name"
-          className={"nameField"}
-          value={name}
-          onChange={e => handleFormChange(e, "name")}
-          helperText="Please select a name"
-          margin="normal"
-        />
-        <TextField
-          select
-          label="Country"
-          placeholder={"Country"}
-          className={"countryField"}
-          value={country.code}
-          onChange={e => handleFormChange(e, "country")}
-          helperText="Please select a country"
-          margin="normal"
-        >
-          {countriesReference.map(option => (
-            <MenuItem
-              id={`${option.code}_cntry`}
-              key={option.code}
-              value={option.code}
-            >
-              {option.description}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          select
-          id="membership"
-          label="Membership"
-          placeholder={"Membership"}
-          className={"membershipField"}
-          value={membership_type.code}
-          onChange={e => handleFormChange(e, "membership_type")}
-          helperText="Please select membership type"
-          margin="normal"
-        >
-          {membershipTypesReference.map(option => (
-            <MenuItem
-              id={`${option.code}_membership`}
-              key={option.code}
-              value={option.code}
-            >
-              {option.description}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          select
-          label="Currency"
-          placeholder={"Currency"}
-          className={"currencyField"}
-          value={currency.code}
-          onChange={e => handleFormChange(e, "currency")}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currenciesReference.map(option => (
-            <MenuItem
-              id={`${option.code}_currency`}
-              key={option.code}
-              value={option.code}
-            >
-              {option.description}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          placeholder={"Annual Fee"}
-          label={"Annual Fee"}
-          helperText="Please select annual fee"
-          className={"annualFeeField"}
-          onChange={e => handleFormChange(e, "annual_fee")}
-          disabled={false}
-        />
-        <TextField
-          id="from_date"
-          label="From Date"
-          placeholder="From Date"
-          type="date"
-          helperText="Please select from date"
-          defaultValue="2019-03-01"
-          className={"datePickerField"}
-          InputLabelProps={{
-            shrink: true
-          }}
-        />
+      <Grid container justify="space-around">
+        <FormControl>
+          <InputLabel htmlFor="name">Name</InputLabel>
+          <Input
+            id="name"
+            value={name}
+            onChange={e => handleFormChange(e, "name")}
+          />
+        </FormControl>
+        <FormControl>
+          <InputLabel id="country">Country</InputLabel>
+          <Select
+            labelId="country"
+            id="country"
+            value={country.code}
+            onChange={e => handleFormChange(e, "country")}
+          >
+            {countriesReference.map(option => (
+              <MenuItem
+                id={`${option.code}_cntry`}
+                key={option.code}
+                value={option.code}
+              >
+                {option.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="membership">Type</InputLabel>
+          <Select
+            labelId="membership"
+            id="membership"
+            value={membership_type.code}
+            onChange={e => handleFormChange(e, "membership_type")}
+          >
+            {membershipTypesReference.map(option => (
+              <MenuItem
+                id={`${option.code}_membership`}
+                key={option.code}
+                value={option.code}
+              >
+                {option.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="membership">Currency</InputLabel>
+          <Select
+            labelId="currency"
+            id="currency"
+            value={currency.code}
+            onChange={e => handleFormChange(e, "currency")}
+          >
+            {currenciesReference.map(option => (
+              <MenuItem
+                id={`${option.code}_currency`}
+                key={option.code}
+                value={option.code}
+              >
+                {option.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>
+          <Input
+            id="annual_fee"
+            value={annual_fee}
+            onChange={e => handleFormChange(e, "annual_fee")}
+            disabled={false}
+          />
+        </FormControl>
+        <FormControl>
+          <TextField
+            id="from_date"
+            label="From Date"
+            type="date"
+            defaultValue="2021-05-24"
+            value={from_date}
+            onChange={e => handleFormChange(e, "from_date")}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            disabled={false}
+          />
+        </FormControl>
+      </Grid>
       </form>
       <Button
         variant="contained"
