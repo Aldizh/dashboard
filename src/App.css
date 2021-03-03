@@ -1,4 +1,5 @@
-.App {
+.app {
+  position: relative;
   text-align: center;
   background-image: url(./images/background.jpg);
   background-repeat: no-repeat;
@@ -17,7 +18,7 @@ h1 {
   font-weight: 700;
 }
 
-.MuiPaper-root a {
+a {
   position: relative;
   top: 45%;
   text-decoration: none;

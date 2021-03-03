@@ -1,11 +1,11 @@
-import React from "react"
-import "./search.css"
-import SearchSVG from "./images/search"
+import React from 'react'
+import './search.css'
+import SearchSVG from './images/search'
 
 type SearchTypes = {
   searchBy: string,
   searchText: String,
-  handleSearch: () => void
+  handleSearch: () => void,
 }
 
 const Search = ({ searchBy, searchText, handleSearch }: SearchTypes) => (

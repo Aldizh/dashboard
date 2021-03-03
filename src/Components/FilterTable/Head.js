@@ -1,11 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { TableSortLabel, TableHead, TableRow, TableCell, Checkbox } from '@material-ui/core'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {
+  TableSortLabel,
+  TableHead,
+  TableRow,
+  TableCell,
+  Checkbox,
+} from '@material-ui/core'
 
 import { headCells } from './config'
 
 function Head(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props
   const sortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }
@@ -55,6 +69,6 @@ Head.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
-};
+}
 
 export default Head

@@ -18,18 +18,30 @@ export const generateData = () => {
   let currenciesReference = []
   let countriesReference = []
 
-  const membershipTypesReference = [
-    { code: "B", description: "Basic" },
-  ];
+  const membershipTypesReference = [{ code: 'B', description: 'Basic' }]
 
   const chipData = [
-    { filterBy: "membership_type", filterText: "Basic", code: "B" },
-  ];
+    { filterBy: 'membership_type', filterText: 'Basic', code: 'B' },
+  ]
 
   rows.forEach((row) => {
-    if (!find(propEq('code', row.currency))(currenciesReference)) currenciesReference.push({ code: row.currency, description: row.currency })
-    if (!find(propEq('code', row.country))(countriesReference)) countriesReference.push({ code: row.country, description: row.country })
+    if (!find(propEq('code', row.currency))(currenciesReference))
+      currenciesReference.push({
+        code: row.currency,
+        description: row.currency,
+      })
+    if (!find(propEq('code', row.country))(countriesReference))
+      countriesReference.push({
+        code: row.country,
+        description: row.country,
+      })
   })
 
-  return [rows, countriesReference, currenciesReference, membershipTypesReference, chipData]
+  return [
+    rows,
+    countriesReference,
+    currenciesReference,
+    membershipTypesReference,
+    chipData,
+  ]
 }

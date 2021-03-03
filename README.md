@@ -5,11 +5,12 @@ Dashboard for react apps
 - A few react applications that i am or have worked on in the past.
 - Practical Features that can be easily incorporated into any project
 
-### Tools
+### Tools and Libraries
 
 - React 16
 - Material UI
 - Semantic UI
+- Canvas JS
 
 ### Goal
 

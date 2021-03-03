@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 
 const SVG = ({
   style = {
-    position: "absolute",
-    right: "5px",
-    bottom: "15px",
-    paddingRight: "4px",
-    enableBackground: "new 0 0 451 451"
+    position: 'absolute',
+    right: '5px',
+    bottom: '15px',
+    paddingRight: '4px',
+    enableBackground: 'new 0 0 451 451',
   },
-  fill = "#000",
-  width = "15px",
-  height = "20px",
-  className = "",
-  viewBox = "0 0 40 26"
+  fill = '#000',
+  width = '15px',
+  height = '20px',
+  className = '',
+  viewBox = '0 0 40 26',
 }) => (
   <svg
     version="1.1"
@@ -36,6 +36,6 @@ const SVG = ({
       />
     </g>
   </svg>
-);
+)
 
-export default SVG;
+export default SVG

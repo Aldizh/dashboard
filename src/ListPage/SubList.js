@@ -1,76 +1,81 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import { find, propEq } from "ramda";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import { useListPageContext } from "./context"
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { find, propEq } from 'ramda'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Checkbox from '@material-ui/core/Checkbox'
+import { useListPageContext } from './context'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  }
-});
+    backgroundColor: theme.palette.background.paper,
+  },
+})
 
 const calcuateFilteredData = (chips, members) => {
   if (!chips.length) return members
   let newMembers = []
   chips.forEach((currChip) => {
-    const member = find(propEq(currChip.filterBy, currChip.code), members) || find(propEq(currChip.filterBy, currChip.filterText), members)
+    const member =
+      find(propEq(currChip.filterBy, currChip.code), members) ||
+      find(propEq(currChip.filterBy, currChip.filterText), members)
     if (member) newMembers.push(member)
   })
   return newMembers
 }
 
 const SectionList = (props) => {
-  const { classes, filterFacets, members, filterBy, isIchecked } = props;
+  const { classes, filterFacets, members, filterBy, isIchecked } = props
 
   const [state, setState] = useState({
-    checked: [0]
-  });
-  const [{chips}, dispatch] = useListPageContext();
+    checked: [0],
+  })
+  const [{ chips }, dispatch] = useListPageContext()
 
-  const toggleChips = chip => {
-    let newchips = chips;
-    const index = newchips.findIndex(item => chip.code === item.code);
+  const toggleChips = (chip) => {
+    let newchips = chips
+    const index = newchips.findIndex((item) => chip.code === item.code)
     if (index === -1) {
-      newchips.push(chip);
+      newchips.push(chip)
     } else {
-      newchips.splice(index, 1);
+      newchips.splice(index, 1)
     }
     dispatch({ type: 'update_chips', data: newchips })
-    dispatch({ type: 'update_members', data: calcuateFilteredData(newchips, members) })
-  };
+    dispatch({
+      type: 'update_members',
+      data: calcuateFilteredData(newchips, members),
+    })
+  }
 
   const handleToggle = (item, filterBy) => () => {
-    const { checked } = state;
-    const index = checked.indexOf(item.code);
-    const newChecked = [...checked];
+    const { checked } = state
+    const index = checked.indexOf(item.code)
+    const newChecked = [...checked]
 
     if (index === -1) {
-      newChecked.push(item.code);
+      newChecked.push(item.code)
     } else {
-      newChecked.splice(index, 1);
+      newChecked.splice(index, 1)
     }
 
     setState({
-      checked: newChecked
-    });
+      checked: newChecked,
+    })
 
     toggleChips({
       filterBy: filterBy,
       filterText: item.description,
-      code: item.code
-    });
-  };
+      code: item.code,
+    })
+  }
 
   return (
     <List className={classes.root}>
-      {filterFacets.map(item => (
+      {filterFacets.map((item) => (
         <ListItem
           key={`#${item.code}`}
           dense
@@ -86,7 +91,7 @@ const SectionList = (props) => {
         </ListItem>
       ))}
     </List>
-  );
+  )
 }
 
 SectionList.propTypes = {
@@ -95,10 +100,10 @@ SectionList.propTypes = {
   searchText: PropTypes.string,
   filterBy: PropTypes.string,
   toggleChips: PropTypes.func,
-  isIchecked: PropTypes.func
-};
+  isIchecked: PropTypes.func,
+}
 
-export default withStyles(styles)(SectionList);
+export default withStyles(styles)(SectionList)
 // <List style={Object.assign({}, Style.SectionList)}>
 //   {props.filterFacets.map((item, index) => {
 //     if (

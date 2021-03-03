@@ -2,16 +2,16 @@
 
 export const substitute = (template, obj) => {
   return template.replace(/\${([a-z0-9_]+)}/gi, (match, capture) => {
-    return obj[capture];
-  });
-};
+    return obj[capture]
+  })
+}
 
 // function to format currency - takes in value and the currencyStyle
-export const formatCurrency = (value, currencyStyle='USD') =>
-  `${new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: `${currencyStyle}`
-  }).format(value)}`;
+export const formatCurrency = (value, currencyStyle = 'USD') =>
+  `${new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: `${currencyStyle}`,
+  }).format(value)}`
 
 // // function to format date to normal form
 // export const formatDate = value => moment(new Date(value)).format("MM/DD/YYYY");
@@ -38,4 +38,4 @@ export const formatCurrency = (value, currencyStyle='USD') =>
 // export const formatDateTimeIgnoringTimeZone = value =>
 //   moment(new Date(value)).format("MM/DD/YYYY HH:mm:ss");
 
-export const capitalize = word => word.charAt(0).toUpperCase() + word.slice(1);
+export const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1)

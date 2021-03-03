@@ -1,60 +1,56 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer
-} from "react"
-import axios from "axios"
+import React, { useState, useEffect, useReducer } from 'react'
+import axios from 'axios'
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_INIT":
+    case 'FETCH_INIT':
       return {
         ...state,
         isLoading: true,
-        isError: false
-      };
-    case "FETCH_SUCCESS":
+        isError: false,
+      }
+    case 'FETCH_SUCCESS':
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload
-      };
-    case "FETCH_FAILURE":
+        data: action.payload,
+      }
+    case 'FETCH_FAILURE':
       return {
         ...state,
         isLoading: false,
         isError: true,
-      };
+      }
     default:
-      throw new Error();
+      throw new Error()
   }
-};
+}
 
 const useDataApi = (initialUrl, initialData = {}) => {
-  const [url, setUrl] = useState(initialUrl);
+  const [url, setUrl] = useState(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData
-  });
+    data: initialData,
+  })
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_INIT" });
+      dispatch({ type: 'FETCH_INIT' })
       try {
-        const result = await axios(url);
-        dispatch({ type: "FETCH_SUCCESS", payload: result });
+        const result = await axios(url)
+        dispatch({ type: 'FETCH_SUCCESS', payload: result })
       } catch (error) {
-        dispatch({ type: "FETCH_FAILURE" });
+        dispatch({ type: 'FETCH_FAILURE' })
       }
-    };
+    }
 
-    fetchData();
-  }, [url]);
+    fetchData()
+  }, [url])
 
-  const doFetch = url => setUrl(url)
+  const doFetch = (url) => setUrl(url)
 
   return { ...state, doFetch }
 }
