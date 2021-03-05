@@ -1,14 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './search.css'
 import SearchSVG from './images/search'
 
-type SearchTypes = {
-  searchBy: string,
-  searchText: String,
-  handleSearch: () => void,
-}
-
-const Search = ({ searchBy, searchText, handleSearch }: SearchTypes) => (
+const Search = ({ searchBy, searchText, handleSearch }) => (
   <div className="searchBox">
     <input
       type="text"
@@ -19,5 +14,11 @@ const Search = ({ searchBy, searchText, handleSearch }: SearchTypes) => (
     <SearchSVG />
   </div>
 )
+
+Search.propTypes = {
+  searchBy: PropTypes.string,
+  searchText: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+}
 
 export default Search

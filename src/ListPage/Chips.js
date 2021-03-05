@@ -1,26 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { find, propEq } from 'ramda'
 import { PropTypes } from 'prop-types'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import Chip from '@material-ui/core/Chip'
+import { Chip } from '@material-ui/core'
 import { useListPageContext } from './context'
-import Style from './styles'
 import './styles.css'
 
-const styles = {
-  chip: {
-    backgroundColor: '#f5f5f5',
-  },
-  label: {
-    fontSize: 10,
-  },
-  img: {
-    paddingLeft: 3,
-  },
-}
-
-const calcuateFilteredData = (chips, members) => {
+const getNewMembers = (chips, members) => {
   if (!chips.length) return members
   let newMembers = []
   chips.forEach((currChip) => {
@@ -32,7 +17,7 @@ const calcuateFilteredData = (chips, members) => {
   return newMembers
 }
 
-const ToolbarComponent = ({ members }) => {
+const Toolbar = ({ members }) => {
   const [data, dispatch] = useListPageContext()
   const { chips = [] } = data
 
@@ -47,50 +32,36 @@ const ToolbarComponent = ({ members }) => {
     dispatch({ type: 'update_chips', data: newchips })
     dispatch({
       type: 'update_members',
-      data: calcuateFilteredData(newchips, members),
+      data: getNewMembers(newchips, members),
     })
   }
 
   return (
     <React.Fragment>
-      <div className="col-1-1 tableHeader">
+      <div>
         <div className="toolbar">
           <div className="wrapper">
             {chips.map((chip) => (
               <Chip
                 key={chip.code}
                 label={chip.filterText}
-                onClick={() => {
+                onDelete={() => {
                   toggleChips(chip)
                 }}
                 className={'memberChip'}
-              >
-                <img
-                  style={styles.img}
-                  src="/images/close-circle.png"
-                  alt="Remove Chip Icon"
-                  onTouchTap={() => {
-                    toggleChips(chip)
-                  }}
-                />
-              </Chip>
+                color="primary"
+              />              
             ))}
           </div>
-        </div>
-        <div
-          className="col-1-4"
-          style={Object.assign({}, Style.membershipButton)}
-        >
-          <Button label="Add" color="primary" style={{ marginRight: 25 }} />
         </div>
       </div>
     </React.Fragment>
   )
 }
 
-ToolbarComponent.propTypes = {
+Toolbar.propTypes = {
   data: PropTypes.array,
   toggleChips: PropTypes.func,
 }
 
-export default ToolbarComponent
+export default Toolbar

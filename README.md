@@ -2,8 +2,8 @@ Dashboard for react apps
 
 ### Contents
 
-- A few react applications that i am or have worked on in the past.
-- Practical Features that can be easily incorporated into any project
+- A few react applications that could be used in web based UI apps.
+- These vary from simple forms, cards, sidebars to api data fetcher and then finally putting these together
 
 ### Tools and Libraries
 
@@ -14,5 +14,4 @@ Dashboard for react apps
 
 ### Goal
 
-- Document as many useful projects for later reference
-- Have a playground for new ideas and build up on existing ones
+- Document useful wholesome mini projects that could serve as a component library

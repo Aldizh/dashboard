@@ -3,12 +3,12 @@ import Divider from '@material-ui/core/Divider'
 import Memberships from './Memberships'
 import FilterTable from '../Components/FilterTable'
 import Search from './Search'
-import Toolbar from './toolbar'
+import Toolbar from './Chips'
 import SubList from './SubList'
-import { StateProvider } from './context'
+import { StateProvider } from './context/index'
 import { ReactComponent as LeftArrow } from './images/left_big.svg'
 import { ReactComponent as RightArrow } from './images/right_big.svg'
-import { generateData } from './mockData'
+import { generateData } from './context/mockData'
 
 const ListPage = (props) => {
   const [

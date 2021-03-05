@@ -72,11 +72,6 @@ export default {
     fontSize: 20,
     padding: 10,
   },
-  membershipButton: {
-    textAlign: 'right',
-    marginBottom: 5,
-    paddingRight: '10px !important',
-  },
   filterList: {
     paddingTop: 0,
     maxHeight: '129px',

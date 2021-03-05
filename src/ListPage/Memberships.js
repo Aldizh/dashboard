@@ -188,7 +188,6 @@ const MemberSetup = (props) => {
               id="from_date"
               label="From Date"
               type="date"
-              defaultValue="2021-05-24"
               value={from_date}
               onChange={(e) => handleFormChange(e, 'from_date')}
               InputLabelProps={{

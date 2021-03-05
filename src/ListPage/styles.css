@@ -13,15 +13,6 @@
   margin-bottom: 10px !important;
   float: none;
 }
-.annualFeeField,
-.datePickerField {
-  margin-top: 20px !important;
-}
-
-.tableHeader {
-  padding: 5px;
-}
-
 .toolbar {
   float: 'left';
 }

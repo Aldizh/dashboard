@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { find, propEq } from 'ramda'
+import { find, prop, propEq, uniqBy } from 'ramda'
 
 export const generateData = () => {
   let rows = []
@@ -38,7 +38,7 @@ export const generateData = () => {
   })
 
   return [
-    rows,
+    uniqBy(prop('id'), rows),
     countriesReference,
     currenciesReference,
     membershipTypesReference,
