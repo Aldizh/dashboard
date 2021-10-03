@@ -6,7 +6,7 @@ const defaultApiData = {
   'Time Series (Daily)': {},
 }
 
-// price calculation rebased to $100 for comparison
+// Get price calculation based on initial investment ($100 for simplicity)
 const getBaseWeightedPrice = (price, startingPrice) =>
   Number((100 / startingPrice) * price)
 
@@ -26,17 +26,25 @@ class Canvas extends React.Component {
   state = {
     dataPoints: [],
     spyDataPoints: [],
+    earliestDataPoint: 0,
+    latestDataPoint: 0,
+    earliestSPYDataPoint: 0,
+    latestSPYDataPoint: 0
   }
 
   componentDidMount() {
     const { data = defaultApiData, spyData } = this.props
     const dataPoints = []
-    const timeIntervalKeys = getXData(data)
+    const timeIntervalKeys = getXData(data) // date strings in reverse order
     const timeIntervalValues = getYData(data)
     const lastIndex = timeIntervalKeys.length - 1
     const earliestDataPoint = timeIntervalValues[lastIndex]
       ? timeIntervalValues[lastIndex]['4. close']
       : 0
+    const latestDataPoint = timeIntervalValues[0]
+      ? timeIntervalValues[0]['4. close']
+      : 0
+
     for (var i = lastIndex; i > 0; i--) {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
@@ -48,10 +56,13 @@ class Canvas extends React.Component {
     }
 
     const spyDataPoints = []
-    const spyTimeIntervalKeys = getXData(spyData)
+    const spyTimeIntervalKeys = getXData(spyData) // date strings in reverse order
     const spyTimeIntervalValues = getYData(spyData)
     const earliestSPYDataPoint = spyTimeIntervalValues[lastIndex]
       ? spyTimeIntervalValues[lastIndex]['4. close']
+      : 0
+    const latestSPYDataPoint = spyTimeIntervalValues[0]
+      ? spyTimeIntervalValues[0]['4. close']
       : 0
     for (var i = lastIndex; i > 0; i--) {
       spyDataPoints.push({
@@ -62,7 +73,14 @@ class Canvas extends React.Component {
         ),
       })
     }
-    this.setState({ dataPoints, spyDataPoints })
+    this.setState({
+      dataPoints,
+      spyDataPoints,
+      earliestDataPoint,
+      latestDataPoint,
+      earliestSPYDataPoint,
+      latestSPYDataPoint
+    })
 
     this.chart.render()
   }
@@ -71,8 +89,15 @@ class Canvas extends React.Component {
     this.chart = null
   }
 
+  // Get data points for the given ticker and the benchmark (SPY)
   render() {
-    const { data, search } = this.props
+    const { data, search, symbol } = this.props
+    const { 
+      earliestDataPoint,
+      latestDataPoint,
+      earliestSPYDataPoint,
+      latestSPYDataPoint
+    } = this.state
     const times = getXData(data)
     const options = {
       theme: 'light2',
@@ -81,7 +106,7 @@ class Canvas extends React.Component {
         text: `Daily stock Price of ${search} vs SPY`,
       },
       axisY: {
-        title: 'Price in USD',
+        title: 'Price (weighted to 100$)',
         prefix: '$',
       },
       axisX: {
@@ -129,8 +154,13 @@ class Canvas extends React.Component {
       margin: 'auto',
     }
 
+    const spyGrowth = parseFloat((latestSPYDataPoint-earliestSPYDataPoint)/earliestSPYDataPoint * 100).toFixed(2)
+    const stockGrowth = parseFloat((latestDataPoint-earliestDataPoint)/earliestDataPoint * 100).toFixed(2)
+
     return (
       <div>
+        <div>SPY Growth: {spyGrowth}%</div>
+        <div>{symbol} Growth: {stockGrowth}%</div>
         <CanvasJSChart
           containerProps={containerProps}
           options={options}

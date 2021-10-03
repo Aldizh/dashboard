@@ -145,6 +145,7 @@ function Fetcher() {
             search={search}
             data={data.data}
             spyData={spyData.data.data}
+            symbol={symbol}
           />
         </div>
       )}
