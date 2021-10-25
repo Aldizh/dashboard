@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
   app: {
     position: 'relative',
     textAlign: 'center',
-    backgroundImage: 'url(./images/background.jpg)',
-    backgroundRepeat: 'no-repeat',
+    // backgroundImage: 'url(./images/background.jpg)',
+    // backgroundRepeat: 'no-repeat',
     minHeight: '100vh',
     fontSize: 'calc(10px + 2vmin)'
   },
@@ -73,17 +73,17 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     // backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    // padding: theme.spacing(6),
   },
 }))
 
-export default function Album() {
+const Album = (props) => {
   const classes = useStyles()
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <div className="app">
+      <div className={classes.app}>
         <Route
           exact={true}
           path="/"
@@ -196,18 +196,19 @@ export default function Album() {
                     </Grid>
                   </Grid>
                 </Container>
+              {props.children}
               </main>
               {/* Footer */}
               <footer className={classes.footer}>
                 <Typography variant="h6" align="center" gutterBottom>
                   Thank you for visiting
                 </Typography>
-                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+                <Typography variant="subtitle1" align="center" color="textPrimary" component="p">
                   Feel free to check out my&nbsp;
                   <a target="_blank" href="https://aldizhupani.medium.com/">medium</a>{' blog'}
                 </Typography>
                 <Copyright />
-                </footer>
+              </footer>
               {/* End footer */}
             </>
           )}
@@ -221,6 +222,7 @@ export default function Album() {
               <main>
                 <div className={classes.heroContent}>
                   <StcokFetcher />
+                  {props.children}
                 </div>
               </main>
             </React.Fragment>
@@ -235,6 +237,7 @@ export default function Album() {
               <main>
                 <div className={classes.heroContent}>
                   <Table />
+                  {props.children}
                 </div>
               </main>
             </React.Fragment>
@@ -249,6 +252,7 @@ export default function Album() {
               <main>
                 <div className={classes.heroContent}>
                   <ListPage />
+                  {props.children}
                 </div>
               </main>
             </React.Fragment>
@@ -258,3 +262,6 @@ export default function Album() {
     </React.Fragment>
   )
 }
+
+
+export default Album

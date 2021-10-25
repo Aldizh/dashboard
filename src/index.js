@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
+import ParticlesBg from "particles-bg";
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -8,7 +9,9 @@ import * as serviceWorker from './serviceWorker'
 ReactDOM.render(
   <React.StrictMode>
     <Router basename={process.env.PUBLIC_URL}>
-      <App />
+      <App>
+        <ParticlesBg type="circle" bg={true} />
+      </App>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

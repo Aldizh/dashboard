@@ -1,11 +1,11 @@
-.app {
+/* .app {
   position: relative;
   text-align: center;
   background-image: url(./images/background.jpg);
   background-repeat: no-repeat;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
-}
+} */
 
 h1 {
   font-family: arial, sans-serif;
