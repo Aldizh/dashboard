@@ -1,10 +1,12 @@
 /* App.js */
 import React from 'react'
 import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 
-const defaultApiData = {
-  'Time Series (Daily)': {},
-}
+const INTERVAL_KEY = 'Time Series (15min)'
+const defaultApiData = { INTERVAL_KEY: {} }
 
 // Get price calculation based on initial investment ($100 for simplicity)
 const getBaseWeightedPrice = (price, startingPrice) =>
@@ -12,14 +14,14 @@ const getBaseWeightedPrice = (price, startingPrice) =>
 
 // Get x axis data (simple date or datetime)
 const getXData = (res) => {
-  if (!res['Time Series (Daily)']) return ['2021-01-01']
-  return Object.keys(res['Time Series (Daily)'])
+  if (!res[INTERVAL_KEY]) return ['2021-01-01']
+  return Object.keys(res[INTERVAL_KEY])
 }
 
 // Get y axis data (price corresponding to it)
 const getYData = (res) => {
-  if (!res['Time Series (Daily)']) return [{ '4.close': 0.0 }]
-  return Object.values(res['Time Series (Daily)'])
+  if (!res[INTERVAL_KEY]) return [{ '4.close': 0.0 }]
+  return Object.values(res[INTERVAL_KEY])
 }
 
 class Canvas extends React.Component {
@@ -99,11 +101,12 @@ class Canvas extends React.Component {
       latestSPYDataPoint
     } = this.state
     const times = getXData(data)
+    const lastUpdate = data["Meta Data"] && data["Meta Data"]["3. Last Refreshed"]
     const options = {
       theme: 'light2',
       animationEnabled: true,
       title: {
-        text: `Daily stock Price of ${search} vs SPY`,
+        text: `Historical Price Comparison: ${search} vs SPY`,
       },
       axisY: {
         title: 'Price (weighted to 100$)',
@@ -154,20 +157,41 @@ class Canvas extends React.Component {
       margin: 'auto',
     }
 
+    const metricsContainer = {
+      "background-color": "#f9b79f"
+    }
+
     const spyGrowth = parseFloat((latestSPYDataPoint-earliestSPYDataPoint)/earliestSPYDataPoint * 100).toFixed(2)
     const stockGrowth = parseFloat((latestDataPoint-earliestDataPoint)/earliestDataPoint * 100).toFixed(2)
 
     return (
-      <div>
-        <div>SPY Growth: {spyGrowth}%</div>
-        <div>{symbol} Growth: {stockGrowth}%</div>
-        <CanvasJSChart
-          containerProps={containerProps}
-          options={options}
-          onRef={(ref) => (this.chart = ref)}
-        />
-        {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-      </div>
+      <>
+        <Card variant="outlined"
+          style={{
+            margin: "10px auto",
+            width: "70%"
+        }}>
+          <CardContent>
+            <Typography variant="subtitle1" gutterBottom>
+              SPY Growth: {spyGrowth}%
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              {symbol} Growth: {stockGrowth}%
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Last Updated: {lastUpdate}
+            </Typography>
+          </CardContent>
+        </Card>
+        <div>
+          <CanvasJSChart
+            containerProps={containerProps}
+            options={options}
+            onRef={(ref) => (this.chart = ref)}
+          />
+          {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+        </div>
+      </>
     )
   }
 }

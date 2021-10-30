@@ -29,7 +29,7 @@ const NavBar = () => {
         <div className="topnav" id="myTopnav">
           <a href={'/dashboard'}>Dashboard</a>
           <a href={'/dashboard/stocks'}>Stock Symbol Tracker</a>
-          <a href={'/dashboard/filter_table'}>List Page</a>
+          <a href={'/dashboard/filter_table'}>Filterable Table</a>
           <a href={'/dashboard/expand_table'}>Expandable Table</a>
           <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
             <i className="fa fa-bars"></i>

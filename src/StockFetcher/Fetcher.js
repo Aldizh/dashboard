@@ -10,7 +10,9 @@ import useDataApi from 'hooks/useData'
 
 const API_KEY = '1PXX8A1J2QJQFTBP'
 const TICKER = 'JPM'
-const seriesType = 'TIME_SERIES_DAILY_ADJUSTED' // type of query
+const seriesType = 'TIME_SERIES_INTRADAY' // type of query
+const interval = '15min' // time interval between two consecutive data points
+const outputSize = 'full' // number of data points
 const overView = 'OVERVIEW' // type of query
 
 // regex to look for any point in the string that has a multiple of 3 digits in a row after it,
@@ -27,7 +29,7 @@ const initialFundamentals = {
 
 const getSeriesData = (symbol) => {
   const baseUrl = 'https://www.alphavantage.co/query'
-  return `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=Daily&apikey=${API_KEY}`
+  return `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=${interval}&outputsize=${outputSize}&apikey=${API_KEY}&adjusted=true`
 }
 
 const getFundamentals = (symbol) => {
@@ -113,7 +115,12 @@ function Fetcher() {
       {!apiError && search && !isLoading && (
         <div>
           <p>{data['Meta Data'] && data['Meta Data'].symbol}</p>
-          <div style={{ margin: '10px auto', width: '70%' }}>
+          <div
+            style={{
+              margin: '10px auto',
+              width: '70%'
+            }}
+          >
             {/* {metaData.map(el => (
               <Card variant="outlined">
                 <CardContent>
@@ -140,7 +147,6 @@ function Fetcher() {
               </CardContent>
             </Card>
           </div>
-          {/* <p>{data["Time Series (5min)"]}</p> */}
           <Canvas
             search={search}
             data={data.data}

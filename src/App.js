@@ -105,10 +105,10 @@ const Album = (props) => {
                     <Typography
                       variant="h5"
                       align="center"
-                      color="textSecondary"
+                      color="textPrimary"
                       paragraph
                     >
-                      These are a just a few projects to showcase the
+                      These are just a few projects to showcase the
                       versatility of react when it comes to building slick and
                       efficient UI components.
                     </Typography>
