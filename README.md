@@ -12,6 +12,11 @@ Dashboard for react apps
 - Semantic UI
 - Canvas JS
 
-### Goal
+### Deployment
 
-- Document useful wholesome mini projects that could serve as a component library
+- Simply run `npm run deploy` or `yarn deploy`
+- This will build and use gh-pages package to deploy to git servers
+
+### Goal of this project
+
+- To have a quick and easy way to showcase my work
