@@ -1,3 +1,3 @@
-import Fetcher from './Fetcher'
+import Main from './Main'
 
-export default Fetcher
+export default Main

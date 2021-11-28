@@ -51,7 +51,7 @@ class Canvas extends React.Component {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
         y: getBaseWeightedPrice(
-          timeIntervalValues[i]['4. close'],
+          timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : "0.00",
           earliestDataPoint
         ),
       })
@@ -176,7 +176,7 @@ class Canvas extends React.Component {
               SPY Growth: {spyGrowth}%
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-              {symbol} Growth: {stockGrowth}%
+              {search} Growth: {stockGrowth}%
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
               Last Updated: {lastUpdate}
