@@ -70,7 +70,7 @@ class Canvas extends React.Component {
       spyDataPoints.push({
         x: new Date(spyTimeIntervalKeys[i]),
         y: getBaseWeightedPrice(
-          spyTimeIntervalValues[i]['4. close'],
+          spyTimeIntervalValues[i] && spyTimeIntervalValues[i]['4. close'],
           earliestSPYDataPoint
         ),
       })
