@@ -9,7 +9,7 @@ export const generateData = () => {
       name: faker.name.findName(),
       country: faker.address.country(),
       currency: faker.finance.currencySymbol(),
-      annual_fee: faker.random.number(),
+      annual_fee: faker.random.alphaNumeric(),
       from_date: `${faker.date.past()}`,
       to_date: `${faker.date.future()}`,
       membership_type: 'Basic',

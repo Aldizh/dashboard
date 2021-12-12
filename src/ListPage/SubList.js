@@ -16,20 +16,25 @@ const styles = (theme) => ({
   },
 })
 
-const calcuateFilteredData = (chips, members) => {
+// Update membership data by looking at chips
+const calcuateFilteredData = (chips, members = []) => {
   if (!chips.length) return members
-  let newMembers = []
-  chips.forEach((currChip) => {
-    const member =
-      find(propEq(currChip.filterBy, currChip.code), members) ||
-      find(propEq(currChip.filterBy, currChip.filterText), members)
-    if (member) newMembers.push(member)
-  })
-  return newMembers
+  return members.filter((member) =>
+    chips.some((currChip) =>
+      member[currChip.filterBy] === currChip.code || member[currChip.filterBy] === currChip.filterText
+    )
+  ) 
 }
 
 const SectionList = (props) => {
-  const { classes, filterFacets, members, filterBy, isIchecked } = props
+  const {
+    classes,
+    filterFacets,
+    members,
+    setMembers,
+    filterBy,
+    isIchecked
+  } = props
 
   const [state, setState] = useState({
     checked: [0],

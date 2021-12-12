@@ -86,7 +86,7 @@ const MemberSetup = (props) => {
     }
   }
 
-  const handleClick = (e) => {
+  const handleAdd = (e) => {
     e.preventDefault()
     const updatedMembers = members
     updatedMembers.push({
@@ -201,7 +201,7 @@ const MemberSetup = (props) => {
       <Button
         variant="contained"
         color="primary"
-        onClick={handleClick}
+        onClick={handleAdd}
         className={'addButton'}
       >
         Add

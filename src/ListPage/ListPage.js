@@ -10,14 +10,16 @@ import { ReactComponent as LeftArrow } from './images/left_big.svg'
 import { ReactComponent as RightArrow } from './images/right_big.svg'
 import { generateData } from './context/mockData'
 
+// random data generator
+const [
+  rows,
+  countriesReference,
+  currenciesReference,
+  membershipTypesReference,
+  initialChipData,
+] = generateData()
+
 const ListPage = (props) => {
-  const [
-    rows,
-    countriesReference,
-    currenciesReference,
-    membershipTypesReference,
-    initialChipData,
-  ] = generateData()
   const [members, setMembers] = useState(rows)
   const [chipData, setChipData] = useState(initialChipData)
 
@@ -72,28 +74,26 @@ const ListPage = (props) => {
             <div style={Object.assign({}, { display: mainDisplay })}>
               <div className="sidebarHeader">
                 <div
-                  style={Object.assign(
-                    {},
+                  style={
                     {
                       float: 'left',
                       padding: 5,
                       width: '50%',
                       textAlign: 'left',
                     }
-                  )}
+                  }
                 >
                   Filters
                 </div>
                 <div
-                  style={Object.assign(
-                    {},
+                  style={
                     {
                       float: 'right',
                       padding: 5,
                       width: '50%',
                       textAlign: 'right',
                     }
-                  )}
+                  }
                 >
                   <LeftArrow onClick={handleToggle} alt="left" />
                 </div>
@@ -108,6 +108,7 @@ const ListPage = (props) => {
                 <SubList
                   filterFacets={countriesReference}
                   members={members}
+                  setMembers={setMembers}
                   filterBy={'country'}
                   searchText={searchTextCountries}
                   isIchecked={isIchecked}
@@ -123,6 +124,7 @@ const ListPage = (props) => {
                 <SubList
                   filterFacets={currenciesReference}
                   members={members}
+                  setMembers={setMembers}
                   filterBy={'currency'}
                   searchText={searchTextCurrencies}
                   isIchecked={isIchecked}
@@ -138,6 +140,7 @@ const ListPage = (props) => {
                 <SubList
                   filterFacets={membershipTypesReference}
                   members={members}
+                  setMembers={setMembers}
                   filterBy={'membership_type'}
                   searchText={searchTextMemberships}
                   isIchecked={isIchecked}
