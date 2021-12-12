@@ -1,11 +1,7 @@
 // Documentation for canvas js: https://canvasjs.com/docs
-// Documentationf for alpha advantage: https://www.alphavantage.co/documentation/
+// Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
 import React, { Fragment, useState, useEffect } from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import Canvas from './Canvas'
 import useDataApi from 'hooks/useData'
 import Extended from './Extended'
 import Standard from './Standard'
@@ -60,28 +56,27 @@ function Main() {
     event.preventDefault() // prevent bubbling up
   }
 
-  // get full data set
-  // TO DO: Move these inside a hook
-  const { data, isLoading, isError, doFetch } = useDataApi(
+  // S&P data fetch called on render and series type change
+  const spyData = useDataApi('SPY', seriesType, getSeriesUrl('SPY', seriesType), initialTimeSeriesData)
+
+  // Full data for the search term
+  const { data, isLoading, isError, updateUrl } = useDataApi(
     search,
     seriesType,
     getSeriesUrl(search, seriesType),
     initialTimeSeriesData
   )
-  const spyData = useDataApi('SPY', seriesType, getSeriesUrl('SPY', seriesType), initialTimeSeriesData)
   useEffect(() => {
     if (search && !isLoading) {
-      doFetch(getSeriesUrl(search, seriesType))
+      updateUrl(getSeriesUrl(search, seriesType))
     }
   }, [search, seriesType])
-
-  // get fundamental metrics
-  // TO DO: Move these inside a hook
+  // Fundamentals data for the search term
   const {
     data: fundamentalsData,
     isLoading: fundamentalsIsLoading,
     isError: fundamentalsIsError,
-    doFetch: fundamentalsFoFetch,
+    updateUrl: updateFundamentalsUrl,
   } = useDataApi(search, seriesType, getFundamentalsUrl(search), initialFundamentals)
   const {
     Name,
@@ -91,10 +86,11 @@ function Main() {
   } = fundamentalsData.data
   useEffect(() => {
     if (search && !fundamentalsIsLoading) {
-      fundamentalsFoFetch(getFundamentalsUrl(search))
+      updateFundamentalsUrl(getFundamentalsUrl(search))
     }
   }, [search, seriesType])
 
+  // Set corresponding errors if any from the above  
   useEffect(() => {
     let newApiError =
       isError ||
@@ -110,7 +106,7 @@ function Main() {
       <form
         onSubmit={(event) => {
           event.preventDefault()
-          doFetch(getSeriesUrl(search, seriesType))
+          updateUrl(getSeriesUrl(search, seriesType))
         }}
       >
         <select

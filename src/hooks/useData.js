@@ -49,6 +49,8 @@ const defaultState = {
   }
 }
 
+// TO DO: This hooks needs to rely less on initial data so that 
+// we can swap it for a different data source in the future
 const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) => {
   const [url, setUrl] = useState(initialUrl)
 
@@ -112,9 +114,9 @@ const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) 
     if (symbol) fetchData()
   }, [symbol, seriesType, url])
 
-  const doFetch = (url) => setUrl(url)
+  const updateUrl = (url) => setUrl(url)
 
-  return { ...state, doFetch }
+  return { ...state, updateUrl }
 }
 
 export default useDataApi

@@ -100,13 +100,23 @@ class Canvas extends React.Component {
       earliestSPYDataPoint,
       latestSPYDataPoint
     } = this.state
-    const times = getXData(data)
+
+    // x-axis data (not sure why but is coming in reverse chronological order)
+    const timeStamps = getXData(data)
+    const latestDate =  new Date(timeStamps[0])
+    const earliestDate = new Date(timeStamps[timeStamps.length - 1])
+    
+    // Helpers to get the no. of days between first and last datapoints
+    const oneDay = 1000 * 60 * 60 * 24;
+    const diffInTime = latestDate.getTime() - earliestDate.getTime();
+    const diffInDays = Math.round(diffInTime / oneDay);
+   
     const lastUpdate = data["Meta Data"] && data["Meta Data"]["3. Last Refreshed"]
     const options = {
       theme: 'light2',
       animationEnabled: true,
       title: {
-        text: `Historical Price Comparison: ${search} vs SPY`,
+        text: `Historical Price Comparison: ${search} vs SPY over the last ${diffInDays} days`,
       },
       axisY: {
         title: 'Price (weighted to 100$)',
@@ -145,8 +155,8 @@ class Canvas extends React.Component {
       ],
       navigator: {
         slider: {
-          minimum: new Date(times[0]),
-          maximum: new Date(times[times.length - 1]),
+          minimum: earliestDate,
+          maximum: latestDate,
         },
       },
     }
