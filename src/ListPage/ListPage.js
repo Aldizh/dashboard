@@ -9,8 +9,10 @@ import { StateProvider } from './context/index'
 import { ReactComponent as LeftArrow } from './images/left_big.svg'
 import { ReactComponent as RightArrow } from './images/right_big.svg'
 import { generateData } from './context/mockData'
+import { capitalize } from '../utils/string'
 
-// random data generator
+// randomly generated data
+// contains a list of objects in format: {code: String, description: String}
 const [
   rows,
   countriesReference,
@@ -22,6 +24,8 @@ const [
 const ListPage = (props) => {
   const [members, setMembers] = useState(rows)
   const [chipData, setChipData] = useState(initialChipData)
+  const [countryFilterData, setCountryFilterData] = useState(countriesReference)
+  const [currencyFilterData, setCurrencyFilterData] = useState(currenciesReference)
 
   const [searchTextCountries, setSearchTextCountries] = useState('')
   const [searchTextCurrencies, setSearchTextCurrencies] = useState('')
@@ -47,10 +51,12 @@ const ListPage = (props) => {
 
   const handleSearchCountries = (text) => {
     setSearchTextCountries(text)
+    setCountryFilterData(countriesReference.filter(country => country.description.includes(capitalize(text))))
   }
 
   const handleSearchCurrencies = (text) => {
     setSearchTextCurrencies(text)
+    setCurrencyFilterData(currenciesReference.filter(curr => curr.description.includes(text)))
   }
 
   const handleSearchMemberships = (text) => {
@@ -106,7 +112,7 @@ const ListPage = (props) => {
                   searchBy={'Country'}
                 />
                 <SubList
-                  filterFacets={countriesReference}
+                  filterFacets={countryFilterData}
                   members={members}
                   setMembers={setMembers}
                   filterBy={'country'}
@@ -122,7 +128,7 @@ const ListPage = (props) => {
                   searchBy={'Currency'}
                 />
                 <SubList
-                  filterFacets={currenciesReference}
+                  filterFacets={currencyFilterData}
                   members={members}
                   setMembers={setMembers}
                   filterBy={'currency'}

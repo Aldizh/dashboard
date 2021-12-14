@@ -1,7 +1,7 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentationf for alpha advantage: https://www.alphavantage.co/documentation/
 
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
