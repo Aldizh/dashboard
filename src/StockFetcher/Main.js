@@ -2,7 +2,7 @@
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
 import React, { Fragment, useState, useEffect } from 'react'
-import useDataApi from 'hooks/useData'
+import useDataApi from '../hooks/useData'
 import Extended from './Extended'
 import Standard from './Standard'
 
