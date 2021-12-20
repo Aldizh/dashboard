@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { find, propEq } from 'ramda'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -31,7 +30,6 @@ const SectionList = (props) => {
     classes,
     filterFacets,
     members,
-    setMembers,
     filterBy,
     isIchecked
   } = props

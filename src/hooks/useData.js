@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 
 const dataFetchReducer = (state, action) => {
@@ -76,7 +76,7 @@ const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) 
           let extendedByDate = {}
 
           // iterate through these
-          rows.map((row) => {
+          rows.forEach((row) => {
             const time = row.substring(0, 19)
             const rowData = row.substring(20)
             const dataPoints = rowData.split(",")

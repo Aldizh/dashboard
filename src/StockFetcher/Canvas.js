@@ -66,7 +66,7 @@ class Canvas extends React.Component {
     const latestSPYDataPoint = spyTimeIntervalValues[0]
       ? spyTimeIntervalValues[0]['4. close']
       : 0
-    for (var i = lastIndex; i > 0; i--) {
+    for (let i = lastIndex; i > 0; i--) {
       spyDataPoints.push({
         x: new Date(spyTimeIntervalKeys[i]),
         y: getBaseWeightedPrice(
@@ -93,7 +93,7 @@ class Canvas extends React.Component {
 
   // Get data points for the given ticker and the benchmark (SPY)
   render() {
-    const { data, search, symbol } = this.props
+    const { data, search } = this.props
     const { 
       earliestDataPoint,
       latestDataPoint,
@@ -165,10 +165,6 @@ class Canvas extends React.Component {
       width: '100%',
       height: '450px',
       margin: 'auto',
-    }
-
-    const metricsContainer = {
-      "background-color": "#f9b79f"
     }
 
     const spyGrowth = parseFloat((latestSPYDataPoint-earliestSPYDataPoint)/earliestSPYDataPoint * 100).toFixed(2)

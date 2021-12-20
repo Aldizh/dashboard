@@ -18,12 +18,11 @@ const [
   countriesReference,
   currenciesReference,
   membershipTypesReference,
-  initialChipData,
+  chipData,
 ] = generateData()
 
 const ListPage = (props) => {
   const [members, setMembers] = useState(rows)
-  const [chipData, setChipData] = useState(initialChipData)
   const [countryFilterData, setCountryFilterData] = useState(countriesReference)
   const [currencyFilterData, setCurrencyFilterData] = useState(currenciesReference)
 
@@ -64,7 +63,7 @@ const ListPage = (props) => {
   }
 
   return (
-    <StateProvider initialState={{ chips: initialChipData, members: rows }}>
+    <StateProvider initialState={{ chips: chipData, members: rows }}>
       {
         <div className="col-1-1 mainContent">
           <div
