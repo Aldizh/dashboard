@@ -20,7 +20,7 @@ const styles = (theme) => ({
 const calcuateFilteredData = (chips, members = []) => {
   if (!chips.length) return members
   return members.filter((member) =>
-    chips.some((currChip) =>
+    chips.every((currChip) =>
       member[currChip.filterBy] === currChip.code || member[currChip.filterBy] === currChip.filterText
     )
   ) 
