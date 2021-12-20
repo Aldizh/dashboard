@@ -11,6 +11,7 @@ Dashboard for react apps
 - Material UI
 - Semantic UI
 - Canvas JS
+- Typescript (basic config added via following script: `yarn add typescript @types/node @types/react @types/react-dom @types/jest`)
 
 ### Deployment
 
