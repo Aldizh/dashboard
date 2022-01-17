@@ -24,7 +24,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <a target="_blank" href="https://aldizh.github.io/dashboard">
+      <a target="_blank" rel="noreferrer" href="https://aldizh.github.io/dashboard">
         Dashboard&nbsp;
       </a>
       {new Date().getFullYear()}
@@ -205,7 +205,7 @@ const Album = (props) => {
                 </Typography>
                 <Typography variant="subtitle1" align="center" color="textPrimary" component="p">
                   Feel free to check out my&nbsp;
-                  <a target="_blank" href="https://aldizhupani.medium.com/">medium</a>{' blog'}
+                  <a target="_blank" rel="noreferrer" href="https://aldizhupani.medium.com/">medium</a>{' blog'}
                 </Typography>
                 <Copyright />
               </footer>

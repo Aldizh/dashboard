@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Segment, Grid } from 'semantic-ui-react'
+import { Table, Segment, Grid } from 'semantic-ui-react'
 import './styles.css'
 
 const tempData = [
@@ -91,16 +91,17 @@ const ExapndableTable = () => {
       setExpanded(newExpandedRows)
     }
 
-    // const renderItemCaret = (rowId) => {
-    //   const currentExpandedRows = expandedRows
-    //   const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+    const renderItemCaret = (rowId) => {
+      const currentExpandedRows = expandedRows
+      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+      console.log('isRowCurrentlyExpanded', isRowCurrentlyExpanded)
 
-    //   if (isRowCurrentlyExpanded) {
-    //     return <Icon name="caret down" />;
-    //   } else {
-    //     return <Icon name="caret right" />;
-    //   }
-    // }
+      if (isRowCurrentlyExpanded) {
+        return <i className="fa fa-angle-up"></i>
+      } else {
+        return <i className="fa fa-angle-down"></i>
+      }
+    }
 
     const renderItem = (item, index) => {
       const itemRows = [
@@ -108,7 +109,7 @@ const ExapndableTable = () => {
           onClick={() => handleRowClick(index)}
           key={'row-data-' + index}
         >
-          {/* <Table.Cell>{renderItemCaret(index)}</Table.Cell> */}
+          <Table.Cell>{renderItemCaret(index)}</Table.Cell>
           <Table.Cell>{item.type}</Table.Cell>
           <Table.Cell>{item.status}</Table.Cell>
           <Table.Cell>{item.date}</Table.Cell>
@@ -146,6 +147,7 @@ const ExapndableTable = () => {
     <Table selectable>
       <Table.Header>
         <Table.Row>
+          <Table.HeaderCell />
           <Table.HeaderCell>Activity Type</Table.HeaderCell>
           <Table.HeaderCell>Overall Status</Table.HeaderCell>
           <Table.HeaderCell>Date Created</Table.HeaderCell>
