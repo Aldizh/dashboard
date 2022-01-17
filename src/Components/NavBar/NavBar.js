@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core'
 import './styles.css'
 
@@ -27,10 +28,10 @@ const NavBar = () => {
     <AppBar position="static" color="default" elevation={0} className="appBar">
       <Toolbar>
         <div className="topnav" id="myTopnav">
-          <a href={'/dashboard'}>Dashboard</a>
-          <a href={'/dashboard/stocks'}>Stock Symbol Tracker</a>
-          <a href={'/dashboard/filter_table'}>Filterable Table</a>
-          <a href={'/dashboard/expand_table'}>Expandable Table</a>
+          <Link to="/home">Home</Link> | {' '}
+          <Link to="/stocks">Stocks</Link> | {' '}
+          <Link to="/filter_table">Filter Table</Link> | {' '}
+          <Link to="/expand_table">Expand Table</Link>
           <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
             <i className="fa fa-bars"></i>
           </a>

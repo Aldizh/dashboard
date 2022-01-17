@@ -51,7 +51,7 @@ const defaultState = {
 
 // TO DO: This hooks needs to rely less on initial data so that 
 // we can swap it for a different data source in the future
-const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) => {
+const useDataApi = (search, seriesType, initialUrl, initialData = defaultState) => {
   const [url, setUrl] = useState(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -92,7 +92,7 @@ const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) 
             data: {
               'Meta Data': { 
                 "1. Information": "Intraday (15min) open, high, low, close prices and volume",
-                "2. Symbol": symbol,
+                "2. Symbol": search,
                 "3. Last Refreshed": "2021-12-02 20:00:00",
                 "4. Interval": "15min",
                 "5. Output Size": "Full size",
@@ -111,8 +111,8 @@ const useDataApi = (symbol, seriesType, initialUrl, initialData = defaultState) 
       }
     }
 
-    if (symbol) fetchData()
-  }, [symbol, seriesType, url])
+    if (search) fetchData()
+  }, [search, seriesType, url])
 
   const updateUrl = (url) => setUrl(url)
 
