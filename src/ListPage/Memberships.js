@@ -108,7 +108,7 @@ const MemberSetup = (props) => {
     <div>
       <h3>Add new member</h3>
       <form className={classes.root} noValidate autoComplete="off">
-        <Grid container justify="space-around">
+        <Grid container justifyContent="space-around">
           <FormControl>
             <InputLabel htmlFor="name">Name</InputLabel>
             <Input

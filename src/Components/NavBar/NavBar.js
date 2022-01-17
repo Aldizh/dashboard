@@ -15,7 +15,7 @@ const NavBar = () => {
   useEffect(() => {
     const pages = ['/', '/stocks', '/filter_table', '/expand_table']
     var curPage = document.URL
-    curPage = curPage.substr(curPage.lastIndexOf('/'))
+    curPage = curPage.substring(curPage.lastIndexOf('/'))
     const routeIndex = pages.indexOf(curPage)
   
     // Applies color based on current page

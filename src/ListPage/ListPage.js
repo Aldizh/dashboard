@@ -153,7 +153,6 @@ const ListPage = (props) => {
               </div>
             </div>
             <div style={Object.assign({}, { visibility: rightIconVisibility })}>
-              <h3 />
               <RightArrow
                 style={Object.assign({}, { float: 'right' })}
                 onClick={handleToggle}

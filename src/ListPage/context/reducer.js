@@ -1,4 +1,4 @@
-export default (state, action) => {
+const ListReducer = (state, action) => {
   switch (action.type) {
     case 'update_chips':
       return {
@@ -14,3 +14,5 @@ export default (state, action) => {
       return state
   }
 }
+
+export default ListReducer

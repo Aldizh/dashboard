@@ -94,7 +94,6 @@ const ExapndableTable = () => {
     const renderItemCaret = (rowId) => {
       const currentExpandedRows = expandedRows
       const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
-      console.log('isRowCurrentlyExpanded', isRowCurrentlyExpanded)
 
       if (isRowCurrentlyExpanded) {
         return <i className="fa fa-angle-up"></i>
