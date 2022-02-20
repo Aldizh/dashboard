@@ -50,7 +50,7 @@ const Toolbar = ({ members }) => {
                 }}
                 className={'memberChip'}
                 color="primary"
-              />              
+              />
             ))}
           </div>
         </div>

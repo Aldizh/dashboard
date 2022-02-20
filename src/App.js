@@ -11,10 +11,10 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import StcokFetcher from './StockFetcher'
-import ListPage from './ListPage'
-import Table from './Components/ExpandableTable'
-import NavBar from './Components/NavBar'
+import StcokFetcher from './components/StockFetcher'
+import ListPage from './components/ListPage'
+import Table from './components/ExpandableTable'
+import NavBar from './components/NavBar'
 
 import './App.css'
 import chart from './images/chart.jpg'
@@ -219,10 +219,6 @@ const Album = (props) => {
           <Route
             path="home"
             element={<Main classes={classes}/>}
-          />
-          <Route
-            path="stocks"
-            element={<StcokFetcher />}
           />
           <Route
             path="stocks"

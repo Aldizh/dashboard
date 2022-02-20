@@ -18,11 +18,10 @@ const descendingComparator = (a, b, orderBy) => {
   return 0
 }
 
-const getComparator = (order, orderBy) => {
-  return order === 'desc'
+const getComparator = (order, orderBy) =>
+  order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy)
-}
 
 export const stableSort = (array, order, orderBy) => {
   const comparator = getComparator(order, orderBy)

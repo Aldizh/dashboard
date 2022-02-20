@@ -19,20 +19,16 @@ const styles = (theme) => ({
 const calcuateFilteredData = (chips, members = []) => {
   if (!chips.length) return members
   return members.filter((member) =>
-    chips.every((currChip) =>
-      member[currChip.filterBy] === currChip.code || member[currChip.filterBy] === currChip.filterText
+    chips.every(
+      (currChip) =>
+        member[currChip.filterBy] === currChip.code ||
+        member[currChip.filterBy] === currChip.filterText
     )
-  ) 
+  )
 }
 
 const SectionList = (props) => {
-  const {
-    classes,
-    filterFacets,
-    members,
-    filterBy,
-    isIchecked
-  } = props
+  const { classes, filterFacets, members, filterBy, isIchecked } = props
 
   const [state, setState] = useState({
     checked: [0],

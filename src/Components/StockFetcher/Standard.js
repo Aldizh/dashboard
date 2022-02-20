@@ -8,12 +8,11 @@ import Typography from '@material-ui/core/Typography'
 import Canvas from './Canvas'
 
 // regex to look for any point in the string that has a multiple of 3 digits in a row after it,
-export const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
+export const numberWithCommas = (x) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 function Standard(props) {
-  const  {
+  const {
     search,
     symbol,
     apiError,
@@ -24,7 +23,7 @@ function Standard(props) {
     MarketCapitalization,
     Sector,
     data,
-    spyData
+    spyData,
   } = props
   return (
     <Fragment>
@@ -33,13 +32,13 @@ function Standard(props) {
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (
         <div>
-          {(seriesType) &&
+          {seriesType && (
             <div>
               <p>{symbol}</p>
               <div
                 style={{
                   margin: '10px auto',
-                  width: '70%'
+                  width: '70%',
                 }}
               >
                 {/* {metaData.map(el => (
@@ -75,7 +74,7 @@ function Standard(props) {
                 symbol={symbol}
               />
             </div>
-          }
+          )}
         </div>
       )}
     </Fragment>

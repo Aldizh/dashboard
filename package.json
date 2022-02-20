@@ -11,16 +11,12 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.24.0",
     "canvasjs-react-charts": "1.0.5",
-    "husky": "^5.1.3",
-    "lint-staged": "^10.5.4",
     "moment": "^2.2.24",
     "particles-bg": "^2.5.0",
-    "prettier": "^2.2.1",
     "ramda": "0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "6",
-    "react-scripts": "^5.0.0",
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
@@ -29,7 +25,11 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "faker": "^5.1.0",
+    "husky": "^5.1.3",
     "gh-pages": "3.2.3",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "react-scripts": "^5.0.0",
     "typescript": "^4.5.4"
   },
   "lint-staged": {

@@ -22,7 +22,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import EnhancedTableHead from './Head'
 import { formatDate, stableSort } from './utils'
 import { formatCurrency } from '../../utils/string'
-import { useListPageContext } from '../../ListPage/context' // TO DO: Make this generic
+import { useListPageContext } from '../ListPage/context' // TO DO: Make this generic
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -135,7 +135,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
+  const [rowsPerPage, setRowsPerPage] = React.useState(20)
   const [data, dispatch] = useListPageContext()
   const rows = data.members
 

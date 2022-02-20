@@ -2,7 +2,7 @@
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
 import React, { Fragment, useState, useEffect } from 'react'
-import useDataApi from '../hooks/useData'
+import useDataApi from '../../hooks/useData'
 import Extended from './Extended'
 import Standard from './Standard'
 
@@ -13,15 +13,14 @@ const outputSize = 'full' // number of data points
 const overView = 'OVERVIEW' // type of query
 
 // helpers
-const isExtended = (type) => type === "TIME_SERIES_INTRADAY_EXTENDED"
+const isExtended = (type) => type === 'TIME_SERIES_INTRADAY_EXTENDED'
 
 // regex to look for any point in the string that has a multiple of 3 digits in a row after it,
-export const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
+export const numberWithCommas = (x) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 const initialTimeSeriesData = {
-  data: { 'Meta Data': { Symbol: "SPY" }, 'Time Series (15min)': {} },
+  data: { 'Meta Data': { Symbol: 'SPY' }, 'Time Series (15min)': {} },
 }
 const initialFundamentals = {
   data: { Name: '', Exchange: '', Sector: '', MarketCapitalization: '' },
@@ -30,7 +29,7 @@ const initialFundamentals = {
 const getSeriesUrl = (symbol, seriesType) => {
   // TO DO: Extend this to include multiple months
   // Maybe surface it via the UI?
-  const slice = "year1month1"
+  const slice = 'year1month1'
   const baseUrl = 'https://www.alphavantage.co/query'
   let final = `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=${interval}&outputsize=${outputSize}&apikey=${API_KEY}&adjusted=true`
   if (isExtended(seriesType)) final += `&slice=${slice}`
@@ -45,19 +44,24 @@ const getFundamentalsUrl = (symbol) => {
 function Main() {
   const [symbol, setSymbol] = useState(TICKER) // set on type
   const [search, setSearch] = useState(TICKER) // set on click
-  const [seriesType, setSeriesType] = useState('TIME_SERIES_INTRADAY');
+  const [seriesType, setSeriesType] = useState('TIME_SERIES_INTRADAY')
   const [apiError, setApiError] = useState('')
 
   const handleSelectChange = (event) => {
     setSeriesType(event.target.value)
-    setSearch("")
-    setSymbol("")
-    setApiError("")
+    setSearch('')
+    setSymbol('')
+    setApiError('')
     event.preventDefault() // prevent bubbling up
   }
 
   // S&P data fetch called on render and series type change
-  const spyData = useDataApi('SPY', seriesType, getSeriesUrl('SPY', seriesType), initialTimeSeriesData)
+  const spyData = useDataApi(
+    'SPY',
+    seriesType,
+    getSeriesUrl('SPY', seriesType),
+    initialTimeSeriesData
+  )
 
   // Full data for the search term
   const { data, isLoading, isError, updateUrl } = useDataApi(
@@ -77,7 +81,12 @@ function Main() {
     isLoading: fundamentalsIsLoading,
     isError: fundamentalsIsError,
     updateUrl: updateFundamentalsUrl,
-  } = useDataApi(search, seriesType, getFundamentalsUrl(search), initialFundamentals)
+  } = useDataApi(
+    search,
+    seriesType,
+    getFundamentalsUrl(search),
+    initialFundamentals
+  )
   const {
     Name,
     Exchange,
@@ -90,7 +99,7 @@ function Main() {
     }
   }, [search, seriesType])
 
-  // Set corresponding errors if any from the above  
+  // Set corresponding errors if any from the above
   useEffect(() => {
     let newApiError =
       isError ||
@@ -98,7 +107,7 @@ function Main() {
       fundamentalsData.data.Note ||
       data.data.Note ||
       spyData.data.data.Note
-    setApiError(Boolean(newApiError) ? "Daily Limit Reached": "")
+    setApiError(Boolean(newApiError) ? 'Daily Limit Reached' : '')
   }, [search, seriesType, data.data])
 
   return (
@@ -112,10 +121,11 @@ function Main() {
         <select
           onChange={handleSelectChange}
           style={{
-          width: "147px",
-          padding: "2px",
-          fontSize: "14px"
-        }}>
+            width: '147px',
+            padding: '2px',
+            fontSize: '14px',
+          }}
+        >
           <option value="TIME_SERIES_INTRADAY">Intraday</option>
           <option value="TIME_SERIES_INTRADAY_EXTENDED">Extended</option>
         </select>
@@ -129,20 +139,22 @@ function Main() {
         </button>
       </form>
       <React.Fragment>
-        {!isExtended(seriesType) && <Standard
-          search={search}
-          symbol={symbol}
-          apiError={apiError}
-          isLoading={isLoading}
-          seriesType={seriesType}
-          Name={Name}
-          Exchange={Exchange}
-          MarketCapitalization={MarketCapitalization}
-          Sector={Sector}
-          data={data}
-          spyData={spyData}
-        />}
-        {isExtended(seriesType) && <Extended/>}
+        {!isExtended(seriesType) && (
+          <Standard
+            search={search}
+            symbol={symbol}
+            apiError={apiError}
+            isLoading={isLoading}
+            seriesType={seriesType}
+            Name={Name}
+            Exchange={Exchange}
+            MarketCapitalization={MarketCapitalization}
+            Sector={Sector}
+            data={data}
+            spyData={spyData}
+          />
+        )}
+        {isExtended(seriesType) && <Extended />}
       </React.Fragment>
     </Fragment>
   )

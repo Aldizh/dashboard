@@ -31,7 +31,7 @@ class Canvas extends React.Component {
     earliestDataPoint: 0,
     latestDataPoint: 0,
     earliestSPYDataPoint: 0,
-    latestSPYDataPoint: 0
+    latestSPYDataPoint: 0,
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class Canvas extends React.Component {
       dataPoints.push({
         x: new Date(timeIntervalKeys[i]),
         y: getBaseWeightedPrice(
-          timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : "0.00",
+          timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : '0.00',
           earliestDataPoint
         ),
       })
@@ -81,7 +81,7 @@ class Canvas extends React.Component {
       earliestDataPoint,
       latestDataPoint,
       earliestSPYDataPoint,
-      latestSPYDataPoint
+      latestSPYDataPoint,
     })
 
     this.chart.render()
@@ -94,24 +94,25 @@ class Canvas extends React.Component {
   // Get data points for the given ticker and the benchmark (SPY)
   render() {
     const { data, search } = this.props
-    const { 
+    const {
       earliestDataPoint,
       latestDataPoint,
       earliestSPYDataPoint,
-      latestSPYDataPoint
+      latestSPYDataPoint,
     } = this.state
 
     // x-axis data (not sure why but is coming in reverse chronological order)
     const timeStamps = getXData(data)
-    const latestDate =  new Date(timeStamps[0])
+    const latestDate = new Date(timeStamps[0])
     const earliestDate = new Date(timeStamps[timeStamps.length - 1])
-    
+
     // Helpers to get the no. of days between first and last datapoints
-    const oneDay = 1000 * 60 * 60 * 24;
-    const diffInTime = latestDate.getTime() - earliestDate.getTime();
-    const diffInDays = Math.round(diffInTime / oneDay);
-   
-    const lastUpdate = data["Meta Data"] && data["Meta Data"]["3. Last Refreshed"]
+    const oneDay = 1000 * 60 * 60 * 24
+    const diffInTime = latestDate.getTime() - earliestDate.getTime()
+    const diffInDays = Math.round(diffInTime / oneDay)
+
+    const lastUpdate =
+      data['Meta Data'] && data['Meta Data']['3. Last Refreshed']
     const options = {
       theme: 'light2',
       animationEnabled: true,
@@ -167,16 +168,22 @@ class Canvas extends React.Component {
       margin: 'auto',
     }
 
-    const spyGrowth = parseFloat((latestSPYDataPoint-earliestSPYDataPoint)/earliestSPYDataPoint * 100).toFixed(2)
-    const stockGrowth = parseFloat((latestDataPoint-earliestDataPoint)/earliestDataPoint * 100).toFixed(2)
+    const spyGrowth = parseFloat(
+      ((latestSPYDataPoint - earliestSPYDataPoint) / earliestSPYDataPoint) * 100
+    ).toFixed(2)
+    const stockGrowth = parseFloat(
+      ((latestDataPoint - earliestDataPoint) / earliestDataPoint) * 100
+    ).toFixed(2)
 
     return (
       <>
-        <Card variant="outlined"
+        <Card
+          variant="outlined"
           style={{
-            margin: "10px auto",
-            width: "70%"
-        }}>
+            margin: '10px auto',
+            width: '70%',
+          }}
+        >
           <CardContent>
             <Typography variant="subtitle1" gutterBottom>
               SPY Growth: {spyGrowth}%

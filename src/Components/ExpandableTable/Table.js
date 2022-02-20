@@ -93,7 +93,7 @@ const ExapndableTable = () => {
 
     const renderItemCaret = (rowId) => {
       const currentExpandedRows = expandedRows
-      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
+      const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId)
 
       if (isRowCurrentlyExpanded) {
         return <i className="fa fa-angle-up"></i>
@@ -106,7 +106,7 @@ const ExapndableTable = () => {
       const itemRows = [
         <Table.Row
           onClick={() => handleRowClick(index)}
-          key={'row-data-' + index}
+          key={`row-data-${index}`}
         >
           <Table.Cell>{renderItemCaret(index)}</Table.Cell>
           <Table.Cell>{item.type}</Table.Cell>
@@ -118,7 +118,7 @@ const ExapndableTable = () => {
 
       if (expandedRows.includes(index)) {
         itemRows.push(
-          <Table.Row key={'row-expanded-' + index}>
+          <Table.Row key={`row-expanded-${index}`}>
             <Table.Cell colSpan="5">{renderItemDetails(item)}</Table.Cell>
           </Table.Row>
         )
