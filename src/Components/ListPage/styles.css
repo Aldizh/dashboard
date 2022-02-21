@@ -30,3 +30,7 @@
   flex-wrap: 'wrap';
   padding-left: 10;
 }
+
+.MuiListItem-gutters {
+  padding-left: 0 !important;
+}

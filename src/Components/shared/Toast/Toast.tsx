@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactElement, useState, useEffect } from 'react'
 
 import './Toast.css'
 
-const Toast = (props) => {
+const Toast = (props: {
+  toastList: Array<{
+    id: number
+    title: string
+    description: string
+    backgroundColor: string
+    icon: string
+  }>
+  position: string
+  autoDelete: boolean
+  autoDeleteTime: number
+}): ReactElement => {
   const { toastList, position, autoDelete, autoDeleteTime } = props
   const [list, setList] = useState(toastList)
 
@@ -23,7 +33,7 @@ const Toast = (props) => {
     // eslint-disable-next-line
   }, [toastList, autoDelete, autoDeleteTime, list])
 
-  const deleteToast = (id) => {
+  const deleteToast = (id: number) => {
     const listItemIndex = list.findIndex((e) => e.id === id)
     const toastListItem = toastList.findIndex((e) => e.id === id)
     list.splice(listItemIndex, 1)
@@ -53,13 +63,6 @@ const Toast = (props) => {
       </div>
     </>
   )
-}
-
-Toast.propTypes = {
-  toastList: PropTypes.array.isRequired,
-  position: PropTypes.string,
-  autoDelete: PropTypes.bool,
-  autoDeleteTime: PropTypes.number,
 }
 
 export default Toast

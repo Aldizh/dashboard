@@ -12,14 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
-import DeleteIcon from '@material-ui/icons/Delete'
-import FilterListIcon from '@material-ui/icons/FilterList'
 
 import EnhancedTableHead from './Head'
+import ChipsTooltip from '../shared/ChipsTooltip'
+
 import { formatDate, stableSort } from './utils'
 import { formatCurrency } from '../../utils/string'
 import { useListPageContext } from '../ListPage/context' // TO DO: Make this generic
@@ -81,19 +79,7 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete" onClick={deleteMembers}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      <ChipsTooltip numSelected={numSelected} deleteMembers={deleteMembers} />
     </Toolbar>
   )
 }
