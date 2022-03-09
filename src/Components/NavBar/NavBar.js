@@ -28,8 +28,9 @@ const NavBar = () => {
     <AppBar position="static" color="default" elevation={0} className="appBar">
       <Toolbar>
         <div className="topnav" id="myTopnav">
-          <Link to="/home">Home</Link> | <Link to="/stocks">Stocks</Link> |{' '}
-          <Link to="/filter_table">Filter Table</Link> |{' '}
+          <Link to="/home">Home</Link>
+          <Link to="/stocks">Stocks</Link>
+          <Link to="/filter_table">Filter Table</Link>
           <Link to="/expand_table">Expand Table</Link>
           <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
             <i className="fa fa-bars"></i>

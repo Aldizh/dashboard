@@ -1,5 +1,8 @@
+.expandTable {
+  padding: 15px;
+}
+
 .ui.table {
-  text-align: left;
   width: 80%;
   border: 1px solid black;
   background-color: white;

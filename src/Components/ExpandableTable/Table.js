@@ -143,18 +143,20 @@ const ExapndableTable = () => {
   )
 
   return (
-    <Table selectable>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell />
-          <Table.HeaderCell>Activity Type</Table.HeaderCell>
-          <Table.HeaderCell>Overall Status</Table.HeaderCell>
-          <Table.HeaderCell>Date Created</Table.HeaderCell>
-          <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>{allItemRows}</Table.Body>
-    </Table>
+    <div className="expandTable">
+      <Table selectable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell>Activity Type</Table.HeaderCell>
+            <Table.HeaderCell>Overall Status</Table.HeaderCell>
+            <Table.HeaderCell>Date Created</Table.HeaderCell>
+            <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{allItemRows}</Table.Body>
+      </Table>
+    </div>
   )
 }
 
