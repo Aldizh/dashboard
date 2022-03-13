@@ -3,48 +3,32 @@
 
 import React, { Fragment, useState, useEffect } from 'react'
 import useDataApi from '../../hooks/useData'
-import Extended from './Extended'
-import Standard from './Standard'
+import Price from './Price'
+import Compared from './Compared'
 
-const API_KEY = '1PXX8A1J2QJQFTBP'
-const TICKER = 'JPM'
-const interval = '15min' // time interval between two consecutive data points
-const outputSize = 'full' // number of data points
-const overView = 'OVERVIEW' // type of query
+import { isDaily } from './utils'
 
-// helpers
-const isExtended = (type) => type === 'TIME_SERIES_INTRADAY_EXTENDED'
-
-// regex to look for any point in the string that has a multiple of 3 digits in a row after it,
-export const numberWithCommas = (x) =>
-  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-const initialTimeSeriesData = {
-  data: { 'Meta Data': { Symbol: 'SPY' }, 'Time Series (15min)': {} },
-}
-const initialFundamentals = {
-  data: { Name: '', Exchange: '', Sector: '', MarketCapitalization: '' },
-}
+const DEFAULT_TICKER = 'JPM'
+const DEFAULT_INTERVAL = '15min' // time interval between two consecutive data points
 
 const getSeriesUrl = (symbol, seriesType) => {
   // TO DO: Extend this to include multiple months
   // Maybe surface it via the UI?
-  const slice = 'year1month1'
   const baseUrl = 'https://www.alphavantage.co/query'
-  let final = `${baseUrl}?function=${seriesType}&symbol=${symbol}&interval=${interval}&outputsize=${outputSize}&apikey=${API_KEY}&adjusted=true`
-  if (isExtended(seriesType)) final += `&slice=${slice}`
-  return final
+  const regular = `${baseUrl}?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${DEFAULT_INTERVAL}&outputsize=full&apikey=${process.env.API_KEY}&adjusted=true`
+  const full = `${baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${process.env.API_KEY}`
+  return isDaily(seriesType) ? full : regular
 }
 
 const getFundamentalsUrl = (symbol) => {
   const baseUrl = 'https://www.alphavantage.co/query'
-  return `${baseUrl}?function=${overView}&symbol=${symbol}&apikey=${API_KEY}`
+  return `${baseUrl}?function=OVERVIEW&symbol=${symbol}&apikey=${process.env.API_KEY}`
 }
 
 function Main() {
-  const [symbol, setSymbol] = useState(TICKER) // set on type
-  const [search, setSearch] = useState(TICKER) // set on click
-  const [seriesType, setSeriesType] = useState('TIME_SERIES_INTRADAY')
+  const [symbol, setSymbol] = useState(DEFAULT_TICKER) // set while typing
+  const [search, setSearch] = useState(DEFAULT_TICKER) // ticker symbol
+  const [seriesType, setSeriesType] = useState('TIME_SERIES_DAILY')
   const [apiError, setApiError] = useState('')
 
   const handleSelectChange = (event) => {
@@ -55,27 +39,16 @@ function Main() {
     event.preventDefault() // prevent bubbling up
   }
 
-  // S&P data fetch called on render and series type change
-  const spyData = useDataApi(
-    'SPY',
-    seriesType,
-    getSeriesUrl('SPY', seriesType),
-    initialTimeSeriesData
-  )
-
-  // Full data for the search term
-  const { data, isLoading, isError, updateUrl } = useDataApi(
+  // Full data and fundamentals data for the search term
+  const {
+    data,
+    isLoading,
+    isError,
+    updateUrl
+  } = useDataApi(
     search,
-    seriesType,
-    getSeriesUrl(search, seriesType),
-    initialTimeSeriesData
+    getSeriesUrl(search, seriesType)
   )
-  useEffect(() => {
-    if (search && !isLoading) {
-      updateUrl(getSeriesUrl(search, seriesType))
-    }
-  }, [search, seriesType])
-  // Fundamentals data for the search term
   const {
     data: fundamentalsData,
     isLoading: fundamentalsIsLoading,
@@ -83,15 +56,21 @@ function Main() {
     updateUrl: updateFundamentalsUrl,
   } = useDataApi(
     search,
-    seriesType,
-    getFundamentalsUrl(search),
-    initialFundamentals
+    getFundamentalsUrl(search)
   )
+
+  useEffect(() => {
+    if (search && !isLoading) {
+      updateUrl(getSeriesUrl(search, seriesType))
+    }
+  }, [search, seriesType])
+
   const {
     Name,
     Exchange,
     Sector,
-    MarketCapitalization = 0,
+    MarketCapitalization,
+    DividendYield
   } = fundamentalsData.data
   useEffect(() => {
     if (search && !fundamentalsIsLoading) {
@@ -105,8 +84,7 @@ function Main() {
       isError ||
       fundamentalsIsError ||
       fundamentalsData.data.Note ||
-      data.data.Note ||
-      spyData.data.data.Note
+      data.data.Note
     setApiError(Boolean(newApiError) ? 'Daily Limit Reached' : '')
   }, [search, seriesType, data.data])
 
@@ -126,8 +104,8 @@ function Main() {
             fontSize: '14px',
           }}
         >
-          <option value="TIME_SERIES_INTRADAY">Intraday</option>
-          <option value="TIME_SERIES_INTRADAY_EXTENDED">Extended</option>
+          <option value="TIME_SERIES_DAILY">Price Chart</option>
+          <option value="TIME_SERIES_INTRADAY">Compared to SPY</option>
         </select>
         <input
           type="text"
@@ -139,8 +117,8 @@ function Main() {
         </button>
       </form>
       <React.Fragment>
-        {!isExtended(seriesType) && (
-          <Standard
+        {!isDaily(seriesType) && (
+          <Compared
             search={search}
             symbol={symbol}
             apiError={apiError}
@@ -149,12 +127,21 @@ function Main() {
             Name={Name}
             Exchange={Exchange}
             MarketCapitalization={MarketCapitalization}
+            DividendYield={DividendYield}
             Sector={Sector}
             data={data}
-            spyData={spyData}
           />
         )}
-        {isExtended(seriesType) && <Extended />}
+        {isDaily(seriesType) && (
+          <Price
+            search={search}
+            symbol={symbol}
+            data={data}
+            apiError={apiError}
+            isLoading={isLoading}
+            seriesType={seriesType}
+          />
+        )}
       </React.Fragment>
     </Fragment>
   )

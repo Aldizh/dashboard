@@ -1,4 +1,3 @@
-/* App.js */
 import React from 'react'
 import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
 import Card from '@material-ui/core/Card'
@@ -14,7 +13,7 @@ const getBaseWeightedPrice = (price, startingPrice) =>
 
 // Get x axis data (simple date or datetime)
 const getXData = (res) => {
-  if (!res[INTERVAL_KEY]) return ['2021-01-01']
+  if (!res[INTERVAL_KEY]) return ['2022-01-01']
   return Object.keys(res[INTERVAL_KEY])
 }
 
@@ -22,6 +21,56 @@ const getXData = (res) => {
 const getYData = (res) => {
   if (!res[INTERVAL_KEY]) return [{ '4.close': 0.0 }]
   return Object.values(res[INTERVAL_KEY])
+}
+
+const calculateSpyDataPoints = (spyData) => {
+  const spyDataPoints = []
+  const spyTimeIntervalKeys = getXData(spyData) // date strings in reverse order
+  const spyTimeIntervalValues = getYData(spyData)
+  const lastIndex = spyTimeIntervalKeys.length - 1
+  const earliestSPYDataPoint = spyTimeIntervalValues[lastIndex]
+    ? spyTimeIntervalValues[lastIndex]['4. close']
+    : 0
+  const latestSPYDataPoint = spyTimeIntervalValues[0]
+    ? spyTimeIntervalValues[0]['4. close']
+    : 0
+
+  for (let i = lastIndex; i > 0; i--) {
+    spyDataPoints.push({
+      x: new Date(spyTimeIntervalKeys[i]),
+      y: getBaseWeightedPrice(
+        spyTimeIntervalValues[i] && spyTimeIntervalValues[i]['4. close'],
+        earliestSPYDataPoint
+      ),
+    })
+  }
+
+  return [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint]
+}
+
+const calculateDataPoints = (symbolData) => {
+  const dataPoints = []
+  const timeIntervalKeys = getXData(symbolData) // date strings in reverse order
+  const timeIntervalValues = getYData(symbolData)
+  const lastIndex = timeIntervalKeys.length - 1
+  const earliestDataPoint = timeIntervalValues[lastIndex]
+    ? timeIntervalValues[lastIndex]['4. close']
+    : 0
+  const latestDataPoint = timeIntervalValues[0]
+    ? timeIntervalValues[0]['4. close']
+    : 0
+
+  for (var i = lastIndex; i > 0; i--) {
+    dataPoints.push({
+      x: new Date(timeIntervalKeys[i]),
+      y: getBaseWeightedPrice(
+        timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : '0.00',
+        earliestDataPoint
+      ),
+    })
+  }
+
+  return [dataPoints, earliestDataPoint, latestDataPoint]
 }
 
 class Canvas extends React.Component {
@@ -36,50 +85,16 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     const { data = defaultApiData, spyData } = this.props
-    const dataPoints = []
-    const timeIntervalKeys = getXData(data) // date strings in reverse order
-    const timeIntervalValues = getYData(data)
-    const lastIndex = timeIntervalKeys.length - 1
-    const earliestDataPoint = timeIntervalValues[lastIndex]
-      ? timeIntervalValues[lastIndex]['4. close']
-      : 0
-    const latestDataPoint = timeIntervalValues[0]
-      ? timeIntervalValues[0]['4. close']
-      : 0
 
-    for (var i = lastIndex; i > 0; i--) {
-      dataPoints.push({
-        x: new Date(timeIntervalKeys[i]),
-        y: getBaseWeightedPrice(
-          timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : '0.00',
-          earliestDataPoint
-        ),
-      })
-    }
+    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 
-    const spyDataPoints = []
-    const spyTimeIntervalKeys = getXData(spyData) // date strings in reverse order
-    const spyTimeIntervalValues = getYData(spyData)
-    const earliestSPYDataPoint = spyTimeIntervalValues[lastIndex]
-      ? spyTimeIntervalValues[lastIndex]['4. close']
-      : 0
-    const latestSPYDataPoint = spyTimeIntervalValues[0]
-      ? spyTimeIntervalValues[0]['4. close']
-      : 0
-    for (let i = lastIndex; i > 0; i--) {
-      spyDataPoints.push({
-        x: new Date(spyTimeIntervalKeys[i]),
-        y: getBaseWeightedPrice(
-          spyTimeIntervalValues[i] && spyTimeIntervalValues[i]['4. close'],
-          earliestSPYDataPoint
-        ),
-      })
-    }
+    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateSpyDataPoints(spyData)
+
     this.setState({
       dataPoints,
-      spyDataPoints,
       earliestDataPoint,
       latestDataPoint,
+      spyDataPoints,
       earliestSPYDataPoint,
       latestSPYDataPoint,
     })
@@ -162,18 +177,12 @@ class Canvas extends React.Component {
       },
     }
 
-    const containerProps = {
-      width: '100%',
-      height: '450px',
-      margin: 'auto',
-    }
-
-    const spyGrowth = parseFloat(
+    const spyGrowth = earliestSPYDataPoint ? parseFloat(
       ((latestSPYDataPoint - earliestSPYDataPoint) / earliestSPYDataPoint) * 100
-    ).toFixed(2)
-    const stockGrowth = parseFloat(
+    ).toFixed(2) : 0.00
+    const stockGrowth = earliestDataPoint ? parseFloat(
       ((latestDataPoint - earliestDataPoint) / earliestDataPoint) * 100
-    ).toFixed(2)
+    ).toFixed(2) : 0.00
 
     return (
       <>
@@ -196,14 +205,18 @@ class Canvas extends React.Component {
             </Typography>
           </CardContent>
         </Card>
-        <div>
+        <>
           <CanvasJSChart
-            containerProps={containerProps}
+            containerProps={{
+              width: '100%',
+              height: '450px',
+              margin: 'auto',
+            }}
             options={options}
             onRef={(ref) => (this.chart = ref)}
           />
           {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-        </div>
+        </>
       </>
     )
   }
