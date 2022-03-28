@@ -12,15 +12,6 @@ export default {
   inputField: {
     textAlign: 'left',
   },
-  footer: {
-    padding: '15px 0',
-    background: '#f1f1f1',
-    color: '#333',
-    width: '100%',
-    height: '50px',
-    textAlign: 'left',
-    fontSize: 12,
-  },
   appbar: {
     backgroundColor,
     height: '60px',

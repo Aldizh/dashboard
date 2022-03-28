@@ -4,13 +4,12 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+
 import StcokFetcher from './components/StockFetcher'
 import ListPage from './components/ListPage'
 import Table from './components/ExpandableTable'
 import NavBar from './components/NavBar'
-
 import Main from './Main'
-import './App.css'
 
 function Copyright() {
   return (
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     // backgroundImage: 'url(./images/background.jpg)',
     // backgroundRepeat: 'no-repeat',
     minHeight: '100vh',
-    fontSize: 'calc(10px + 2vmin)',
+    fontSize: '12px',
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -68,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   footer: {
+    padding: '15px 0',
+    height: '50px',
     // backgroundColor: theme.palette.background.paper,
     // padding: theme.spacing(6),
   },
@@ -80,33 +81,33 @@ const Layout = ({ classes }) => (
     <div className={classes.app}>
       <NavBar />
       <Outlet />
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Thank you for visiting
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textPrimary"
-          component="p"
-        >
-          Feel free to check out my&nbsp;
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://aldizhupani.medium.com/"
-          >
-            medium
-          </a>
-          {' blog'}
-        </Typography>
-        <Copyright />
-      </footer>
     </div>
+    <footer className={classes.footer}>
+      <Typography variant="h6" align="center" gutterBottom>
+        Thank you for visiting
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        align="center"
+        color="textPrimary"
+        component="p"
+      >
+        Feel free to check out my&nbsp;
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://aldizhupani.medium.com/"
+        >
+          medium
+        </a>
+        {' blog'}
+      </Typography>
+      <Copyright />
+    </footer>
   </>
 )
 
-const Album = (props) => {
+const Album = () => {
   const classes = useStyles()
 
   return (
