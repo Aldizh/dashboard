@@ -1,13 +1,14 @@
 .searchBox {
   padding: 10px 0px;
   position: relative;
+  left: 10px;
+  width: 90%;
 }
 
 .searchBox input {
   border-radius: 3px;
   border: 1px solid #c1c1c1;
   font-size: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
   width: 98%;
 }
