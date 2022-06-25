@@ -1,9 +1,9 @@
 .expandTable {
-  padding: 15px;
+  padding: 20px;
 }
 
 .ui.table {
-  width: 80%;
+  width: 85%;
   border: 1px solid black;
   background-color: white;
   display: inline-table;
@@ -12,7 +12,7 @@
 }
 
 .ui.table thead th {
-  background: rgb(29 90 185);
+  background: aqua;
 }
 
 .ui.table thead th,

@@ -1,7 +1,16 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar } from '@material-ui/core'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import './styles.css'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffd8d8',
+    }
+  },
+});
 
 const NavBar = () => {
   const handleHomeClickResponsive = () => {
@@ -25,19 +34,21 @@ const NavBar = () => {
   }, [])
 
   return (
-    <AppBar position="static" color="default" elevation={0} className="appBar">
-      <Toolbar>
-        <div className="topnav" id="myTopnav">
-          <Link to="/home">Home</Link>
-          <Link to="/stocks">Stocks</Link>
-          <Link to="/filter_table">Filter Table</Link>
-          <Link to="/expand_table">Expand Table</Link>
-          <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
-            <i className="fa fa-bars"></i>
-          </a>
-        </div>
-      </Toolbar>
-    </AppBar>
+    <ThemeProvider theme={theme}>
+      <AppBar position="static" color="primary" elevation={0}>
+        <Toolbar>
+          <div className="topnav" id="myTopnav">
+            <Link to="/home">Home</Link>
+            <Link to="/stocks">Stocks</Link>
+            <Link to="/filter_table">Filter Table</Link>
+            <Link to="/expand_table">Expand Table</Link>
+            <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
+              <i className="fa fa-bars"></i>
+            </a>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   )
 }
 

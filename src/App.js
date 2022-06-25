@@ -68,18 +68,18 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: '15px 0',
-    height: '50px',
-    // backgroundColor: theme.palette.background.paper,
+    minHeight: '50px',
+    backgroundColor: '#ffd8d8',
     // padding: theme.spacing(6),
   },
 }))
 
 const Layout = ({ classes }) => (
   <>
-    <ParticlesBg type="circle" bg={true} />
     <CssBaseline />
+    <NavBar />
     <div className={classes.app}>
-      <NavBar />
+      <ParticlesBg type="circle" bg={true} />
       <Outlet />
     </div>
     <footer className={classes.footer}>

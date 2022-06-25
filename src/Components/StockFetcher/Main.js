@@ -89,7 +89,7 @@ function Main() {
   }, [search, seriesType, data.data])
 
   return (
-    <Fragment>
+    <div style={{ padding: 20 }}>
       <form
         onSubmit={(event) => {
           event.preventDefault()
@@ -143,7 +143,7 @@ function Main() {
           />
         )}
       </React.Fragment>
-    </Fragment>
+    </div>
   )
 }
 
