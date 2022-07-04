@@ -15,34 +15,34 @@ import listImg from './images/list_table.png'
 import expandImg from './images/expand_table.png'
 
 const Main = ({ classes }) => (
-  <main>
+  <main className={classes.main}>
     {/* Hero unit */}
-    <div className={classes.heroContent}>
-      <Container maxWidth="sm">
-        <Typography
-          variant="h4"
-          align="center"
-          color="textPrimary"
-          gutterBottom
-        >
-          Sample React Projects
-        </Typography>
-        <Typography variant="h5" align="center" color="textPrimary" paragraph>
-          These are just a few projects to showcase the versatility of react
-          when it comes to building slick and efficient UI components.
-        </Typography>
-        {/* <div className={classes.heroButtons}>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item>
-          <Button variant="outlined" color="primary">
-            <Link to={'/'}>Profile</Link>
-          </Button>
-        </Grid>
-      </Grid>
-    </div> */}
-      </Container>
-    </div>
     <Container className={classes.cardGrid} maxWidth="md">
+      <div className={classes.heroContent}>
+        <Container maxWidth="sm">
+          <Typography
+            variant="h4"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
+            Sample React Projects
+          </Typography>
+          <Typography variant="h5" align="center" color="textPrimary" paragraph>
+            These are just a few projects to showcase the versatility of react
+            when it comes to building slick and efficient UI components.
+          </Typography>
+          {/* <div className={classes.heroButtons}>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Button variant="outlined" color="primary">
+              <Link to={'/'}>Profile</Link>
+            </Button>
+          </Grid>
+        </Grid>
+      </div> */}
+        </Container>
+      </div>
       {/* End hero unit */}
       <Grid container spacing={4}>
         <Grid item key={1} xs={12} sm={6} md={4}>

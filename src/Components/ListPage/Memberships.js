@@ -10,11 +10,21 @@ import {
   Button,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 
+// local imports
 import Toast from '../shared/Toast'
 import { useListPageContext } from './context'
 import infoIcon from '../../images/info.svg'
 import './styles.css'
+
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: '#00FFFF',
+    }
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -112,7 +122,7 @@ const MemberSetup = (props) => {
   const classes = useStyles()
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Toast
         toastList={toastList}
         position={'bottom-right'}
@@ -224,13 +234,13 @@ const MemberSetup = (props) => {
       </form>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         onClick={handleAdd}
         className={'addButton'}
       >
         Add
       </Button>
-    </>
+    </ThemeProvider>
   )
 }
 

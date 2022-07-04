@@ -1,10 +1,8 @@
 .mainContent {
   display: flex;
-  padding: 20px;
-}
-
-.formContent {
-  padding: 10px;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebarHeader {
@@ -16,17 +14,12 @@
 }
 .addButton {
   height: 30px;
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
   float: none;
-}
-.toolbar {
-  float: 'left';
 }
 
 .wrapper {
-  display: 'flex';
-  flex-wrap: 'wrap';
-  padding-left: 10;
+  margin-bottom: 10px;
 }
 
 .MuiListItem-gutters {

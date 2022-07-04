@@ -40,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
+  main: {
+    display: 'flex',
+    minHeight: '100vh',
+    alignItems: 'center',
+  },
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),

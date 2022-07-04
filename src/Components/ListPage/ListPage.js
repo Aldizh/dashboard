@@ -81,7 +81,6 @@ const ListPage = (props) => {
                 overflowY: 'scroll',
                 maxHeight: '800px',
                 padding: '10px',
-                background: '#fff',
               }}
             >
               <div style={Object.assign({}, { display: mainDisplay })}>
@@ -174,19 +173,18 @@ const ListPage = (props) => {
                 overflowY: 'scroll',
                 maxHeight: '800px',
                 padding: '5px',
-                background: '#fff',
               }}
             >
               <Toolbar members={members} />
               <FilterTable />
+              <div className="col-1-1 formContent">
+                <Memberships
+                  countriesReference={countriesReference}
+                  currenciesReference={currenciesReference}
+                  membershipTypesReference={membershipTypesReference}
+                />
+              </div>
             </div>
-          </div>
-          <div className="col-1-1 formContent">
-            <Memberships
-              countriesReference={countriesReference}
-              currenciesReference={currenciesReference}
-              membershipTypesReference={membershipTypesReference}
-            />
           </div>
         </>
       }

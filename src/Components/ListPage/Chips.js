@@ -2,8 +2,19 @@ import React from 'react'
 import { find, propEq } from 'ramda'
 import { PropTypes } from 'prop-types'
 import { Chip } from '@material-ui/core'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+
+// local imports
 import { useListPageContext } from './context'
 import './styles.css'
+
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: '#00FFFF',
+    }
+  },
+});
 
 const getNewMembers = (chips, members) => {
   if (!chips.length) return members
@@ -38,23 +49,21 @@ const Toolbar = ({ members }) => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className="toolbar">
-          <div className="wrapper">
-            {chips.map((chip) => (
-              <Chip
-                key={chip.code}
-                label={chip.filterText}
-                onDelete={() => {
-                  toggleChips(chip)
-                }}
-                className={'memberChip'}
-                color="primary"
-              />
-            ))}
-          </div>
+      <ThemeProvider theme={theme}>
+        <div className="wrapper">
+          {chips.map((chip) => (
+            <Chip
+              key={chip.code}
+              label={chip.filterText}
+              onDelete={() => {
+                toggleChips(chip)
+              }}
+              className={'memberChip'}
+              color="secondary"
+            />
+          ))}
         </div>
-      </div>
+      </ThemeProvider>
     </React.Fragment>
   )
 }
