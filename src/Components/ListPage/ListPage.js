@@ -172,7 +172,7 @@ const ListPage = (props) => {
                 position: 'relative',
                 overflowY: 'scroll',
                 maxHeight: '800px',
-                padding: '5px',
+                padding: '10px',
               }}
             >
               <Toolbar members={members} />
