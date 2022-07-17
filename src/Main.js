@@ -102,7 +102,7 @@ const Main = ({ classes }) => (
                 Filterable List
               </Typography>
               <Typography>
-                List page with filter and pagination capabilities
+                List page that supports filtering, pagination, modification and easy navigation.
               </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>

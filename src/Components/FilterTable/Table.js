@@ -48,7 +48,10 @@ const EnhancedTableToolbar = (props) => {
   const numSelected = selected.length
 
   const deleteMembers = () => {
-    const updated = rows.filter((row, i) => selected[i] !== row.name)
+    let updated = rows
+    selected.forEach(member => {
+      updated = updated.filter((row) => member !== row.name)
+    })
     setSelected([])
     dispatch({ type: 'update_members', data: updated })
   }
