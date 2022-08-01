@@ -1,8 +1,14 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import React, { Fragment, useState, useEffect } from 'react'
+import ParticlesBg from 'particles-bg'
+import { Outlet } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import React, { useState, useEffect } from 'react'
 import useDataApi from '../../hooks/useData'
+import NavBar from '../NavBar'
+import Footer from '../shared/Footer'
+
 import Price from './Price'
 import Compared from './Compared'
 
@@ -25,7 +31,7 @@ const getFundamentalsUrl = (symbol) => {
   return `${baseUrl}?function=OVERVIEW&symbol=${symbol}&apikey=${process.env.API_KEY}`
 }
 
-function Main() {
+const Main = ({ classes }) => {
   const [symbol, setSymbol] = useState(DEFAULT_TICKER) // set while typing
   const [search, setSearch] = useState(DEFAULT_TICKER) // ticker symbol
   const [seriesType, setSeriesType] = useState('TIME_SERIES_DAILY')
@@ -89,61 +95,68 @@ function Main() {
   }, [search, seriesType, data.data])
 
   return (
-    <div style={{ padding: 20 }}>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault()
-          updateUrl(getSeriesUrl(search, seriesType))
-        }}
-      >
-        <select
-          onChange={handleSelectChange}
-          style={{
-            width: '147px',
-            padding: '2px',
-            fontSize: '14px',
+    <>
+      <CssBaseline />
+      <NavBar />
+      <div className={classes.app}>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault()
+            updateUrl(getSeriesUrl(search, seriesType))
           }}
         >
-          <option value="TIME_SERIES_DAILY">Price Chart</option>
-          <option value="TIME_SERIES_INTRADAY">Compared to SPY</option>
-        </select>
-        <input
-          type="text"
-          value={symbol}
-          onChange={(event) => setSymbol(event.target.value)}
-        />
-        <button onClick={() => setSearch(symbol)} type="submit">
-          Search
-        </button>
-      </form>
-      <React.Fragment>
-        {!isDaily(seriesType) && (
-          <Compared
-            search={search}
-            symbol={symbol}
-            apiError={apiError}
-            isLoading={isLoading}
-            seriesType={seriesType}
-            Name={Name}
-            Exchange={Exchange}
-            MarketCapitalization={MarketCapitalization}
-            DividendYield={DividendYield}
-            Sector={Sector}
-            data={data}
+          <select
+            onChange={handleSelectChange}
+            style={{
+              width: '147px',
+              padding: '2px',
+              fontSize: '14px',
+            }}
+          >
+            <option value="TIME_SERIES_DAILY">Price Chart</option>
+            <option value="TIME_SERIES_INTRADAY">Compared to SPY</option>
+          </select>
+          <input
+            type="text"
+            value={symbol}
+            onChange={(event) => setSymbol(event.target.value)}
           />
-        )}
-        {isDaily(seriesType) && (
-          <Price
-            search={search}
-            symbol={symbol}
-            data={data}
-            apiError={apiError}
-            isLoading={isLoading}
-            seriesType={seriesType}
-          />
-        )}
-      </React.Fragment>
-    </div>
+          <button onClick={() => setSearch(symbol)} type="submit">
+            Search
+          </button>
+        </form>
+        <React.Fragment>
+          {!isDaily(seriesType) && (
+            <Compared
+              search={search}
+              symbol={symbol}
+              apiError={apiError}
+              isLoading={isLoading}
+              seriesType={seriesType}
+              Name={Name}
+              Exchange={Exchange}
+              MarketCapitalization={MarketCapitalization}
+              DividendYield={DividendYield}
+              Sector={Sector}
+              data={data}
+            />
+          )}
+          {isDaily(seriesType) && (
+            <Price
+              search={search}
+              symbol={symbol}
+              data={data}
+              apiError={apiError}
+              isLoading={isLoading}
+              seriesType={seriesType}
+            />
+          )}
+        </React.Fragment>
+      </div>
+      <ParticlesBg type="circle" bg={true} />
+      <Outlet />
+      <Footer classes={classes} />
+    </>
   )
 }
 

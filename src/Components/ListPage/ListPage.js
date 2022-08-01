@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import ParticlesBg from 'particles-bg'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
 import Memberships from './Memberships'
 import FilterTable from '../FilterTable'
+import NavBar from '../NavBar'
+import Footer from '../shared/Footer'
 import Search from '../shared/Search'
 import Toolbar from './Chips'
 import SubList from './SubList'
@@ -72,8 +77,11 @@ const ListPage = (props) => {
   return (
     <StateProvider initialState={{ chips: chipData, members: rows }}>
       {
-        <>
-          <div className="col-1-1 mainContent">
+         <>
+         <CssBaseline />
+         <NavBar />
+         <div className={props.classes.app}>
+         <div className="col-1-1 mainContent">
             <div
               className="col-2-12"
               style={{
@@ -186,7 +194,11 @@ const ListPage = (props) => {
               </div>
             </div>
           </div>
-        </>
+           <ParticlesBg type="circle" bg={true} />
+           <Outlet />
+         </div>
+         <Footer classes={props.classes} />
+       </>
       }
     </StateProvider>
   )
