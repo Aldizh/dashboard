@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.24.0",
     "canvasjs-react-charts": "1.0.5",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "particles-bg": "^2.5.0",
     "ramda": "0.24.0",
     "react": "^17.0.2",
