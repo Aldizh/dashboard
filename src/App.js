@@ -84,6 +84,7 @@ const Layout = ({ classes }) => (
     <CssBaseline />
     <NavBar />
     <div className={classes.app}>
+      <Main classes={classes} />
       <ParticlesBg type="circle" bg={true} />
       <Outlet />
     </div>
@@ -120,7 +121,6 @@ const Album = () => {
       <CssBaseline />
       <Routes>
         <Route path="/" element={<Layout classes={classes}></Layout>}>
-          <Route path="home" element={<Main classes={classes} />} />
           <Route path="stocks" element={<StcokFetcher />} />
           <Route path="expand_table" element={<Table />} />
           <Route path="filter_table" element={<ListPage />} />

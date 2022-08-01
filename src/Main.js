@@ -33,14 +33,14 @@ const Main = ({ classes }) => (
             when it comes to building slick and efficient UI components.
           </Typography>
           {/* <div className={classes.heroButtons}>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item>
-            <Button variant="outlined" color="primary">
-              <Link to={'/'}>Profile</Link>
-            </Button>
-          </Grid>
-        </Grid>
-      </div> */}
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item>
+                <Button variant="outlined" color="primary">
+                  <Link to={'/'}>Profile</Link>
+                </Button>
+              </Grid>
+            </Grid>
+          </div>*/}
         </Container>
       </div>
       {/* End hero unit */}
@@ -57,7 +57,7 @@ const Main = ({ classes }) => (
                 Expandable Table
               </Typography>
               <Typography>
-                Nice exapndable table to show more row specific info.
+                Nice expandable table to show more row specific info.
               </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>

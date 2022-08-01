@@ -38,7 +38,6 @@ const NavBar = () => {
       <AppBar position="static" color="primary" elevation={0}>
         <Toolbar>
           <div className="topnav" id="myTopnav">
-            <Link to="/home">Home</Link>
             <Link to="/stocks">Stocks</Link>
             <Link to="/filter_table">Filter Table</Link>
             <Link to="/expand_table">Expand Table</Link>
