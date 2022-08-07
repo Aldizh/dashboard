@@ -2,7 +2,7 @@
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
 import React, { Fragment } from 'react'
-import StockPriceChart from "./StockPriceChart"
+import CryptoPriceChart from "./CryptoPriceChart"
 
 // TO DO: Will need to accumulate different monthly slices to calculate oevr a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature
@@ -21,7 +21,7 @@ const Extended = (props) => {
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (
-        <StockPriceChart
+        <CryptoPriceChart
           search={search}
           data={data.data}
           symbol={symbol}

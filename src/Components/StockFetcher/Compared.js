@@ -7,19 +7,8 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Canvas from './ComparisonChart'
 
-import { isDaily, numberWithCommas } from './utils'
+import { getApiUrl, numberWithCommas } from './utils'
 import useDataApi from '../../hooks/useData'
-
-const DEFAULT_INTERVAL = '15min' // time interval between two consecutive data points
-
-const getSeriesUrl = (symbol, seriesType) => {
-  // TO DO: Extend this to include multiple months
-  // Maybe surface it via the UI?
-  const baseUrl = 'https://www.alphavantage.co/query'
-  const regular = `${baseUrl}?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${DEFAULT_INTERVAL}&outputsize=full&apikey=${process.env.API_KEY}&adjusted=true`
-  const full = `${baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${process.env.API_KEY}`
-  return isDaily(seriesType) ? full : regular
-}
 
 const Standard = (props) => {
   const {
@@ -40,7 +29,7 @@ const Standard = (props) => {
   // (no need for fundamentals, used for comparison)
   const spyData = useDataApi(
     'SPY',
-    getSeriesUrl('SPY', seriesType)
+    getApiUrl('SPY', seriesType)
   )
 
   return (
