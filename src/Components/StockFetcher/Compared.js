@@ -45,14 +45,14 @@ const Standard = (props) => {
 
   return (
     <Fragment>
-      {!search && <div>Click search to get data for ticker symbol...</div>}
+      {!search && <div style={{ fontSize: 18}}>Click search to get data for ticker symbol...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (
         <div>
           {seriesType && (
             <div>
-              <p>{symbol}</p>
+              <p style={{fontSize: 16}}>Showing data for {symbol}</p>
               <div
                 style={{
                   margin: '10px auto',

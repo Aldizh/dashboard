@@ -14,26 +14,25 @@ import Compared from './Compared'
 
 import { isDaily } from './utils'
 
-const DEFAULT_TICKER = 'JPM'
 const DEFAULT_INTERVAL = '15min' // time interval between two consecutive data points
+const BASE_URL = `https://www.alphavantage.co/query?apikey=${process.env.API_KEY}`
 
 const getSeriesUrl = (symbol, seriesType) => {
   // TO DO: Extend this to include multiple months
   // Maybe surface it via the UI?
-  const baseUrl = 'https://www.alphavantage.co/query'
-  const regular = `${baseUrl}?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${DEFAULT_INTERVAL}&outputsize=full&apikey=${process.env.API_KEY}&adjusted=true`
-  const full = `${baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${process.env.API_KEY}`
+  const regular = `${BASE_URL}&function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${DEFAULT_INTERVAL}&outputsize=full&adjusted=true`
+  const full = `${BASE_URL}&function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full`
   return isDaily(seriesType) ? full : regular
 }
 
-const getFundamentalsUrl = (symbol) => {
-  const baseUrl = 'https://www.alphavantage.co/query'
-  return `${baseUrl}?function=OVERVIEW&symbol=${symbol}&apikey=${process.env.API_KEY}`
-}
+const getFundamentalsUrl = (symbol) => `${BASE_URL}&function=OVERVIEW&symbol=${symbol}`
+
+// TO DO: Incorporate crypto into options selection
+const getCryptoUrl = (symbol) => `${BASE_URL}?function=DIGITAL_CURRENCY_DAILY&symbol=${symbol}&market=CNY`
 
 const Main = ({ classes }) => {
-  const [symbol, setSymbol] = useState(DEFAULT_TICKER) // set while typing
-  const [search, setSearch] = useState(DEFAULT_TICKER) // ticker symbol
+  const [symbol, setSymbol] = useState("") // set while typing
+  const [search, setSearch] = useState("") // ticker symbol
   const [seriesType, setSeriesType] = useState('TIME_SERIES_DAILY')
   const [apiError, setApiError] = useState('')
 
@@ -45,16 +44,18 @@ const Main = ({ classes }) => {
     event.preventDefault() // prevent bubbling up
   }
 
-  // Full data and fundamentals data for the search term
+  // Full data for the search term
   const {
     data,
     isLoading,
     isError,
-    updateUrl
+    updateUrl: updateSeriesUrl
   } = useDataApi(
     search,
     getSeriesUrl(search, seriesType)
   )
+
+  // Fundamentals data for the search term
   const {
     data: fundamentalsData,
     isLoading: fundamentalsIsLoading,
@@ -67,7 +68,7 @@ const Main = ({ classes }) => {
 
   useEffect(() => {
     if (search && !isLoading) {
-      updateUrl(getSeriesUrl(search, seriesType))
+      updateSeriesUrl(getSeriesUrl(search, seriesType))
     }
   }, [search, seriesType])
 
@@ -102,19 +103,19 @@ const Main = ({ classes }) => {
         <form
           onSubmit={(event) => {
             event.preventDefault()
-            updateUrl(getSeriesUrl(search, seriesType))
+            updateSeriesUrl(getSeriesUrl(search, seriesType))
           }}
         >
           <select
             onChange={handleSelectChange}
             style={{
-              width: '147px',
+              width: '170px',
               padding: '2px',
               fontSize: '14px',
             }}
           >
-            <option value="TIME_SERIES_DAILY">Price Chart</option>
-            <option value="TIME_SERIES_INTRADAY">Compared to SPY</option>
+            <option value="TIME_SERIES_DAILY">Historical Price Chart</option>
+            <option value="TIME_SERIES_INTRADAY">Recent History vs SPY</option>
           </select>
           <input
             type="text"

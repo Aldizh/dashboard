@@ -27,9 +27,10 @@ const dataFetchReducer = (state, action) => {
   }
 }
 
+// Define expected data format from the API
 const defaultState = {
   data: {
-    'Meta Data': {
+    "Meta Data": {
       "1. Information": "Intraday (15min) open, high, low, close prices and volume",
       "2. Symbol": "SPY",
       "3. Last Refreshed": "2021-12-02 20:00:00",
@@ -37,7 +38,7 @@ const defaultState = {
       "5. Output Size": "Full size",
       "6. Time Zone": "US/Eastern"
     },
-    'Time Series (15min)': {
+    "Time Series (15min)": {
       "2021-10-22 04:15:00": {
         "1. open": 70.1025,
         "2. high": 73.1825,
@@ -49,7 +50,10 @@ const defaultState = {
   }
 }
 
-// TO DO: Abstract enough so can swap it for a different data source in the future
+/* TO DO: Right now alpha advantage (our stock market data source)
+  has daily threshold of 5 calls per minute. We need to check other
+  open APIs or consider a paid plan for the full features.
+*/
 const useDataApi = (search, initialUrl) => {
   const [url, setUrl] = useState(initialUrl)
 
@@ -65,7 +69,7 @@ const useDataApi = (search, initialUrl) => {
       try {
         const result = await axios(url)
   
-        // This means we hit the daily threshold of 5 calls per minute
+        // We hit the threshold of 5 calls per minute
         if (result.data.Note) dispatch({ type: 'FETCH_FAILURE' })
         
         dispatch({ type: 'FETCH_SUCCESS', payload: result })

@@ -17,7 +17,7 @@ const Extended = (props) => {
   } = props
   return (
     <Fragment>
-      {!search && <div>Click search to get data for ticker symbol...</div>}
+      {!search && <div style={{ fontSize: 18}}>Enter ticker symbol and click search to get latest info...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (
