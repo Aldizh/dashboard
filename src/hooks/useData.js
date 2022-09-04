@@ -1,22 +1,24 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 
+import {FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE} from '../utils/consts'
+
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_INIT':
+    case FETCH_INIT:
       return {
         ...state,
         isLoading: true,
         isError: false,
       }
-    case 'FETCH_SUCCESS':
+    case FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
         data: action.payload,
       }
-    case 'FETCH_FAILURE':
+    case FETCH_FAILURE:
       return {
         ...state,
         isLoading: false,
