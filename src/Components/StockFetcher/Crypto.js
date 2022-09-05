@@ -4,7 +4,7 @@
 import React, { Fragment } from 'react'
 import CryptoPriceChart from "./CryptoPriceChart"
 
-// TO DO: Will need to accumulate different monthly slices to calculate oevr a longer time horizon
+// TO DO: Will need to accumulate different monthly slices to calculate over a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature
 // But given the potential use cases will consider signing up
 const Extended = (props) => {

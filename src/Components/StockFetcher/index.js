@@ -12,6 +12,7 @@ import Footer from '../shared/Footer'
 import Price from './Price'
 import Crypto from './Crypto'
 import Compared from './Compared'
+import News from "./News"
 
 import {
   getApiUrl,
@@ -46,6 +47,17 @@ const Main = ({ classes }) => {
     getApiUrl(search, seriesType)
   )
 
+  const {
+    data: articleData,
+    isLoading: articlesLoading,
+    isError: articlesError,
+    updateUrl: updateArticlesUrl
+  } = useDataApi(
+    search,
+    getApiUrl(search, "NEWS_SENTIMENT")
+  )
+  const feed = articleData.data.feed
+
   // Crypto data based on the search term
   const {
     data: cryptoData,
@@ -71,6 +83,7 @@ const Main = ({ classes }) => {
   useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {
       updateSeriesUrl(getApiUrl(search, seriesType))
+      updateArticlesUrl(getApiUrl(search, "NEWS_SENTIMENT"))
     } else if (search && !isLoading && isComparisonStockChart(seriesType)) {
       updateSeriesUrl(getApiUrl(search, seriesType))
     } else if (search && !isLoading && isHistoricalCryptoChart(seriesType)) {
@@ -159,7 +172,7 @@ const Main = ({ classes }) => {
               seriesType={seriesType}
             />
           )}
-           {isHistoricalCryptoChart(seriesType) && (
+          {isHistoricalCryptoChart(seriesType) && (
             <Crypto
               search={search}
               symbol={symbol}
@@ -169,6 +182,11 @@ const Main = ({ classes }) => {
               seriesType={seriesType}
             />
           )}
+          <News
+            feed={feed}
+            articlesLoading={articlesLoading}
+            articlesError={articlesError}
+          />
         </React.Fragment>
       </div>
       <ParticlesBg type="circle" bg={true} />

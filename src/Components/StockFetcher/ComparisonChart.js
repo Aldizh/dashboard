@@ -4,7 +4,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-const INTERVAL_KEY = 'Time Series (15min)'
+import { STOCKS_INTERVAL_INTRADAY_KEY } from '../../utils/consts'
+
+const INTERVAL_KEY = STOCKS_INTERVAL_INTRADAY_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
 
 // Get price calculation based on initial investment ($100 for simplicity)
@@ -125,9 +127,9 @@ class Canvas extends React.Component {
     const oneDay = 1000 * 60 * 60 * 24
     const diffInTime = latestDate.getTime() - earliestDate.getTime()
     const diffInDays = Math.round(diffInTime / oneDay)
+    const metaData = data['Meta Data']
 
-    const lastUpdate =
-      data['Meta Data'] && data['Meta Data']['3. Last Refreshed']
+    const lastUpdate = metaData && metaData['3. Last Refreshed']
     const options = {
       theme: 'light2',
       animationEnabled: true,

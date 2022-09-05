@@ -4,7 +4,8 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-const INTERVAL_KEY = 'Time Series (Daily)'
+import { STOCKS_INTERVAL_KEY } from '../../utils/consts'
+const INTERVAL_KEY = STOCKS_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
 
 // Get x axis data (simple date or datetime)

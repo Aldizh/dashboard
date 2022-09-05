@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 
-import {FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE} from '../utils/consts'
+import { FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE } from '../utils/consts'
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -67,16 +67,16 @@ const useDataApi = (search, initialUrl) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_INIT' })
+      dispatch({ type: FETCH_INIT })
       try {
         const result = await axios(url)
   
         // We hit the threshold of 5 calls per minute
-        if (result.data.Note) dispatch({ type: 'FETCH_FAILURE' })
+        if (result.data.Note) dispatch({ type: FETCH_FAILURE })
         
-        dispatch({ type: 'FETCH_SUCCESS', payload: result })
+        dispatch({ type: FETCH_SUCCESS, payload: result })
       } catch (error) {
-        dispatch({ type: 'FETCH_FAILURE' })
+        dispatch({ type: FETCH_FAILURE })
       }
     }
 

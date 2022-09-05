@@ -4,7 +4,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-const INTERVAL_KEY = 'Time Series (Digital Currency Daily)'
+import { DIGITAL_CURRENCY_INTERVAL_KEY } from '../../utils/consts'
+
+const INTERVAL_KEY = DIGITAL_CURRENCY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
 
 // Get x axis data (simple date or datetime)
@@ -13,7 +15,7 @@ const getXData = (res) => {
   return Object.keys(res[INTERVAL_KEY])
 }
 
-// Get y axis data (price corresponding to it)
+// Get y axis data (price at the close of the day)
 const getYData = (res) => {
   if (!res[INTERVAL_KEY]) return [{ '4b. close (USD)': 0.0 }]
   return Object.values(res[INTERVAL_KEY])
@@ -69,19 +71,19 @@ class Canvas extends React.Component {
   render() {
     const { data, search } = this.props
 
-    // x-axis data (not sure why but is coming in reverse chronological order)
-    const timeStamps = getXData(data)
-    const latestDate = new Date(timeStamps[0])
-    const earliestDate = new Date(timeStamps[timeStamps.length - 1])
+    // x-axis (api data is in reverse chronological order)
+    const dates = getXData(data)
+    const latestDate = new Date(dates[0])
+    const earliestDate = new Date(dates[dates.length - 1])
+    const metaData = data['Meta Data']
 
-    const lastUpdate =
-      data['Meta Data'] && data['Meta Data']['6. Last Refreshed']
+    const lastUpdate = metaData && metaData['6. Last Refreshed']
     const options = {
       title: {
         text: `Historical price for ${search} since ${earliestDate.toDateString()}`,
       },
       data: [{				
-        type: "area", // Change it to "spline", "area", "column"
+        type: "area", // other options ["spline", "area", "column"]
         dataPoints: this.state.dataPoints
       }],
       navigator: {
