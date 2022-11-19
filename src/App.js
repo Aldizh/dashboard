@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     // backgroundImage: 'url(./images/background.jpg)',
     // backgroundRepeat: 'no-repeat',
-    minHeight: '100vh',
+    minHeight: '92vh',
     fontSize: '12px',
     padding: '10px'
   },
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     display: 'flex',
-    minHeight: '100vh',
+    
     alignItems: 'center',
   },
   heroContent: {

@@ -50,7 +50,7 @@ const Toolbar = ({ members }) => {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <div className="wrapper">
+        <div className="chipsWrapper">
           {chips.map((chip) => (
             <Chip
               key={chip.code}

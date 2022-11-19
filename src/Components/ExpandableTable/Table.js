@@ -152,24 +152,22 @@ const ExapndableTable = (classes) => {
     <>
     <CssBaseline />
     <NavBar />
-    <div className={classes.app}>
-      <div className="expandTable">
-        <Table selectable>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell />
-              <Table.HeaderCell>Activity Type</Table.HeaderCell>
-              <Table.HeaderCell>Overall Status</Table.HeaderCell>
-              <Table.HeaderCell>Date Created</Table.HeaderCell>
-              <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{allItemRows}</Table.Body>
-        </Table>
-      </div>
-      <ParticlesBg type="circle" bg={true} />
-      <Outlet />
+    <div className="expandTable">
+      <Table selectable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell>Activity Type</Table.HeaderCell>
+            <Table.HeaderCell>Overall Status</Table.HeaderCell>
+            <Table.HeaderCell>Date Created</Table.HeaderCell>
+            <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{allItemRows}</Table.Body>
+      </Table>
     </div>
+    <ParticlesBg type="circle" bg={true} />
+    <Outlet />
     <Footer classes={classes} />
     </>
   )
