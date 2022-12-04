@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Card } from '@material-ui/core';
+import { Card, Link } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,22 +27,33 @@ const News = (props) => {
     articlesLoading,
     articlesError
   } = props
-  console.log('feed...', feed && feed[0])
-  console.log('feed type...', typeof feed)
+  console.log('feed...', feed)
 
   const classes = useStyles();
 
   return (
-    feed ? <Fragment>
+    <Fragment>
       <h1>Top 5 News Articles</h1>
-      {feed.splice(0, 5).map(article =>
-        <Card className={classes.root}>
-          <CardContent>
-            <Typography>{article.authors[0]}: {article.summary}</Typography>
-          </CardContent>
-        </Card>
-      )}
-    </Fragment> : <div />
+      {articlesLoading && <div style={{ textAlign: 'center' }}>Loading...</div>}
+      {feed &&
+        feed.splice(0, 5).map(article =>
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography>{article.authors[0]}
+                <Link
+                  style={{
+                    padding: 5,
+                  }}
+                  href={article.url}
+                  variant="inherit">
+                  {article.title}
+                </Link>
+              </Typography>
+            </CardContent>
+          </Card>
+        )
+      }
+    </Fragment>
   )
 }
 

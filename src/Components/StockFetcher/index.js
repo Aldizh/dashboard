@@ -47,6 +47,7 @@ const Main = ({ classes }) => {
     getApiUrl(search, seriesType)
   )
 
+  // News articles related to the search term
   const {
     data: articleData,
     isLoading: articlesLoading,
@@ -58,7 +59,7 @@ const Main = ({ classes }) => {
   )
   const feed = articleData.data.feed
 
-  // Crypto data based on the search term
+  // Crypto data related to the search term
   const {
     data: cryptoData,
     isLoading: cryptoLoading,
@@ -108,10 +109,12 @@ const Main = ({ classes }) => {
   useEffect(() => {
     let newApiError =
       isError ||
+      cryptoError ||
       fundamentalsIsError ||
       fundamentalsData.data.Note ||
       data.data.Note
-    setApiError(Boolean(newApiError) ? 'Daily Limit Reached' : '')
+    console.log('got an api error...', newApiError)
+    if (newApiError) setApiError('Daily Limit Reached')
   }, [search, seriesType, data.data])
 
   return (
