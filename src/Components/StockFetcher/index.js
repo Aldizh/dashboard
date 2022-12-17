@@ -113,8 +113,10 @@ const Main = ({ classes }) => {
       fundamentalsIsError ||
       fundamentalsData.data.Note ||
       data.data.Note
-    console.log('got an api error...', newApiError)
-    if (newApiError) setApiError('Daily Limit Reached')
+    if (newApiError) {
+      console.log('got an api error...', newApiError)
+      setApiError('Daily Limit Reached') // most likely use case
+    }
   }, [search, seriesType, data.data])
 
   return (
@@ -176,20 +178,23 @@ const Main = ({ classes }) => {
             />
           )}
           {isHistoricalCryptoChart(seriesType) && (
-            <Crypto
-              search={search}
-              symbol={symbol}
-              data={cryptoData}
-              apiError={apiError}
-              isLoading={cryptoLoading}
-              seriesType={seriesType}
-            />
+            <>
+              <Crypto
+                search={search}
+                symbol={symbol}
+                data={cryptoData}
+                apiError={apiError}
+                isLoading={cryptoLoading}
+                seriesType={seriesType}
+              />
+              <News
+                feed={feed}
+                symbol={symbol}
+                articlesLoading={articlesLoading}
+                articlesError={articlesError}
+              />
+            </>
           )}
-          <News
-            feed={feed}
-            articlesLoading={articlesLoading}
-            articlesError={articlesError}
-          />
         </React.Fragment>
       </div>
       <ParticlesBg type="circle" bg={true} />

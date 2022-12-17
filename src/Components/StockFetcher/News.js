@@ -24,10 +24,10 @@ const useStyles = makeStyles({
 const News = (props) => {
   const {
     feed,
+    symbol,
     articlesLoading,
     articlesError
   } = props
-  console.log('feed...', feed)
 
   const classes = useStyles();
 
@@ -35,7 +35,7 @@ const News = (props) => {
     <Fragment>
       <h1>Top 5 News Articles</h1>
       {articlesLoading && <div style={{ textAlign: 'center' }}>Loading...</div>}
-      {feed &&
+      {feed && symbol && !articlesError &&
         feed.splice(0, 5).map(article =>
           <Card className={classes.root}>
             <CardContent>
