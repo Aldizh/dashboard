@@ -8,11 +8,11 @@ import React, { useState, useEffect } from 'react'
 import useDataApi from '../../hooks/useData'
 import NavBar from '../NavBar'
 import Footer from '../shared/Footer'
+import News from '../shared/News'
 
 import Price from './Price'
 import Crypto from './Crypto'
 import Compared from './Compared'
-import News from "./News"
 
 import {
   getApiUrl,
@@ -28,11 +28,15 @@ const Main = ({ classes }) => {
   const [seriesType, setSeriesType] = useState('DIGITAL_CURRENCY_DAILY')
   const [apiError, setApiError] = useState('')
 
-  const handleSelectChange = (event) => {
-    setSeriesType(event.target.value)
+  const resetState = () => {
     setSearch('')
     setSymbol('')
     setApiError('')
+  }
+
+  const handleSelectChange = (event) => {
+    resetState()
+    setSeriesType(event.target.value)
     event.preventDefault() // prevent bubbling up
   }
 
@@ -84,11 +88,11 @@ const Main = ({ classes }) => {
   useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {
       updateSeriesUrl(getApiUrl(search, seriesType))
-      updateArticlesUrl(getApiUrl(search, "NEWS_SENTIMENT"))
     } else if (search && !isLoading && isComparisonStockChart(seriesType)) {
       updateSeriesUrl(getApiUrl(search, seriesType))
     } else if (search && !isLoading && isHistoricalCryptoChart(seriesType)) {
       updateCryptoUrl(getApiUrl(search, seriesType))
+      updateArticlesUrl(getApiUrl(search, "NEWS_SENTIMENT"))
     }
   }, [search, seriesType])
 
@@ -152,7 +156,7 @@ const Main = ({ classes }) => {
           </button>
         </form>
         <React.Fragment>
-          {isComparisonStockChart(seriesType) && (
+          {symbol && isComparisonStockChart(seriesType) && (
             <Compared
               search={search}
               symbol={symbol}
@@ -167,7 +171,7 @@ const Main = ({ classes }) => {
               data={data}
             />
           )}
-          {isHistoricalStockChart(seriesType) && (
+          {symbol && isHistoricalStockChart(seriesType) && (
             <Price
               search={search}
               symbol={symbol}
@@ -177,7 +181,7 @@ const Main = ({ classes }) => {
               seriesType={seriesType}
             />
           )}
-          {isHistoricalCryptoChart(seriesType) && (
+          {symbol && isHistoricalCryptoChart(seriesType) && (
             <>
               <Crypto
                 search={search}

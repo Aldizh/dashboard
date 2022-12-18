@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
 // local imports
 import Toast from '../shared/Toast'
@@ -129,7 +130,9 @@ const MemberSetup = (props) => {
         autoDelete={true}
         autoDeleteTime={6000}
       />
-      <h3>Add new member</h3>
+      <Grid container justifyContent='center' xs={12}>
+        <h3>Add new member</h3>
+      </Grid>
       <form className={classes.root} noValidate autoComplete="off">
         <FormControl>
           <InputLabel htmlFor="name">Name</InputLabel>
@@ -232,14 +235,16 @@ const MemberSetup = (props) => {
           />
         </FormControl>
       </form>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={handleAdd}
-        className={'addButton'}
-      >
-        Add
-      </Button>
+      <Grid container justifyContent='center' xs={12}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleAdd}
+          className={'addButton'}
+        >
+          Add
+        </Button>
+      </Grid>
     </ThemeProvider>
   )
 }

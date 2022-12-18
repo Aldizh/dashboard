@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import ParticlesBg from 'particles-bg'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
+import Grid from '@material-ui/core/Grid'
 import Memberships from './Memberships'
 import FilterTable from '../FilterTable'
 import NavBar from '../NavBar'
@@ -81,9 +82,8 @@ const ListPage = (props) => {
          <CssBaseline />
          <NavBar />
          <div className={props.classes.app}>
-         <div className="col-1-1 mainContent">
-            <div
-              className="col-2-12"
+          <Grid container>
+            <Grid item xs={2}
               style={{
                 width: sideWidth,
                 overflowY: 'scroll',
@@ -172,12 +172,10 @@ const ListPage = (props) => {
                   alt="right"
                 />
               </div>
-            </div>
-            <div
-              className="col-10-12"
+            </Grid>
+            <Grid item xs={10}
               style={{
                 width: mainWidth,
-                position: 'relative',
                 overflowY: 'scroll',
                 maxHeight: '800px',
                 padding: '10px',
@@ -185,15 +183,15 @@ const ListPage = (props) => {
             >
               <Toolbar members={members} />
               <FilterTable />
-              <div className="col-1-1 formContent">
+              <Grid container xs={12} justifyContent="center">
                 <Memberships
                   countriesReference={countriesReference}
                   currenciesReference={currenciesReference}
                   membershipTypesReference={membershipTypesReference}
                 />
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
            <ParticlesBg type="circle" bg={true} />
            <Outlet />
          </div>
