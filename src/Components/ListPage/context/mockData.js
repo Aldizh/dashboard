@@ -12,16 +12,17 @@ export const generateData = () => {
       annual_fee: faker.finance.amount(),
       from_date: `${faker.date.past()}`,
       to_date: `${faker.date.future()}`,
-      membership_type: 'Basic',
+      membership_type: i % 2 === 0 ? "Basic" : "Premium",
     })
   }
   let currenciesReference = []
   let countriesReference = []
 
-  const membershipTypesReference = [{ code: 'B', description: 'Basic' }]
+  const membershipTypesReference = [{ code: 'B', description: 'Basic' }, { code: 'P', description: 'Premium' }]
 
   const chipData = [
     { filterBy: 'membership_type', filterText: 'Basic', code: 'B' },
+    { filterBy: 'membership_type', filterText: 'Premium', code: 'P' },
   ]
 
   rows.forEach((row) => {
