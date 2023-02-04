@@ -9,15 +9,15 @@ import CryptoPriceChart from "./CryptoPriceChart"
 // But given the potential use cases will consider signing up
 const Extended = (props) => {
   const {
-    search,
-    symbol,
+    search, // final search term (used to get data)
+    symbol, // tracked 
     data,
     apiError,
     isLoading
   } = props
   return (
     <Fragment>
-      {!search && <div style={{ fontSize: 18}}>Enter ticker symbol and click search to get latest info...</div>}
+      {!search && <div style={{ fontSize: 18}}>Click search to get latest info...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (

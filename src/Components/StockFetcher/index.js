@@ -25,8 +25,8 @@ import {
 const Main = ({ classes }) => {
   const [symbol, setSymbol] = useState("") // set while typing
   const [search, setSearch] = useState("") // ticker symbol
-  const [seriesType, setSeriesType] = useState('DIGITAL_CURRENCY_DAILY')
-  const [apiError, setApiError] = useState('')
+  const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
+  const [apiError, setApiError] = useState("")
 
   const resetState = () => {
     setSearch('')
@@ -142,8 +142,9 @@ const Main = ({ classes }) => {
               fontSize: '14px',
             }}
           >
+            <option value="">Select an option</option>
             <option value="DIGITAL_CURRENCY_DAILY">Historical Crypto Chart</option>
-            <option value="TIME_SERIES_DAILY">Historical Price Chart</option>
+            <option value="TIME_SERIES_DAILY">Historical Price Chart (Premium)</option>
             <option value="TIME_SERIES_INTRADAY">Recent History vs SPY</option>
           </select>
           <input

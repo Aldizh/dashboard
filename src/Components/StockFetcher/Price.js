@@ -15,8 +15,6 @@ const Extended = (props) => {
     apiError,
     isLoading
   } = props
-  console.log('apiError...', apiError)
-  console.log('data...', data)
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18}}>Enter ticker symbol and click search to get latest info...</div>}
