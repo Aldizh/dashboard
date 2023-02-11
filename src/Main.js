@@ -7,7 +7,7 @@ import {
   CardMedia,
   Container,
   Grid,
-  Typography,
+  Typography
 } from '@material-ui/core'
 
 import chart from './images/chart.jpg'
@@ -40,7 +40,7 @@ const Main = ({ classes }) => (
                 </Button>
               </Grid>
             </Grid>
-          </div>*/}
+          </div> */}
         </Container>
       </div>
       {/* End hero unit */}

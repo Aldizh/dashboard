@@ -25,21 +25,21 @@ import { useListPageContext } from '../ListPage/context' // TO DO: Make this gen
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
+    paddingRight: theme.spacing(1)
   },
   highlight:
     theme.palette.type === 'light'
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
         }
       : {
           color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
+          backgroundColor: theme.palette.secondary.dark
         },
   title: {
-    flex: '1 1 100%',
-  },
+    flex: '1 1 100%'
+  }
 }))
 
 const EnhancedTableToolbar = (props) => {
@@ -59,10 +59,11 @@ const EnhancedTableToolbar = (props) => {
   return (
     <Toolbar
       className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
+        [classes.highlight]: numSelected > 0
       })}
     >
-      {numSelected > 0 ? (
+      {numSelected > 0
+        ? (
         <Typography
           className={classes.title}
           color="inherit"
@@ -71,7 +72,8 @@ const EnhancedTableToolbar = (props) => {
         >
           {numSelected} selected
         </Typography>
-      ) : (
+          )
+        : (
         <Typography
           className={classes.title}
           variant="h6"
@@ -80,7 +82,7 @@ const EnhancedTableToolbar = (props) => {
         >
           Memberships
         </Typography>
-      )}
+          )}
 
       <ChipsTooltip numSelected={numSelected} deleteMembers={deleteMembers} />
     </Toolbar>
@@ -90,19 +92,19 @@ const EnhancedTableToolbar = (props) => {
 EnhancedTableToolbar.propTypes = {
   selected: PropTypes.arrayOf(PropTypes.string),
   rows: PropTypes.array.isRequired,
-  dispatch: () => {},
+  dispatch: () => {}
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: '100%'
   },
   paper: {
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   table: {
-    minWidth: 750,
+    minWidth: 750
   },
   visuallyHidden: {
     border: 0,
@@ -113,11 +115,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     position: 'absolute',
     top: 20,
-    width: 1,
-  },
+    width: 1
+  }
 }))
 
-export default function EnhancedTable() {
+export default function EnhancedTable () {
   const classes = useStyles()
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('calories')
@@ -224,7 +226,7 @@ export default function EnhancedTable() {
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId,
+                            'aria-labelledby': labelId
                           }}
                         />
                       </TableCell>

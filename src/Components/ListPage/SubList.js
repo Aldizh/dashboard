@@ -11,8 +11,8 @@ const styles = (theme) => ({
   root: {
     width: '100%',
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
+    backgroundColor: theme.palette.background.paper
+  }
 })
 
 // Update membership data by looking at chips
@@ -31,12 +31,12 @@ const SectionList = (props) => {
   const { classes, filterFacets, members, filterBy, isIchecked } = props
 
   const [state, setState] = useState({
-    checked: [0],
+    checked: [0]
   })
   const [{ chips }, dispatch] = useListPageContext()
 
   const toggleChips = (chip) => {
-    let newchips = chips
+    const newchips = chips
     const index = newchips.findIndex((item) => chip.code === item.code)
     if (index === -1) {
       newchips.push(chip)
@@ -46,7 +46,7 @@ const SectionList = (props) => {
     dispatch({ type: 'update_chips', data: newchips })
     dispatch({
       type: 'update_members',
-      data: calcuateFilteredData(newchips, members),
+      data: calcuateFilteredData(newchips, members)
     })
   }
 
@@ -62,13 +62,13 @@ const SectionList = (props) => {
     }
 
     setState({
-      checked: newChecked,
+      checked: newChecked
     })
 
     toggleChips({
-      filterBy: filterBy,
+      filterBy,
       filterText: item.description,
-      code: item.code,
+      code: item.code
     })
   }
 
@@ -99,7 +99,7 @@ SectionList.propTypes = {
   searchText: PropTypes.string,
   filterBy: PropTypes.string,
   toggleChips: PropTypes.func,
-  isIchecked: PropTypes.func,
+  isIchecked: PropTypes.func
 }
 
 export default withStyles(styles)(SectionList)

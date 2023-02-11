@@ -5,12 +5,12 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  Checkbox,
+  Checkbox
 } from '@material-ui/core'
 
 import { headCells } from './config'
 
-function Head(props) {
+function Head (props) {
   const {
     classes,
     onSelectAllClick,
@@ -18,7 +18,7 @@ function Head(props) {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort,
+    onRequestSort
   } = props
   const sortHandler = (property) => (event) => {
     onRequestSort(event, property)
@@ -48,11 +48,13 @@ function Head(props) {
               onClick={sortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
+              {orderBy === headCell.id
+                ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
-              ) : null}
+                  )
+                : null}
             </TableSortLabel>
           </TableCell>
         ))}
@@ -68,7 +70,7 @@ Head.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+  rowCount: PropTypes.number.isRequired
 }
 
 export default Head

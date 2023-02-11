@@ -9,20 +9,20 @@ const dataFetchReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
-        isError: false,
+        isError: false
       }
     case FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload
       }
     case FETCH_FAILURE:
       return {
         ...state,
         isLoading: false,
-        isError: true,
+        isError: true
       }
     default:
       throw new Error()
@@ -32,21 +32,21 @@ const dataFetchReducer = (state, action) => {
 // Define expected data format from the API
 const defaultState = {
   data: {
-    "Meta Data": {
-      "1. Information": "Intraday (15min) open, high, low, close prices and volume",
-      "2. Symbol": "SPY",
-      "3. Last Refreshed": "2021-12-02 20:00:00",
-      "4. Interval": "15min",
-      "5. Output Size": "Full size",
-      "6. Time Zone": "US/Eastern"
+    'Meta Data': {
+      '1. Information': 'Intraday (15min) open, high, low, close prices and volume',
+      '2. Symbol': 'SPY',
+      '3. Last Refreshed': '2021-12-02 20:00:00',
+      '4. Interval': '15min',
+      '5. Output Size': 'Full size',
+      '6. Time Zone': 'US/Eastern'
     },
-    "Time Series (15min)": {
-      "2021-10-22 04:15:00": {
-        "1. open": 70.1025,
-        "2. high": 73.1825,
-        "3. low": 69.1825,
-        "4. close": 71.0543,
-        "5. volume": 101
+    'Time Series (15min)': {
+      '2021-10-22 04:15:00': {
+        '1. open': 70.1025,
+        '2. high': 73.1825,
+        '3. low': 69.1825,
+        '4. close': 71.0543,
+        '5. volume': 101
       }
     }
   }
@@ -62,7 +62,7 @@ const useDataApi = (search, initialUrl) => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: defaultState,
+    data: defaultState
   })
 
   useEffect(() => {
@@ -70,10 +70,10 @@ const useDataApi = (search, initialUrl) => {
       dispatch({ type: FETCH_INIT })
       try {
         const result = await axios(url)
-  
+
         // We hit the threshold of 5 calls per minute
         if (result.data.Note) dispatch({ type: FETCH_FAILURE })
-        
+
         dispatch({ type: FETCH_SUCCESS, payload: result })
       } catch (error) {
         dispatch({ type: FETCH_FAILURE })

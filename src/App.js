@@ -22,45 +22,45 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px'
   },
   icon: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   main: {
     display: 'flex',
-    
-    alignItems: 'center',
+
+    alignItems: 'center'
   },
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(8, 0, 6)
   },
   heroButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(4)
   },
   cardGrid: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(8),
+    paddingBottom: theme.spacing(8)
   },
   card: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%' // 16:9
   },
   cardActions: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   cardContent: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   footer: {
     padding: '15px 0',
     minHeight: '50px',
-    backgroundColor: '#ffd8d8',
+    backgroundColor: '#ffd8d8'
     // padding: theme.spacing(6),
-  },
+  }
 }))
 
 const Home = ({ classes }) => (

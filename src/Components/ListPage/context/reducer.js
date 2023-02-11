@@ -3,12 +3,12 @@ const ListReducer = (state, action) => {
     case 'update_chips':
       return {
         ...state,
-        chips: action.data,
+        chips: action.data
       }
     case 'update_members':
       return {
         ...state,
-        members: action.data,
+        members: action.data
       }
     default:
       return state

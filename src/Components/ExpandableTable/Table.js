@@ -16,7 +16,7 @@ const tempData = [
     date: '2014-04-18',
     name1: 'Create Zendesk Ticket',
     name2: 'LDAP Access',
-    percent: 50,
+    percent: 50
   },
   {
     type: 'Onboard Employee',
@@ -25,7 +25,7 @@ const tempData = [
     date: '2014-04-21',
     name1: 'Equipment Setup',
     name2: 'Microsoft Training',
-    percent: 100,
+    percent: 100
   },
   {
     type: 'Onboard Contractor',
@@ -34,7 +34,7 @@ const tempData = [
     date: '2014-08-09',
     name1: 'Create Zendesk Ticket',
     name2: 'LDAP Access',
-    percent: 25,
+    percent: 25
   },
   {
     type: 'Terminate Contractor',
@@ -43,7 +43,7 @@ const tempData = [
     date: '2014-04-24',
     name1: 'Create Zendesk Ticket',
     name2: 'LDAP Access',
-    percent: 100,
+    percent: 100
   },
   {
     type: 'Terminate Contractor',
@@ -52,8 +52,8 @@ const tempData = [
     date: '2014-04-26',
     name1: 'Create Zendesk Ticket',
     name2: 'LDAP Access',
-    percent: 90,
-  },
+    percent: 90
+  }
 ]
 
 const renderGridSubColumns = (item, index) => {
@@ -119,7 +119,7 @@ const ExapndableTable = (classes) => {
           <Table.Cell>{item.status}</Table.Cell>
           <Table.Cell>{item.date}</Table.Cell>
           <Table.Cell>{item.tasks}</Table.Cell>
-        </Table.Row>,
+        </Table.Row>
       ]
 
       if (expandedRows.includes(index)) {

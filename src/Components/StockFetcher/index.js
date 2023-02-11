@@ -23,10 +23,10 @@ import {
 } from './utils'
 
 const Main = ({ classes }) => {
-  const [symbol, setSymbol] = useState("") // set while typing
-  const [search, setSearch] = useState("") // ticker symbol
-  const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
-  const [apiError, setApiError] = useState("")
+  const [symbol, setSymbol] = useState('') // set while typing
+  const [search, setSearch] = useState('') // ticker symbol
+  const [seriesType, setSeriesType] = useState('') // chart type (e.g historical crypto, spy vs aapl)
+  const [apiError, setApiError] = useState('')
 
   const resetState = () => {
     setSearch('')
@@ -59,7 +59,7 @@ const Main = ({ classes }) => {
     updateUrl: updateArticlesUrl
   } = useDataApi(
     search,
-    getApiUrl(search, "NEWS_SENTIMENT")
+    getApiUrl(search, 'NEWS_SENTIMENT')
   )
   const feed = articleData.data.feed
 
@@ -79,7 +79,7 @@ const Main = ({ classes }) => {
     data: fundamentalsData,
     isLoading: fundamentalsIsLoading,
     isError: fundamentalsIsError,
-    updateUrl: updateFundamentalsUrl,
+    updateUrl: updateFundamentalsUrl
   } = useDataApi(
     search,
     getFundamentalsUrl(search)
@@ -92,7 +92,7 @@ const Main = ({ classes }) => {
       updateSeriesUrl(getApiUrl(search, seriesType))
     } else if (search && !isLoading && isHistoricalCryptoChart(seriesType)) {
       updateCryptoUrl(getApiUrl(search, seriesType))
-      updateArticlesUrl(getApiUrl(search, "NEWS_SENTIMENT"))
+      updateArticlesUrl(getApiUrl(search, 'NEWS_SENTIMENT'))
     }
   }, [search, seriesType])
 
@@ -111,7 +111,7 @@ const Main = ({ classes }) => {
 
   // Set corresponding errors if any from the above
   useEffect(() => {
-    let newApiError =
+    const newApiError =
       isError ||
       cryptoError ||
       fundamentalsIsError ||
@@ -139,7 +139,7 @@ const Main = ({ classes }) => {
             style={{
               width: '170px',
               padding: '2px',
-              fontSize: '14px',
+              fontSize: '14px'
             }}
           >
             <option value="">Select an option</option>

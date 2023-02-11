@@ -11,14 +11,14 @@ import './styles.css'
 const theme = createTheme({
   palette: {
     secondary: {
-      main: '#00FFFF',
+      main: '#00FFFF'
     }
-  },
-});
+  }
+})
 
 const getNewMembers = (chips, members) => {
   if (!chips.length) return members
-  let newMembers = []
+  const newMembers = []
   chips.forEach((currChip) => {
     const member =
       find(propEq(currChip.filterBy, currChip.code), members) ||
@@ -33,7 +33,7 @@ const Toolbar = ({ members }) => {
   const { chips = [] } = data
 
   const toggleChips = (chip) => {
-    let newchips = chips
+    const newchips = chips
     const index = newchips.findIndex((item) => chip.code === item.code)
     if (index === -1) {
       newchips.push(chip)
@@ -43,7 +43,7 @@ const Toolbar = ({ members }) => {
     dispatch({ type: 'update_chips', data: newchips })
     dispatch({
       type: 'update_members',
-      data: getNewMembers(newchips, members),
+      data: getNewMembers(newchips, members)
     })
   }
 
@@ -70,7 +70,7 @@ const Toolbar = ({ members }) => {
 
 Toolbar.propTypes = {
   data: PropTypes.array,
-  toggleChips: PropTypes.func,
+  toggleChips: PropTypes.func
 }
 
 export default Toolbar

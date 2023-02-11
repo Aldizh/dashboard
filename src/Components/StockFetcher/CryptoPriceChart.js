@@ -33,7 +33,7 @@ const calculateDataPoints = (symbolData) => {
     ? timeIntervalValues[0]['4b. close (USD)']
     : 0
 
-  for (var i = lastIndex; i > 0; i--) {
+  for (let i = lastIndex; i > 0; i--) {
     dataPoints.push({
       x: new Date(timeIntervalKeys[i]),
       y: Number(timeIntervalValues[i]['4b. close (USD)'])
@@ -47,10 +47,10 @@ class Canvas extends React.Component {
   state = {
     dataPoints: [],
     earliestDataPoint: 0,
-    latestDataPoint: 0,
+    latestDataPoint: 0
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { data = defaultApiData } = this.props
     const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 
@@ -63,12 +63,12 @@ class Canvas extends React.Component {
     this.chart.render()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.chart = null
   }
 
   // Get data points for the given ticker and the benchmark (SPY)
-  render() {
+  render () {
     const { data, search } = this.props
 
     // x-axis (api data is in reverse chronological order)
@@ -80,18 +80,18 @@ class Canvas extends React.Component {
     const lastUpdate = metaData && metaData['6. Last Refreshed']
     const options = {
       title: {
-        text: `Historical price for ${search} since ${earliestDate.toDateString()}`,
+        text: `Historical price for ${search} since ${earliestDate.toDateString()}`
       },
-      data: [{				
-        type: "area", // other options ["spline", "area", "column"]
+      data: [{
+        type: 'area', // other options ["spline", "area", "column"]
         dataPoints: this.state.dataPoints
       }],
       navigator: {
         slider: {
           minimum: earliestDate,
-          maximum: latestDate,
-        },
-      },
+          maximum: latestDate
+        }
+      }
     }
 
     return (
@@ -100,7 +100,7 @@ class Canvas extends React.Component {
           variant="outlined"
           style={{
             margin: '10px auto',
-            width: '70%',
+            width: '70%'
           }}
         >
           <CardContent>
@@ -114,12 +114,12 @@ class Canvas extends React.Component {
             containerProps={{
               width: '100%',
               height: '450px',
-              margin: 'auto',
+              margin: 'auto'
             }}
             options={options}
             onRef={(ref) => (this.chart = ref)}
           />
-          {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
         </>
       </>
     )

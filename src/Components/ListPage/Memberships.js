@@ -7,10 +7,9 @@ import {
   InputLabel,
   Input,
   Select,
-  Button,
+  Button
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
 // local imports
@@ -22,17 +21,17 @@ import './styles.css'
 const theme = createTheme({
   palette: {
     secondary: {
-      main: '#00FFFF',
+      main: '#00FFFF'
     }
-  },
-});
+  }
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+      margin: theme.spacing(1)
+    }
+  }
 }))
 
 const MemberSetup = (props) => {
@@ -105,7 +104,7 @@ const MemberSetup = (props) => {
       to_date,
       country: country.description,
       membership_type: membership_type.description,
-      currency: currency.description,
+      currency: currency.description
     })
     dispatch({ type: 'update_members', data: updatedMembers })
     setToastList([
@@ -114,8 +113,8 @@ const MemberSetup = (props) => {
         title: 'New member added',
         description: '',
         backgroundColor: '#3f51b5',
-        icon: infoIcon,
-      },
+        icon: infoIcon
+      }
     ])
     setDefaults()
   }
@@ -216,7 +215,7 @@ const MemberSetup = (props) => {
             value={from_date}
             onChange={(e) => handleFormChange(e, 'from_date')}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
             disabled={false}
           />
@@ -229,7 +228,7 @@ const MemberSetup = (props) => {
             value={to_date}
             onChange={(e) => handleFormChange(e, 'to_date')}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
             disabled={false}
           />

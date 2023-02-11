@@ -3,7 +3,7 @@ export const formatDate = (dateVal) => {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
+    day: 'numeric'
   }
   return new Date(dateVal).toLocaleDateString('en-US', options)
 }

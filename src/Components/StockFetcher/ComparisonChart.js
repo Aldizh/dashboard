@@ -43,7 +43,7 @@ const calculateSpyDataPoints = (spyData) => {
       y: getBaseWeightedPrice(
         spyTimeIntervalValues[i] && spyTimeIntervalValues[i]['4. close'],
         earliestSPYDataPoint
-      ),
+      )
     })
   }
 
@@ -62,13 +62,13 @@ const calculateDataPoints = (symbolData) => {
     ? timeIntervalValues[0]['4. close']
     : 0
 
-  for (var i = lastIndex; i > 0; i--) {
+  for (let i = lastIndex; i > 0; i--) {
     dataPoints.push({
       x: new Date(timeIntervalKeys[i]),
       y: getBaseWeightedPrice(
         timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : '0.00',
         earliestDataPoint
-      ),
+      )
     })
   }
 
@@ -82,10 +82,10 @@ class Canvas extends React.Component {
     earliestDataPoint: 0,
     latestDataPoint: 0,
     earliestSPYDataPoint: 0,
-    latestSPYDataPoint: 0,
+    latestSPYDataPoint: 0
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { data = defaultApiData, spyData } = this.props
 
     const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
@@ -98,24 +98,24 @@ class Canvas extends React.Component {
       latestDataPoint,
       spyDataPoints,
       earliestSPYDataPoint,
-      latestSPYDataPoint,
+      latestSPYDataPoint
     })
 
     this.chart.render()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.chart = null
   }
 
   // Get data points for the given ticker and the benchmark (SPY)
-  render() {
+  render () {
     const { data, search } = this.props
     const {
       earliestDataPoint,
       latestDataPoint,
       earliestSPYDataPoint,
-      latestSPYDataPoint,
+      latestSPYDataPoint
     } = this.state
 
     // x-axis data (not sure why but is coming in reverse chronological order)
@@ -134,11 +134,11 @@ class Canvas extends React.Component {
       theme: 'light2',
       animationEnabled: true,
       title: {
-        text: `Historical Price Comparison: ${search} vs SPY over the last ${diffInDays} days`,
+        text: `Historical Price Comparison: ${search} vs SPY over the last ${diffInDays} days`
       },
       axisY: {
         title: 'Price (weighted to 100$)',
-        prefix: '$',
+        prefix: '$'
       },
       axisX: {
         title: 'Day',
@@ -146,10 +146,10 @@ class Canvas extends React.Component {
         interValType: 'day',
         labelFormatter: function (e) {
           return CanvasJS.formatDate(e.value, 'DD MMM')
-        },
+        }
       },
       toolTip: {
-        shared: true,
+        shared: true
       },
       data: [
         {
@@ -159,7 +159,7 @@ class Canvas extends React.Component {
           xValueType: 'dateTime',
           xValueFormatString: 'DD MMM YYYY',
           yValueFormatString: '$##.00',
-          dataPoints: this.state.dataPoints,
+          dataPoints: this.state.dataPoints
         },
         {
           type: 'spline',
@@ -168,23 +168,27 @@ class Canvas extends React.Component {
           xValueType: 'dateTime',
           xValueFormatString: 'DD MMM YYYY',
           yValueFormatString: '$##.00',
-          dataPoints: this.state.spyDataPoints,
-        },
+          dataPoints: this.state.spyDataPoints
+        }
       ],
       navigator: {
         slider: {
           minimum: earliestDate,
-          maximum: latestDate,
-        },
-      },
+          maximum: latestDate
+        }
+      }
     }
 
-    const spyGrowth = earliestSPYDataPoint ? parseFloat(
-      ((latestSPYDataPoint - earliestSPYDataPoint) / earliestSPYDataPoint) * 100
-    ).toFixed(2) : 0.00
-    const stockGrowth = earliestDataPoint ? parseFloat(
-      ((latestDataPoint - earliestDataPoint) / earliestDataPoint) * 100
-    ).toFixed(2) : 0.00
+    const spyGrowth = earliestSPYDataPoint
+      ? parseFloat(
+        ((latestSPYDataPoint - earliestSPYDataPoint) / earliestSPYDataPoint) * 100
+      ).toFixed(2)
+      : 0.00
+    const stockGrowth = earliestDataPoint
+      ? parseFloat(
+        ((latestDataPoint - earliestDataPoint) / earliestDataPoint) * 100
+      ).toFixed(2)
+      : 0.00
 
     return (
       <>
@@ -192,7 +196,7 @@ class Canvas extends React.Component {
           variant="outlined"
           style={{
             margin: '10px auto',
-            width: '70%',
+            width: '70%'
           }}
         >
           <CardContent>
@@ -212,12 +216,12 @@ class Canvas extends React.Component {
             containerProps={{
               width: '100%',
               height: '450px',
-              margin: 'auto',
+              margin: 'auto'
             }}
             options={options}
             onRef={(ref) => (this.chart = ref)}
           />
-          {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
         </>
       </>
     )

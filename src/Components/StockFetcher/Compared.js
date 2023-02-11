@@ -22,7 +22,7 @@ const Standard = (props) => {
     MarketCapitalization,
     DividendYield,
     Sector,
-    data,
+    data
   } = props
 
   // S&P data fetch called on render and series type change
@@ -34,18 +34,18 @@ const Standard = (props) => {
 
   return (
     <Fragment>
-      {!search && <div style={{ fontSize: 18}}>Click search to get data for ticker symbol...</div>}
+      {!search && <div style={{ fontSize: 18 }}>Click search to get data for ticker symbol...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
       {!apiError && search && !isLoading && (
         <div>
           {seriesType && (
             <div>
-              <p style={{fontSize: 16}}>Showing data for {symbol}</p>
+              <p style={{ fontSize: 16 }}>Showing data for {symbol}</p>
               <div
                 style={{
                   margin: '10px auto',
-                  width: '70%',
+                  width: '70%'
                 }}
               >
                 {/* {metaData.map(el => (

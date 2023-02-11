@@ -24,7 +24,7 @@ const [
   countriesReference,
   currenciesReference,
   membershipTypesReference,
-  chipData,
+  chipData
 ] = generateData()
 
 const ListPage = (props) => {
@@ -52,7 +52,7 @@ const ListPage = (props) => {
 
   const isIchecked = (description) => {
     const index = chipData.map((chip) => chip.filterText).indexOf(description)
-    return index === -1 ? false : true
+    return index !== -1
   }
 
   const handleSearchCountries = (text) => {
@@ -88,7 +88,7 @@ const ListPage = (props) => {
                 width: sideWidth,
                 overflowY: 'scroll',
                 maxHeight: '800px',
-                padding: '10px',
+                padding: '10px'
               }}
             >
               <div style={Object.assign({}, { display: mainDisplay })}>
@@ -98,7 +98,7 @@ const ListPage = (props) => {
                       float: 'left',
                       padding: 5,
                       width: '50%',
-                      textAlign: 'left',
+                      textAlign: 'left'
                     }}
                   >
                     Filters
@@ -108,7 +108,7 @@ const ListPage = (props) => {
                       float: 'right',
                       padding: 5,
                       width: '50%',
-                      textAlign: 'right',
+                      textAlign: 'right'
                     }}
                   >
                     <LeftArrow onClick={handleToggle} alt="left" />
@@ -178,7 +178,7 @@ const ListPage = (props) => {
                 width: mainWidth,
                 overflowY: 'scroll',
                 maxHeight: '800px',
-                padding: '10px',
+                padding: '10px'
               }}
             >
               <Toolbar members={members} />

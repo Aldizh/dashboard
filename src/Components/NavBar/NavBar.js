@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar } from '@material-ui/core'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import './styles.css'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffd8d8',
+      main: '#ffd8d8'
     }
-  },
-});
+  }
+})
 
 const NavBar = () => {
   const handleHomeClickResponsive = () => {
-    var x = document.getElementById('myTopnav')
+    const x = document.getElementById('myTopnav')
     if (x.className === 'topnav') {
       x.className += ' responsive'
     } else {
@@ -24,7 +24,7 @@ const NavBar = () => {
 
   useEffect(() => {
     const pages = ['/', '/stocks', '/filter_table', '/expand_table']
-    var curPage = document.URL
+    let curPage = document.URL
     curPage = curPage.substring(curPage.lastIndexOf('/'))
     const routeIndex = pages.indexOf(curPage)
 
