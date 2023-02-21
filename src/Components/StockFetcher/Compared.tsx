@@ -10,7 +10,31 @@ import Canvas from './ComparisonChart'
 import { getApiUrl, numberWithCommas } from './utils'
 import useDataApi from '../../hooks/useData'
 
-const Standard = (props) => {
+const Standard = (props: {
+  search: string
+  symbol: string
+  apiError: object | string
+  isLoading: boolean
+  seriesType: string
+  Name: string
+  Exchange: string
+  MarketCapitalization: string
+  DividendYield: string
+  Sector: string
+  data: {
+    data: {
+      ['Meta Data']: {
+        ['1. Information']: string
+        ['2. Symbol']: string
+        ['3. Last Refreshed']: string
+        ['4. Interval']: string
+        ['5. Output Size']: string
+        ['6. Time Zone']: string
+      }
+      ['Time Series (15min)']: object
+    }
+  }
+}) => {
   const {
     search,
     symbol,

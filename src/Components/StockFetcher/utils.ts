@@ -3,15 +3,15 @@ import { TIME_SERIES_INTRADAY, TIME_SERIES_DAILY, DIGITAL_CURRENCY_DAILY } from 
 const DEFAULT_INTERVAL = '15min' // time interval between two consecutive data points
 const BASE_URL = `https://www.alphavantage.co/query?apikey=${process.env.API_KEY}`
 
-const isComparisonStockChart = (type) => type === TIME_SERIES_INTRADAY
-const isHistoricalStockChart = (type) => type === TIME_SERIES_DAILY
-const isHistoricalCryptoChart = (type) => type === DIGITAL_CURRENCY_DAILY
+const isComparisonStockChart = (type: string) => type === TIME_SERIES_INTRADAY
+const isHistoricalStockChart = (type: string) => type === TIME_SERIES_DAILY
+const isHistoricalCryptoChart = (type: string) => type === DIGITAL_CURRENCY_DAILY
 
 // regex to look for any point in the string that has a multiple of 3 digits in a row after it,
-const numberWithCommas = (x) =>
+const numberWithCommas = (x: string | number) =>
   x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-const getApiUrl = (symbol, seriesType) => {
+const getApiUrl = (symbol: string, seriesType: string) => {
   switch (seriesType) {
     case TIME_SERIES_DAILY:
       return `${BASE_URL}&function=${TIME_SERIES_DAILY}&symbol=${symbol}&outputsize=full`
@@ -26,7 +26,7 @@ const getApiUrl = (symbol, seriesType) => {
   }
 }
 
-const getFundamentalsUrl = (symbol) => `${BASE_URL}&function=OVERVIEW&symbol=${symbol}`
+const getFundamentalsUrl = (symbol: string) => `${BASE_URL}&function=OVERVIEW&symbol=${symbol}`
 
 export {
   getApiUrl,

@@ -21,7 +21,12 @@ const useStyles = makeStyles({
   }
 })
 
-const News = (props) => {
+const News = (props: {
+  feed: Array<any>
+  symbol: string
+  articlesLoading: boolean
+  articlesError: object | null
+}) => {
   const {
     feed,
     symbol,
