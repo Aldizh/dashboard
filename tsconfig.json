@@ -24,12 +24,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strictNullChecks": false
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "src/components/StockFetcher/ComparisonChart.js", "src/components/StockFetcher/ComparisonChart.jsx"  ],
   "exclude": [
     "src/**/*.spec.ts",
     "node_modules"

@@ -14,11 +14,11 @@ const theme = createTheme({
 
 const NavBar = () => {
   const handleHomeClickResponsive = () => {
-    const x = document.getElementById('myTopnav')
-    if (x.className === 'topnav') {
+    const x: HTMLElement | null = document.getElementById('myTopnav')
+    if (x && x.className === 'topnav') {
       x.className += ' responsive'
     } else {
-      x.className = 'topnav'
+      if (x) x.className = 'topnav'
     }
   }
 

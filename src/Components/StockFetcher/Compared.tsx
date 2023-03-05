@@ -6,9 +6,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Canvas from './ComparisonChart'
-
 import { getApiUrl, numberWithCommas } from './utils'
 import useDataApi from '../../hooks/useData'
+import { MetaData, TimeSeries } from "../../types"
 
 const Standard = (props: {
   search: string
@@ -23,15 +23,8 @@ const Standard = (props: {
   Sector: string
   data: {
     data: {
-      ['Meta Data']: {
-        ['1. Information']: string
-        ['2. Symbol']: string
-        ['3. Last Refreshed']: string
-        ['4. Interval']: string
-        ['5. Output Size']: string
-        ['6. Time Zone']: string
-      }
-      ['Time Series (15min)']: object
+      ['Meta Data']: MetaData
+      ['Time Series (15min)']: TimeSeries
     }
   }
 }) => {
