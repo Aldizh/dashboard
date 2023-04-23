@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
 import { useListPageContext } from './context'
 
-const styles = (theme) => ({
+const styles = (theme: any) => ({
   root: {
     width: '100%',
     maxWidth: 360,
@@ -16,7 +16,11 @@ const styles = (theme) => ({
 })
 
 // Update membership data by looking at chips
-const calcuateFilteredData = (chips, members = []) => {
+const calcuateFilteredData = (chips: Array<{
+  filterBy: string,
+  filterText: string,
+  code: string
+}>, members: Array<any> = []) => {
   if (!chips.length) return members
   return members.filter((member) =>
     chips.every(
@@ -27,7 +31,7 @@ const calcuateFilteredData = (chips, members = []) => {
   )
 }
 
-const SectionList = (props) => {
+const SectionList = (props: any) => {
   const { classes, filterFacets, members, filterBy, isIchecked } = props
 
   const [state, setState] = useState({
@@ -35,9 +39,15 @@ const SectionList = (props) => {
   })
   const [{ chips }, dispatch] = useListPageContext()
 
-  const toggleChips = (chip) => {
+  const toggleChips = (chip: {
+    filterBy: string,
+    filterText: string,
+    code: string
+  }) => {
     const newchips = chips
-    const index = newchips.findIndex((item) => chip.code === item.code)
+    const index = newchips.findIndex((item: {
+      code: string
+    }) => chip.code === item.code)
     if (index === -1) {
       newchips.push(chip)
     } else {
@@ -50,13 +60,16 @@ const SectionList = (props) => {
     })
   }
 
-  const handleToggle = (item, filterBy) => () => {
+  const handleToggle = (item: {
+    code: string,
+    description: string
+  }, filterBy: string) => () => {
     const { checked } = state
-    const index = checked.indexOf(item.code)
+    const index = checked.indexOf(Number(item.code))
     const newChecked = [...checked]
 
     if (index === -1) {
-      newChecked.push(item.code)
+      newChecked.push(Number(item.code))
     } else {
       newChecked.splice(index, 1)
     }
@@ -74,7 +87,10 @@ const SectionList = (props) => {
 
   return (
     <List className={classes.root}>
-      {filterFacets.map((item) => (
+      {filterFacets.map((item: {
+        code: string,
+        description: string
+      }) => (
         <ListItem
           key={`#${item.code}`}
           dense

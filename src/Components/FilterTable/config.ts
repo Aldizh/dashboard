@@ -1,4 +1,4 @@
-export const headCells = [
+export const headCells: Array<any> = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
   {
     id: 'membershipType',

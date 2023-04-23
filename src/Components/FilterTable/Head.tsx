@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {
   TableSortLabel,
@@ -10,7 +9,15 @@ import {
 
 import { headCells } from './config'
 
-function Head (props) {
+function Head (props: {
+  classes: any,
+  onSelectAllClick: () => void,
+  order: 'asc' | 'desc',
+  orderBy: string,
+  numSelected: number,
+  rowCount: number,
+  onRequestSort: Function
+}) {
   const {
     classes,
     onSelectAllClick,
@@ -20,7 +27,9 @@ function Head (props) {
     rowCount,
     onRequestSort
   } = props
-  const sortHandler = (property) => (event) => {
+  const sortHandler = (property: {
+    id: string
+  }) => (event: any) => {
     onRequestSort(event, property)
   }
 
@@ -40,7 +49,7 @@ function Head (props) {
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'center'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === headCell.id ? order : 'desc'}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
