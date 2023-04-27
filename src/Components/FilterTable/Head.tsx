@@ -11,7 +11,7 @@ import { headCells } from './config'
 
 function Head (props: {
   classes: any,
-  onSelectAllClick: () => void,
+  onSelectAllClick: (event: any) => void,
   order: 'asc' | 'desc',
   orderBy: string,
   numSelected: number,

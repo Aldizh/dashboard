@@ -42,7 +42,12 @@ const useToolbarStyles = makeStyles((theme) => ({
   }
 }))
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = (props: {
+  selected: Array<string>,
+  rows: Array<any>,
+  setSelected: Function,
+  dispatch: ({}) => {}
+}) => {
   const classes = useToolbarStyles()
   const { rows, selected, setSelected, dispatch } = props
   const numSelected = selected.length
@@ -130,24 +135,26 @@ export default function EnhancedTable () {
   const [data, dispatch] = useListPageContext()
   const rows = data.members
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (event: any, property: string) => {
     const isAsc = orderBy === property && order === 'asc'
     setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
   }
 
-  const handleSelectAllClick = (event) => {
+  const handleSelectAllClick = (event: any) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name)
+      const newSelecteds = rows.map((row: {
+        name: string
+      }) => row.name)
       setSelected(newSelecteds)
       return
     }
     setSelected([])
   }
 
-  const handleClick = (event, name) => {
+  const handleClick = (event: any, name: string) => {
     const selectedIndex = selected.indexOf(name)
-    let newSelected = []
+    let newSelected: Array<string> = []
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name)
@@ -165,20 +172,20 @@ export default function EnhancedTable () {
     setSelected(newSelected)
   }
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage)
   }
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: any) => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
 
-  const handleChangeDense = (event) => {
+  const handleChangeDense = (event: any) => {
     setDense(event.target.checked)
   }
 
-  const isSelected = (name) => selected.indexOf(name) !== -1
+  const isSelected = (name: string) => selected.indexOf(name) !== -1
 
   return (
     <div className={classes.root}>
@@ -199,7 +206,8 @@ export default function EnhancedTable () {
             <EnhancedTableHead
               classes={classes}
               numSelected={selected.length}
-              order={order}
+              // @ts-ignore ignore this for now (SortDirection vs string mismatch)
+              order={orderAsEnum}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
@@ -208,7 +216,15 @@ export default function EnhancedTable () {
             <TableBody>
               {stableSort(rows, order, orderBy)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map((row: {
+                  name: string,
+                  membership_type: string,
+                  country: string,
+                  currency: string,
+                  annual_fee: number,
+                  from_date: string,
+                  to_date: string
+                }, index: number) => {
                   const isItemSelected = isSelected(row.name)
                   const labelId = `enhanced-table-checkbox-${index}`
 
