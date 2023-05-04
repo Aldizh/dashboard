@@ -3,6 +3,7 @@ import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import moment from 'moment'
 
 import { STOCKS_INTERVAL_INTRADAY_KEY } from '../../utils/consts'
 
@@ -127,9 +128,8 @@ class Canvas extends React.Component {
     const oneDay = 1000 * 60 * 60 * 24
     const diffInTime = latestDate.getTime() - earliestDate.getTime()
     const diffInDays = Math.round(diffInTime / oneDay)
-    const metaData = data['Meta Data']
-
-    const lastUpdate = metaData && metaData['3. Last Refreshed']
+    const { ['3. Last Refreshed']: updatedTimestamp } = data['Meta Data'] || {}
+    const lastUpdate = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
     const options = {
       theme: 'light2',
       animationEnabled: true,
@@ -200,14 +200,14 @@ class Canvas extends React.Component {
           }}
         >
           <CardContent>
-            <Typography variant="subtitle1" gutterBottom>
-              SPY Growth: {spyGrowth}%
+            <Typography color="primary" variant="subtitle1" gutterBottom>
+              SPY Growth: <b>{spyGrowth}%</b>
             </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              {search} Growth: {stockGrowth}%
+            <Typography color="primary" variant="subtitle1" gutterBottom>
+              {search} Growth: <b>{stockGrowth}%</b>
             </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              Last Updated: {lastUpdate}
+            <Typography color="primary" variant="subtitle1" gutterBottom>
+              Last Updated: <b>{lastUpdate}</b>
             </Typography>
           </CardContent>
         </Card>

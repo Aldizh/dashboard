@@ -3,6 +3,7 @@ import { CanvasJSChart } from 'canvasjs-react-charts'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import moment from 'moment'
 
 import { DIGITAL_CURRENCY_INTERVAL_KEY } from '../../utils/consts'
 
@@ -63,8 +64,13 @@ class Canvas extends React.Component {
     this.chart.render()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.chart = null
+    this.setState({
+      dataPoints: [],
+      earliestDataPoint: 0,
+      latestDataPoint: 0
+    })
   }
 
   // Get data points for the given ticker and the benchmark (SPY)
@@ -75,9 +81,12 @@ class Canvas extends React.Component {
     const dates = getXData(data)
     const latestDate = new Date(dates[0])
     const earliestDate = new Date(dates[dates.length - 1])
-    const metaData = data['Meta Data']
-
-    const lastUpdate = metaData && metaData['6. Last Refreshed']
+    const {
+      ['3. Digital Currency Name']: tickerName,
+      ['5. Market Name']: market,
+      ['6. Last Refreshed']: updatedTimestamp
+    } = data['Meta Data'] || {}
+    const lastUpdate = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
     const options = {
       title: {
         text: `Historical price for ${search} since ${earliestDate.toDateString()}`
@@ -104,8 +113,14 @@ class Canvas extends React.Component {
           }}
         >
           <CardContent>
-            <Typography variant="subtitle1" gutterBottom>
-              Last Updated: {lastUpdate}
+            <Typography color="primary" variant="subtitle1">
+              Asset: <b>{tickerName}</b>
+            </Typography>
+            <Typography color="primary" variant="subtitle1">
+              Trading in market: <b>{market}</b>
+            </Typography>
+            <Typography color="primary" variant="subtitle1" gutterBottom>
+              Last Updated: <b>{lastUpdate}</b>
             </Typography>
           </CardContent>
         </Card>

@@ -193,6 +193,7 @@ const Main = ({ classes }) => {
                 seriesType={seriesType}
               />
               <News
+                key={symbol}
                 feed={feed}
                 symbol={symbol}
                 articlesLoading={articlesLoading}
@@ -202,7 +203,15 @@ const Main = ({ classes }) => {
           )}
         </React.Fragment>
       </div>
-      <ParticlesBg type="circle" bg={true} />
+      <ParticlesBg
+        type="circle"
+        bg={{
+          position: "fixed",
+          zIndex: -1,
+          top: 0,
+          left: 0
+        }}
+      />
       <Outlet />
       <Footer classes={classes} />
     </>
