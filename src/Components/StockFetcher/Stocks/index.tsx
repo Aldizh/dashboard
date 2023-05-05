@@ -1,8 +1,8 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import React, { Fragment } from 'react'
-import PriceChart from './PriceChart'
+import { Fragment } from 'react'
+import PriceChart from './RecentPriceChart'
 
 // TO DO: Will need to accumulate different monthly slices to calculate oevr a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature
@@ -28,7 +28,7 @@ const Extended = (props: {
       {!search && <div style={{ fontSize: 18 }}>Enter ticker symbol and click search to get latest info...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
-      {!apiError && search && !isLoading && (
+      {!apiError && search && !isLoading && typeof data.data === "string" && (
         <PriceChart
           search={search}
           data={data.data}

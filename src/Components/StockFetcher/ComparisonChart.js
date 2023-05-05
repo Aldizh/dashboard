@@ -5,9 +5,9 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import moment from 'moment'
 
-import { STOCKS_INTERVAL_INTRADAY_KEY } from '../../utils/consts'
+import { INTRADAY_INTERVAL_KEY } from '../../utils/consts'
 
-const INTERVAL_KEY = STOCKS_INTERVAL_INTRADAY_KEY
+const INTERVAL_KEY = INTRADAY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
 
 // Get price calculation based on initial investment ($100 for simplicity)

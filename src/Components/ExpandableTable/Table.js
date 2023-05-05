@@ -89,10 +89,14 @@ const ExapndableTable = (classes) => {
     const handleRowClick = (rowId) => {
       const currentExpandedRows = expandedRows
       const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId)
+      
+      // This allows for only one row to be expanded at a time
+      const newExpandedRows = isRowCurrentlyExpanded ? [] : [rowId]
 
-      const newExpandedRows = isRowCurrentlyExpanded
-        ? currentExpandedRows.filter((id) => id !== rowId)
-        : currentExpandedRows.concat(rowId)
+      // This allows for multiple rows to be expanded at a time
+      // const newExpandedRows = isRowCurrentlyExpanded
+      //   ? currentExpandedRows.filter((id) => id !== rowId)
+      //   : currentExpandedRows.concat(rowId)
 
       setExpanded(newExpandedRows)
     }

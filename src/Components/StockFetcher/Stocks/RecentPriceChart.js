@@ -51,7 +51,7 @@ class Canvas extends React.Component {
     latestDataPoint: 0
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { data = "" } = this.props
     const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 

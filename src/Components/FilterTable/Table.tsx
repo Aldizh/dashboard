@@ -207,7 +207,7 @@ export default function EnhancedTable () {
               classes={classes}
               numSelected={selected.length}
               // @ts-ignore ignore this for now (SortDirection vs string mismatch)
-              order={orderAsEnum}
+              order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
