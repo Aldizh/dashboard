@@ -4,26 +4,28 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-import { STOCKS_INTERVAL_KEY } from '../../../utils/consts'
-const INTERVAL_KEY = STOCKS_INTERVAL_KEY
-const defaultApiData = { INTERVAL_KEY: {} }
-
-// Get x axis data (simple date or datetime)
-const getXData = (res) => {
-  if (!res[INTERVAL_KEY]) return ['2022-01-01']
-  return Object.keys(res[INTERVAL_KEY])
-}
-
-// Get y axis data (price corresponding to it)
-const getYData = (res) => {
-  if (!res[INTERVAL_KEY]) return [{ '4.close': 0.0 }]
-  return Object.values(res[INTERVAL_KEY])
-}
-
 const calculateDataPoints = (symbolData) => {
-  const dataPoints = []
-  const timeIntervalKeys = getXData(symbolData) // date strings in reverse order
-  const timeIntervalValues = getYData(symbolData)
+  const copy = symbolData.split(/\r?\n|\r|\n/g) // mutate reference
+  // transform string data into csv format
+  const headers = symbolData[0]
+  // time, open, high, low, close, volume
+  const data = copy.slice(1)
+  // 2023-05-04 20:00:00, 165.63, 165.7, 165.55, 165.6, 67255...
+
+  let dataPoints = []
+  let timeIntervalKeys = []
+  let timeIntervalValues = []
+
+  data.forEach((row, index) => {
+    // we care about the closing price for the y axis and date time for x-axis
+    const dataPoints = row.split(',')
+    const time = dataPoints[0]
+    const closingPrice = dataPoints[4]
+
+    timeIntervalKeys.push(`${time}`)
+    timeIntervalValues.push({['4. close']: closingPrice })
+  })
+
   const lastIndex = timeIntervalKeys.length - 1
   const earliestDataPoint = timeIntervalValues[lastIndex]
     ? timeIntervalValues[lastIndex]['4. close']
@@ -50,7 +52,7 @@ class Canvas extends React.Component {
   }
 
   componentDidMount () {
-    const { data = defaultApiData } = this.props
+    const { data = "" } = this.props
     const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 
     this.setState({
@@ -68,18 +70,17 @@ class Canvas extends React.Component {
 
   // Get data points for the given ticker and the benchmark (SPY)
   render () {
-    const { data, search } = this.props
+    const { search } = this.props
 
-    // x-axis data (not sure why but is coming in reverse chronological order)
-    const timeStamps = getXData(data)
-    const latestDate = new Date(timeStamps[0])
-    const earliestDate = new Date(timeStamps[timeStamps.length - 1])
+    const latestDate = new Date()
+    const earliestDate = new Date();
+    earliestDate.setDate(earliestDate.getDate() - 30);
 
-    const lastUpdate =
-      data['Meta Data'] && data['Meta Data']['3. Last Refreshed']
+    const lastUpdate = new Date().toDateString()
+
     const options = {
       title: {
-        text: `Historical price for ${search} since ${earliestDate.toDateString()}`
+        text: `Historical price for ${search} for the last 30 days`
       },
       data: [{
         type: 'area', // Change it to "spline", "area", "column"
