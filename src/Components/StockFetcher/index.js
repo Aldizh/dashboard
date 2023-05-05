@@ -10,7 +10,7 @@ import NavBar from '../NavBar'
 import Footer from '../shared/Footer'
 import News from '../shared/News'
 
-import Price from './Price'
+import Price from './Stocks'
 import Crypto from './Crypto'
 import Compared from './Compared'
 
@@ -193,7 +193,6 @@ const Main = ({ classes }) => {
                 seriesType={seriesType}
               />
               <News
-                key={symbol}
                 feed={feed}
                 symbol={symbol}
                 articlesLoading={articlesLoading}
