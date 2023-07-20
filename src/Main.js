@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import {
   Button,
@@ -116,5 +118,9 @@ const Main = ({ classes }) => (
     </Container>
   </main>
 )
+
+Main.propTypes = {
+  classes: PropTypes.object
+}
 
 export default Main

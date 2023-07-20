@@ -1,14 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ParticlesBg from 'particles-bg'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
 
-import StcokFetcher from './components/StockFetcher'
-import ListPage from './components/ListPage'
-import ExpandableTable from './components/ExpandableTable'
-import NavBar from './components/NavBar'
-import Footer from './components/shared/Footer'
+import StcokFetcher from './Components/StockFetcher'
+import ListPage from './Components/ListPage'
+import ExpandableTable from './Components/ExpandableTable'
+import NavBar from './Components/NavBar'
+import Footer from './Components/shared/Footer'
 import Main from './Main'
 
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +76,10 @@ const Home = ({ classes }) => (
     <Footer classes={classes} />
   </>
 )
+
+Home.propTypes = {
+  classes: PropTypes.object
+}
 
 const Album = () => {
   const classes = useStyles()
