@@ -25,9 +25,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "strictNullChecks": false
+    "strictNullChecks": true
   },
   "include": [
+    "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.tsx"
 , "src/components/StockFetcher/ComparisonChart.js", "src/components/StockFetcher/ComparisonChart.jsx"  ],

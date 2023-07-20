@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Outlet } from 'react-router-dom'
 import ParticlesBg from 'particles-bg'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -200,6 +201,10 @@ const ListPage = (props) => {
       }
     </StateProvider>
   )
+}
+
+ListPage.propTypes = {
+  classes: PropTypes.object
 }
 
 export default ListPage

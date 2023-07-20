@@ -1,7 +1,7 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PriceChart from './RecentPriceChart'
 
 // TO DO: Will need to accumulate different monthly slices to calculate oevr a longer time horizon

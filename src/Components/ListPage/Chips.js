@@ -20,9 +20,9 @@ const getNewMembers = (chips, members) => {
   if (!chips.length) return members
   const newMembers = []
   chips.forEach((currChip) => {
-    const member =
-      find(propEq(currChip.filterBy, currChip.code), members) ||
-      find(propEq(currChip.filterBy, currChip.filterText), members)
+    const findByCode = find(propEq(currChip.filterBy, currChip.code), members)
+    const findByText = find(propEq(currChip.filterBy, currChip.filterText), members)
+    const member = findByCode || findByText
     if (member) newMembers.push(member)
   })
   return newMembers
@@ -70,7 +70,8 @@ const Toolbar = ({ members }) => {
 
 Toolbar.propTypes = {
   data: PropTypes.array,
-  toggleChips: PropTypes.func
+  toggleChips: PropTypes.func,
+  members: PropTypes.object
 }
 
 export default Toolbar

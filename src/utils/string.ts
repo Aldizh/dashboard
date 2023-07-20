@@ -1,7 +1,7 @@
-export const formatCurrency = (value: number = 0.00, currencyStyle: string = 'USD') => {
+export const formatCurrency = (value: number = 0.00, currencyStyle: string = 'USD'): string => {
   const formatted = `${new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: `${currencyStyle}`,
+    currency: `${currencyStyle}`
   }).format(value)}`
 
   return formatted

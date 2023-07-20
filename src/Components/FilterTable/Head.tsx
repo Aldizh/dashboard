@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   TableSortLabel,
@@ -16,7 +17,7 @@ function Head (props: {
   orderBy: string,
   numSelected: number,
   rowCount: number,
-  onRequestSort: Function
+  onRequestSort: (event: any, property: string) => void
 }) {
   const {
     classes,
@@ -27,9 +28,7 @@ function Head (props: {
     rowCount,
     onRequestSort
   } = props
-  const sortHandler = (property: {
-    id: string
-  }) => (event: any) => {
+  const sortHandler = (property: string) => (event: any) => {
     onRequestSort(event, property)
   }
 

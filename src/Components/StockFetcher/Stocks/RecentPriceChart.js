@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { CanvasJSChart } from 'canvasjs-react-charts'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -6,17 +7,15 @@ import Typography from '@material-ui/core/Typography'
 
 const calculateDataPoints = (symbolData) => {
   const copy = symbolData.split(/\r?\n|\r|\n/g) // mutate reference
-  // transform string data into csv format
-  const headers = symbolData[0]
   // time, open, high, low, close, volume
   const data = copy.slice(1)
   // 2023-05-04 20:00:00, 165.63, 165.7, 165.55, 165.6, 67255...
 
-  let dataPoints = []
-  let timeIntervalKeys = []
-  let timeIntervalValues = []
+  const dataPoints = []
+  const timeIntervalKeys = []
+  const timeIntervalValues = []
 
-  data.forEach((row, index) => {
+  data.forEach((row) => {
     // we care about the closing price for the y axis and date time for x-axis
     const dataPoints = row.split(',')
     const time = dataPoints[0]
@@ -52,7 +51,7 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    const { data = "" } = this.props
+    const { data = '' } = this.props
     const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 
     this.setState({
@@ -124,6 +123,11 @@ class Canvas extends React.Component {
       </>
     )
   }
+}
+
+Canvas.propTypes = {
+  data: PropTypes.array,
+  search: PropTypes.string
 }
 
 export default Canvas

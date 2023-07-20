@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -226,6 +227,12 @@ class Canvas extends React.Component {
       </>
     )
   }
+}
+
+Canvas.propTypes = {
+  data: PropTypes.array,
+  spyData: PropTypes.array,
+  search: PropTypes.string
 }
 
 export default Canvas

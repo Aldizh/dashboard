@@ -45,8 +45,8 @@ const useToolbarStyles = makeStyles((theme) => ({
 const EnhancedTableToolbar = (props: {
   selected: Array<string>,
   rows: Array<any>,
-  setSelected: Function,
-  dispatch: ({}) => {}
+  setSelected: (arg0: Array<string>) => void,
+  dispatch: ({}) => object
 }) => {
   const classes = useToolbarStyles()
   const { rows, selected, setSelected, dispatch } = props
@@ -206,7 +206,6 @@ export default function EnhancedTable () {
             <EnhancedTableHead
               classes={classes}
               numSelected={selected.length}
-              // @ts-ignore ignore this for now (SortDirection vs string mismatch)
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}

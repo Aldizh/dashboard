@@ -42,7 +42,7 @@ const News = (props: {
       {articlesLoading && <div style={{ textAlign: 'center' }}>Loading...</div>}
       {feed && symbol && !articlesError &&
         feed.splice(0, 5).map(article =>
-          <Card className={classes.root}>
+          <Card key={article.title} className={classes.root}>
             <CardContent>
               <Typography>{article.authors[0]}
                 <Link

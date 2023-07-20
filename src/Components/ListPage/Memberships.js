@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { find, propEq } from 'ramda'
 import {
   FormControl,
@@ -246,6 +247,12 @@ const MemberSetup = (props) => {
       </Grid>
     </ThemeProvider>
   )
+}
+
+MemberSetup.propTypes = {
+  countriesReference: PropTypes.array,
+  currenciesReference: PropTypes.array,
+  membershipTypesReference: PropTypes.array
 }
 
 export default MemberSetup

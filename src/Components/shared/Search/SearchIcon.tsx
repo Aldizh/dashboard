@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-const SVG = ({style, fill, width, height, className, viewBox}: {
+const SVG = ({style, width, height}: {
   style: {
     position: any,
     right: string,

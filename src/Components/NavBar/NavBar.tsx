@@ -29,8 +29,8 @@ const NavBar = () => {
     const routeIndex = pages.indexOf(curPage)
 
     // Applies color based on current page
-    const links = document.getElementById('myTopnav').children
-    links[routeIndex] && links[routeIndex].classList.add('current-link')
+    const links = document.getElementById('myTopnav')?.children
+    links && links[routeIndex] && links[routeIndex].classList.add('current-link')
   }, [])
 
   return (

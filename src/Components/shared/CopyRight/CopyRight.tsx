@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
 const Copyright = (): ReactElement => {
   return (

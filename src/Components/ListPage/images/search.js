@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const SVG = ({
   style = {
@@ -8,11 +9,11 @@ const SVG = ({
     paddingRight: '4px',
     enableBackground: 'new 0 0 451 451'
   },
-  fill = '#000',
+  // fill = '#000',
   width = '15px',
   height = '20px',
-  className = '',
-  viewBox = '0 0 40 26'
+  // className = '',
+  // viewBox = '0 0 40 26'
 }) => (
   <svg
     version="1.1"
@@ -37,5 +38,11 @@ const SVG = ({
     </g>
   </svg>
 )
+
+SVG.propTypes = {
+  style: PropTypes.object,
+  width: PropTypes.string,
+  height: PropTypes.string
+}
 
 export default SVG

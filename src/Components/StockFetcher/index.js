@@ -1,6 +1,7 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
+import PropTypes from 'prop-types'
 import ParticlesBg from 'particles-bg'
 import { Outlet } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -144,7 +145,7 @@ const Main = ({ classes }) => {
           >
             <option value="">Select an option</option>
             <option value="DIGITAL_CURRENCY_DAILY">Historical Crypto Chart</option>
-            <option value="TIME_SERIES_INTRADAY_EXTENDED">Recent Stock Price Chart</option>
+            <option value="TIME_SERIES_INTRADAY">Recent Stock Price Chart</option>
             <option value="TIME_SERIES_INTRADAY">Recent History vs SPY</option>
           </select>
           <input
@@ -205,7 +206,7 @@ const Main = ({ classes }) => {
       <ParticlesBg
         type="circle"
         bg={{
-          position: "fixed",
+          position: 'fixed',
           zIndex: -1,
           top: 0,
           left: 0
@@ -215,6 +216,10 @@ const Main = ({ classes }) => {
       <Footer classes={classes} />
     </>
   )
+}
+
+Main.propTypes = {
+  classes: PropTypes.object
 }
 
 export default Main
