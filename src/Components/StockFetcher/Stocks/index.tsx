@@ -28,7 +28,7 @@ const Extended = (props: {
       {!search && <div style={{ fontSize: 18 }}>Enter ticker symbol and click search to get latest info...</div>}
       {apiError && <div>{apiError}</div>}
       {!apiError && search && isLoading && <div>Loading ...</div>}
-      {!apiError && search && !isLoading && typeof data.data === "string" && (
+      {!apiError && search && !isLoading && (
         <PriceChart
           search={search}
           data={data.data}

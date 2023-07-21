@@ -6,23 +6,20 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
 const calculateDataPoints = (symbolData) => {
-  const copy = symbolData.split(/\r?\n|\r|\n/g) // mutate reference
+  // const copy = symbolData.split(/\r?\n|\r|\n/g) // mutate reference
+  const data = symbolData["Monthly Adjusted Time Series"]
+  
   // time, open, high, low, close, volume
-  const data = copy.slice(1)
-  // 2023-05-04 20:00:00, 165.63, 165.7, 165.55, 165.6, 67255...
+  // 2008-04-30: {1. open: '63.0000', 2. high: '84.8100', 3. low: '60.3100', 4. close: '83.4500'
 
   const dataPoints = []
   const timeIntervalKeys = []
   const timeIntervalValues = []
 
-  data.forEach((row) => {
+  Object.entries(data).forEach((row) => {
     // we care about the closing price for the y axis and date time for x-axis
-    const dataPoints = row.split(',')
-    const time = dataPoints[0]
-    const closingPrice = dataPoints[4]
-
-    timeIntervalKeys.push(`${time}`)
-    timeIntervalValues.push({['4. close']: closingPrice })
+    timeIntervalKeys.push(`${row[0]}`) // date
+    timeIntervalValues.push(row[1]) // closing price
   })
 
   const lastIndex = timeIntervalKeys.length - 1
@@ -52,15 +49,19 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     const { data = '' } = this.props
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
+    const monthlyData = data["Monthly Adjusted Time Series"]
+    if (monthlyData) {
+      const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
 
-    this.setState({
-      dataPoints,
-      earliestDataPoint,
-      latestDataPoint
-    })
+      this.setState({
+        dataPoints,
+        earliestDataPoint,
+        latestDataPoint
+      })
+  
+      this.chart.render()
+    }
 
-    this.chart.render()
   }
 
   componentWillUnmount () {
@@ -79,7 +80,7 @@ class Canvas extends React.Component {
 
     const options = {
       title: {
-        text: `Historical price for ${search} for the last 30 days`
+        text: `Historical monthly price data for ${search}`
       },
       data: [{
         type: 'area', // Change it to "spline", "area", "column"

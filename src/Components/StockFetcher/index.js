@@ -145,7 +145,7 @@ const Main = ({ classes }) => {
           >
             <option value="">Select an option</option>
             <option value="DIGITAL_CURRENCY_DAILY">Historical Crypto Chart</option>
-            <option value="TIME_SERIES_INTRADAY">Recent Stock Price Chart</option>
+            <option value="TIME_SERIES_MONTHLY_ADJUSTED">Recent Stock Price Chart</option>
             <option value="TIME_SERIES_INTRADAY">Recent History vs SPY</option>
           </select>
           <input
