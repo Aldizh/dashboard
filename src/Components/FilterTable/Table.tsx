@@ -43,9 +43,9 @@ const useToolbarStyles = makeStyles((theme) => ({
 }))
 
 const EnhancedTableToolbar = (props: {
-  selected: Array<string>,
+  selected: Array<never>,
   rows: Array<any>,
-  setSelected: (arg0: Array<string>) => void,
+  setSelected: (arg0: Array<never>) => void,
   dispatch: ({}) => object
 }) => {
   const classes = useToolbarStyles()
@@ -152,9 +152,9 @@ export default function EnhancedTable () {
     setSelected([])
   }
 
-  const handleClick = (event: any, name: string) => {
+  const handleClick = (event: any, name: never) => {
     const selectedIndex = selected.indexOf(name)
-    let newSelected: Array<string> = []
+    let newSelected: Array<never> = []
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name)
@@ -185,7 +185,7 @@ export default function EnhancedTable () {
     setDense(event.target.checked)
   }
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1
+  const isSelected = (name: never) => selected.includes(name)
 
   return (
     <div className={classes.root}>
@@ -216,7 +216,7 @@ export default function EnhancedTable () {
               {stableSort(rows, order, orderBy)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row: {
-                  name: string,
+                  name: never,
                   membership_type: string,
                   country: string,
                   currency: string,

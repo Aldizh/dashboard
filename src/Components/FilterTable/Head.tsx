@@ -13,7 +13,7 @@ import { headCells } from './config'
 function Head (props: {
   classes: any,
   onSelectAllClick: (event: any) => void,
-  order: 'asc' | 'desc',
+  order: string,
   orderBy: string,
   numSelected: number,
   rowCount: number,
@@ -31,6 +31,9 @@ function Head (props: {
   const sortHandler = (property: string) => (event: any) => {
     onRequestSort(event, property)
   }
+  // typescript is stubborn about SortDirection => string conversion
+  let orderByDirection: 'asc'| 'desc' = 'asc'
+  if (order === 'desc') orderByDirection = 'desc'
 
   return (
     <TableHead>
@@ -48,11 +51,11 @@ function Head (props: {
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'center'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : 'desc'}
+            sortDirection={orderBy === headCell.id ? orderByDirection : 'desc'}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? orderByDirection : 'asc'}
               onClick={sortHandler(headCell.id)}
             >
               {headCell.label}

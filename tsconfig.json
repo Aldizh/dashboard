@@ -30,8 +30,8 @@
   "include": [
     "src/**/*.js",
     "src/**/*.ts",
-    "src/**/*.tsx"
-, "src/components/StockFetcher/ComparisonChart.js", "src/components/StockFetcher/ComparisonChart.jsx"  ],
+    "src/**/*.tsx", "src/Components/FilterTable/Table.tsx",
+  ],
   "exclude": [
     "src/**/*.spec.ts",
     "node_modules"

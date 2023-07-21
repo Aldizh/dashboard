@@ -53,9 +53,6 @@
     "deploy": "yarn build && gh-pages -d build",
     "lint": "eslint src/ --ext .js --ext .jsx"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
