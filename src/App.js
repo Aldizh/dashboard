@@ -5,11 +5,11 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
 
-import StcokFetcher from './Components/StockFetcher'
-import ListPage from './Components/ListPage'
-import ExpandableTable from './Components/ExpandableTable'
-import NavBar from './Components/NavBar'
-import Footer from './Components/shared/Footer'
+import StcokFetcher from './components/StockFetcher'
+import ListPage from './components/ListPage'
+import ExpandableTable from './components/ExpandableTable'
+import NavBar from './components/NavBar'
+import Footer from './components/shared/Footer'
 import Main from './Main'
 
 const useStyles = makeStyles((theme) => ({

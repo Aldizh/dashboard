@@ -3,7 +3,7 @@ import { find, prop, propEq, uniqBy } from 'ramda'
 
 export const generateData = () => {
   const rows = []
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 30; i++) {
     rows.push({
       id: i,
       name: faker.name.findName(),

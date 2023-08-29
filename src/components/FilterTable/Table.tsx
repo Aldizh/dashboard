@@ -23,10 +23,6 @@ import { formatCurrency } from '../../utils/string'
 import { useListPageContext } from '../ListPage/context' // TO DO: Make this generic
 
 const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1)
-  },
   highlight:
     theme.palette.type === 'light'
       ? {
@@ -63,9 +59,8 @@ const EnhancedTableToolbar = (props: {
 
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0
-      })}
+      className={clsx({ [classes.highlight]: numSelected > 0 })}
+      disableGutters={true}
     >
       {numSelected > 0
         ? (

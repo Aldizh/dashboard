@@ -71,7 +71,7 @@ const Toolbar = ({ members }) => {
 Toolbar.propTypes = {
   data: PropTypes.array,
   toggleChips: PropTypes.func,
-  members: PropTypes.object
+  members: PropTypes.array
 }
 
 export default Toolbar
