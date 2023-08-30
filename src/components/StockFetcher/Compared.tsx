@@ -13,7 +13,7 @@ import { MetaData, TimeSeries } from "../../types"
 const Standard = (props: {
   search: string
   symbol: string
-  apiError: object | string
+  apiError: string
   isLoading: boolean
   seriesType: string
   Name: string
@@ -57,7 +57,7 @@ const Standard = (props: {
       {!apiError && search && !isLoading && (
         <div>
           {seriesType && (
-            <div>
+            <>
               <p style={{ fontSize: 16 }}>Showing data for {symbol}</p>
               <div
                 style={{
@@ -100,7 +100,7 @@ const Standard = (props: {
                 spyData={spyData.data.data}
                 symbol={symbol}
               />
-            </div>
+            </>
           )}
         </div>
       )}
