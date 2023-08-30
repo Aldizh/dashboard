@@ -1,8 +1,7 @@
 import React from 'react'
-import { find, propEq } from 'ramda'
-import { PropTypes } from 'prop-types'
 import { Chip } from '@material-ui/core'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import type { Members, Chips } from '../../types/FilterTable'
 
 // local imports
 import { useListPageContext } from './context'
@@ -16,23 +15,26 @@ const theme = createTheme({
   }
 })
 
-const getNewMembers = (chips, members) => {
+const getNewMembers = (chips: Chips, members: Members) => {
   if (!chips.length) return members
-  const newMembers = []
+  const newMembers: Members | any[] = []
+
+  const getKeyValue = (key: string) => (obj: Record<string, any>) => obj[key];
+
   chips.forEach((currChip) => {
-    const findByCode = find(propEq(currChip.filterBy, currChip.code), members)
-    const findByText = find(propEq(currChip.filterBy, currChip.filterText), members)
-    const member = findByCode || findByText
+    const memberByCode = members.find((member) => getKeyValue(currChip.filterBy)(member) === currChip.code)
+    const memberByText = members.find((member) => getKeyValue(currChip.filterBy)(member) === currChip.filterText)
+    const member = memberByCode || memberByText
     if (member) newMembers.push(member)
   })
   return newMembers
 }
 
-const Toolbar = ({ members }) => {
+const Toolbar = ({ members }: { members: Members }) => {
   const [data, dispatch] = useListPageContext()
-  const { chips = [] } = data
+  const { chips = [] }: { chips: Chips } = data
 
-  const toggleChips = (chip) => {
+  const toggleChips = (chip: { code: string, filterText: string, filterBy: string}) => {
     const newchips = chips
     const index = newchips.findIndex((item) => chip.code === item.code)
     if (index === -1) {
@@ -66,12 +68,6 @@ const Toolbar = ({ members }) => {
       </ThemeProvider>
     </React.Fragment>
   )
-}
-
-Toolbar.propTypes = {
-  data: PropTypes.array,
-  toggleChips: PropTypes.func,
-  members: PropTypes.array
 }
 
 export default Toolbar

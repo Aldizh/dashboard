@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { find, propEq } from 'ramda'
 import {
   FormControl,
   TextField,
@@ -69,20 +68,19 @@ const MemberSetup = (props) => {
         setName(event.target.value)
         break
       case 'country':
-        setCountry(find(propEq('code', event.target.value), countriesReference))
+        const matchingCountry = countriesReference.find(country => country.code === event.target.value)
+        setCountry(matchingCountry)
         break
       case 'currency':
-        setCurrency(
-          find(propEq('code', event.target.value), currenciesReference)
-        )
+        const matchingCurrency = currenciesReference.find(currency => currency.code === event.target.value)
+        setCurrency(matchingCurrency)
         break
       case 'annual_fee':
         setFee(event.target.value)
         break
       case 'membership_type':
-        setType(
-          find(propEq('code', event.target.value), membershipTypesReference)
-        )
+        const matchingType = membershipTypesReference.find(membership => membership.code === event.target.value)
+        setType(matchingType)
         break
       case 'from_date':
         setFromDate(event.target.value)
