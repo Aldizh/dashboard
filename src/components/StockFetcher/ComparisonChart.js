@@ -230,8 +230,8 @@ class Canvas extends React.Component {
 }
 
 Canvas.propTypes = {
-  data: PropTypes.array,
-  spyData: PropTypes.array,
+  data: PropTypes.object,
+  spyData: PropTypes.object,
   search: PropTypes.string
 }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import ParticlesBg from 'particles-bg'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -64,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Home = ({ classes }) => (
+const Home = ({ classes }: {classes: {app: string, footer: string}}) => (
   <>
     <CssBaseline />
     <NavBar />
@@ -76,10 +75,6 @@ const Home = ({ classes }) => (
     <Footer classes={classes} />
   </>
 )
-
-Home.propTypes = {
-  classes: PropTypes.object
-}
 
 const Album = () => {
   const classes = useStyles()

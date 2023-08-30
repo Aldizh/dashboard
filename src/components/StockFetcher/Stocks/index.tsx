@@ -13,7 +13,7 @@ const Extended = (props: {
   data: {
     data: object
   }
-  apiError: object
+  apiError: string // TO DO: specify the type
   isLoading: boolean
 }) => {
   const {
