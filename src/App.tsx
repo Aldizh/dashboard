@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Home = ({ classes }: {classes: {app: string, footer: string}}) => (
+const Home = ({ classes }: {classes: ClassesType}) => (
   <>
     <CssBaseline />
     <NavBar />

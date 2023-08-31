@@ -16,7 +16,7 @@ import chart from './images/chart.jpg'
 import listImg from './images/list_table.png'
 import expandImg from './images/expand_table.png'
 
-const Main = ({ classes }) => (
+const Main = ({ classes }: { classes: ClassesType}) => (
   <main className={classes.main}>
     {/* Hero unit */}
     <Container className={classes.cardGrid} maxWidth="md">
