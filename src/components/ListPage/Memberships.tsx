@@ -13,6 +13,7 @@ import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles
 import Grid from '@material-ui/core/Grid'
 
 // local imports
+import type { Member, ToastType } from '../../types/FilterTable'
 import Toast from '../shared/Toast'
 import { useListPageContext } from './context'
 import infoIcon from '../../images/info.svg'
@@ -34,13 +35,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const MemberSetup = (props) => {
-  const [toastList, setToastList] = useState([])
+const MemberSetup = (props: {
+  countriesReference: Array<ReferenceData>,
+  currenciesReference: Array<ReferenceData>,
+  membershipTypesReference: Array<ReferenceData>,
+}) => {
+  const [toastList, setToastList] = useState<[ToastType] | []>([]);
   const [name, setName] = useState('')
-  const [annual_fee, setFee] = useState(0)
-  const [membership_type, setType] = useState({ code: '' })
-  const [country, setCountry] = useState({ code: '' })
-  const [currency, setCurrency] = useState({ code: '' })
+  const [annual_fee, setFee] = useState('')
+  const [membership_type, setType] = useState({ code: '', description: '' })
+  const [country, setCountry] = useState({ code: '', description: '' })
+  const [currency, setCurrency] = useState({ code: '', description: '' })
   const [from_date, setFromDate] = useState('')
   const [to_date, setToDate] = useState('')
 
@@ -53,7 +58,7 @@ const MemberSetup = (props) => {
 
   const setDefaults = () => {
     setName('John')
-    setFee(10)
+    setFee('10')
     setCountry(countriesReference[0])
     setCurrency(currenciesReference[0])
     setType(membershipTypesReference[0])
@@ -61,26 +66,14 @@ const MemberSetup = (props) => {
     setToDate('2022-05-24')
   }
 
-  const handleFormChange = (event, id) => {
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => {
     const fieldId = id || event.target.id
     switch (fieldId) {
       case 'name':
         setName(event.target.value)
         break
-      case 'country':
-        const matchingCountry = countriesReference.find(country => country.code === event.target.value)
-        setCountry(matchingCountry)
-        break
-      case 'currency':
-        const matchingCurrency = currenciesReference.find(currency => currency.code === event.target.value)
-        setCurrency(matchingCurrency)
-        break
       case 'annual_fee':
         setFee(event.target.value)
-        break
-      case 'membership_type':
-        const matchingType = membershipTypesReference.find(membership => membership.code === event.target.value)
-        setType(matchingType)
         break
       case 'from_date':
         setFromDate(event.target.value)
@@ -93,10 +86,30 @@ const MemberSetup = (props) => {
     }
   }
 
-  const handleAdd = (e) => {
+  const handleSelectChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>, id: string) => {
+    const fieldId = id
+    switch (fieldId) {
+      case 'country':
+        const matchingCountry = countriesReference.find(country => country.code === event.target.value)
+        if (matchingCountry) setCountry(matchingCountry)
+        break
+      case 'currency':
+        const matchingCurrency = currenciesReference.find(currency => currency.code === event.target.value)
+        if (matchingCurrency) setCurrency(matchingCurrency)
+        break
+      case 'membership_type':
+        const matchingType = membershipTypesReference.find(membership => membership.code === event.target.value)
+        if (matchingType) setType(matchingType)
+        break
+      default:
+        break
+    }
+  }
+
+  const handleAdd = (e:  React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    const updatedMembers = members
-    updatedMembers.push({
+    const updatedMembers = [...members]
+    const memberToAdd: Partial<Member> = {
       name,
       annual_fee,
       from_date,
@@ -104,17 +117,17 @@ const MemberSetup = (props) => {
       country: country.description,
       membership_type: membership_type.description,
       currency: currency.description
-    })
+    }
+    updatedMembers.push(memberToAdd)
     dispatch({ type: 'update_members', data: updatedMembers })
-    setToastList([
-      {
-        id: 1,
-        title: 'New member added',
-        description: '',
-        backgroundColor: '#3f51b5',
-        icon: infoIcon
-      }
-    ])
+    const toastList: [ToastType] | [] = [{
+      id: 1,
+      title: 'New member added',
+      description: '',
+      backgroundColor: '#3f51b5',
+      icon: infoIcon
+    }]
+    setToastList(toastList)
     setDefaults()
   }
 
@@ -146,7 +159,7 @@ const MemberSetup = (props) => {
             labelId="country"
             id="country"
             value={country.code}
-            onChange={(e) => handleFormChange(e, 'country')}
+            onChange={(e) => handleSelectChange(e, 'country')}
           >
             {countriesReference.map((option) => (
               <MenuItem
@@ -165,7 +178,7 @@ const MemberSetup = (props) => {
             labelId="membership"
             id="membership"
             value={membership_type.code}
-            onChange={(e) => handleFormChange(e, 'membership_type')}
+            onChange={(e) => handleSelectChange(e, 'membership_type')}
           >
             {membershipTypesReference.map((option) => (
               <MenuItem
@@ -184,7 +197,7 @@ const MemberSetup = (props) => {
             labelId="currency"
             id="currency"
             value={currency.code}
-            onChange={(e) => handleFormChange(e, 'currency')}
+            onChange={(e) => handleSelectChange(e, 'currency')}
           >
             {currenciesReference.map((option) => (
               <MenuItem

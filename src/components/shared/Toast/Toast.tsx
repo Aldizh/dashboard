@@ -3,13 +3,13 @@ import React, { ReactElement, useState, useEffect } from 'react'
 import './Toast.css'
 
 const Toast = (props: {
-  toastList: Array<{
+  toastList: [{
     id: number
     title: string
     description: string
     backgroundColor: string
     icon: string
-  }>
+  }] | []
   position: string
   autoDelete: boolean
   autoDeleteTime: number

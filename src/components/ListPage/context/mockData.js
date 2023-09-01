@@ -19,7 +19,10 @@ export const generateData = () => {
   const currenciesReference = []
   const countriesReference = []
 
-  const membershipTypesReference = [{ code: 'B', description: 'Basic' }, { code: 'P', description: 'Premium' }]
+  const membershipTypesReference = [
+    { code: 'B', description: 'Basic' },
+    { code: 'P', description: 'Premium' }
+  ]
 
   const chipData = [
     { filterBy: 'membership_type', filterText: 'Basic', code: 'B' },

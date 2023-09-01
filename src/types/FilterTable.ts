@@ -1,4 +1,4 @@
-interface Member {
+export interface Member {
   id: string, // uuid string
   name: string,
   country: string,
@@ -7,6 +7,14 @@ interface Member {
   from_date: string,
   to_date: string,
   membership_type: string
+}
+
+export interface ToastType {
+  id: number
+  title: string
+  description: string
+  backgroundColor: string
+  icon: string
 }
 
 interface Chip {

@@ -9,3 +9,13 @@ interface ClassesType {
   heroContent: string,
   card: string,
 }
+
+enum MembershipType {
+  Basic = "Basic",
+  Premium = "Premium"
+}
+
+interface ReferenceData {
+  code: string,
+  description: string
+}
