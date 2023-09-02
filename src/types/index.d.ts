@@ -10,12 +10,13 @@ interface ClassesType {
   card: string,
 }
 
-enum MembershipType {
-  Basic = "Basic",
-  Premium = "Premium"
-}
-
 interface ReferenceData {
   code: string,
   description: string
+}
+
+
+enum MembershipType {
+  Basic = "Basic",
+  Premium = "Premium"
 }

@@ -1,15 +1,10 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 
 import './Toast.css'
+import type { ToastType } from '../../../types/Toast'
 
 const Toast = (props: {
-  toastList: [{
-    id: number
-    title: string
-    description: string
-    backgroundColor: string
-    icon: string
-  }] | []
+  toastList: [ToastType] | []
   position: string
   autoDelete: boolean
   autoDeleteTime: number
@@ -34,11 +29,15 @@ const Toast = (props: {
   }, [toastList, autoDelete, autoDeleteTime, list])
 
   const deleteToast = (id: number) => {
-    const listItemIndex = list.findIndex((e) => e.id === id)
-    const toastListItem = toastList.findIndex((e) => e.id === id)
-    list.splice(listItemIndex, 1)
-    toastList.splice(toastListItem, 1)
-    setList([...list])
+    if (list.length > 0) {
+      const listItemIndex = list.findIndex((e: ToastType) => e.id === id)
+      const toastListItem = toastList.findIndex((e) => e.id === id)
+      list.splice(listItemIndex, 1)
+      toastList.splice(toastListItem, 1)
+      setList([...list])
+    } else {
+      console.log(`Id ${id} not found`, id)
+    }
   }
 
   return (

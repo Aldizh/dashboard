@@ -13,7 +13,8 @@ import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles
 import Grid from '@material-ui/core/Grid'
 
 // local imports
-import type { Member, ToastType } from '../../types/FilterTable'
+import type { Member } from '../../types/FilterTable'
+import type { ToastType } from '../../types/Toast'
 import Toast from '../shared/Toast'
 import { useListPageContext } from './context'
 import infoIcon from '../../images/info.svg'

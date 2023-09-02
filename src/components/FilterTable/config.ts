@@ -1,4 +1,6 @@
-export const headCells: any[] = [
+import type { TableHeadingType } from '../../types/FilterTable'
+
+export const headCells: TableHeadingType[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
   {
     id: 'membershipType',

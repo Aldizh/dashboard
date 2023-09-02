@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true,
+    // "sourceMap": true,
     "forceConsistentCasingInFileNames": false,
     "outDir": "dist",
     "declaration": true,
@@ -23,12 +23,11 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false, // save transpiled code to local disc
     "jsx": "react-jsx",
     "strictNullChecks": true
   },
   "include": [
-    "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.tsx",
   ],

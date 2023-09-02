@@ -1,14 +1,15 @@
-export const formatDate = (dateVal) => {
-  const options = {
+export const formatDate = (dateVal: string): string => {
+  const options: Record<string, string> = {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   }
+
   return new Date(dateVal).toLocaleDateString('en-US', options)
 }
 
-const descendingComparator = (a, b, orderBy) => {
+const descendingComparator = (a: Record<string, string>, b: Record<string, string>, orderBy: string) => {
   if (b[orderBy] < a[orderBy]) {
     return -1
   }
@@ -18,12 +19,12 @@ const descendingComparator = (a, b, orderBy) => {
   return 0
 }
 
-const getComparator = (order, orderBy) =>
+const getComparator = (order :string, orderBy: string) =>
   order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
+    ? (a: Record<string, string>, b: Record<string, string>) => descendingComparator(a, b, orderBy)
+    : (a: Record<string, string>, b: Record<string, string>) => -descendingComparator(a, b, orderBy)
 
-export const stableSort = (array, order, orderBy) => {
+export const stableSort = (array: any[], order: string, orderBy: string) => {
   const comparator = getComparator(order, orderBy)
   const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {

@@ -9,13 +9,13 @@ export interface Member {
   membership_type: string
 }
 
-export interface ToastType {
-  id: number
-  title: string
-  description: string
-  backgroundColor: string
-  icon: string
+export interface TableHeadingType {
+  id: string,
+  numeric: boolean,
+  disablePadding: boolean,
+  label: string
 }
+
 
 interface Chip {
   code: string,
