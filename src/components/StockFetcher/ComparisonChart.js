@@ -6,76 +6,11 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import moment from 'moment'
 
+import { getXData, calculateDataPoints } from '../../utils/charts'
 import { INTRADAY_INTERVAL_KEY } from '../../utils/consts'
 
 const INTERVAL_KEY = INTRADAY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
-
-// Get price calculation based on initial investment ($100 for simplicity)
-const getBaseWeightedPrice = (price, startingPrice) =>
-  Number((100 / startingPrice) * price)
-
-// Get x axis data (simple date or datetime)
-const getXData = (res) => {
-  if (!res[INTERVAL_KEY]) return ['2022-01-01']
-  return Object.keys(res[INTERVAL_KEY])
-}
-
-// Get y axis data (price corresponding to it)
-const getYData = (res) => {
-  if (!res[INTERVAL_KEY]) return [{ '4.close': 0.0 }]
-  return Object.values(res[INTERVAL_KEY])
-}
-
-const calculateSpyDataPoints = (spyData) => {
-  const spyDataPoints = []
-  const spyTimeIntervalKeys = getXData(spyData) // date strings in reverse order
-  const spyTimeIntervalValues = getYData(spyData)
-  const lastIndex = spyTimeIntervalKeys.length - 1
-  const earliestSPYDataPoint = spyTimeIntervalValues[lastIndex]
-    ? spyTimeIntervalValues[lastIndex]['4. close']
-    : 0
-  const latestSPYDataPoint = spyTimeIntervalValues[0]
-    ? spyTimeIntervalValues[0]['4. close']
-    : 0
-
-  for (let i = lastIndex; i > 0; i--) {
-    spyDataPoints.push({
-      x: new Date(spyTimeIntervalKeys[i]),
-      y: getBaseWeightedPrice(
-        spyTimeIntervalValues[i] && spyTimeIntervalValues[i]['4. close'],
-        earliestSPYDataPoint
-      )
-    })
-  }
-
-  return [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint]
-}
-
-const calculateDataPoints = (symbolData) => {
-  const dataPoints = []
-  const timeIntervalKeys = getXData(symbolData) // date strings in reverse order
-  const timeIntervalValues = getYData(symbolData)
-  const lastIndex = timeIntervalKeys.length - 1
-  const earliestDataPoint = timeIntervalValues[lastIndex]
-    ? timeIntervalValues[lastIndex]['4. close']
-    : 0
-  const latestDataPoint = timeIntervalValues[0]
-    ? timeIntervalValues[0]['4. close']
-    : 0
-
-  for (let i = lastIndex; i > 0; i--) {
-    dataPoints.push({
-      x: new Date(timeIntervalKeys[i]),
-      y: getBaseWeightedPrice(
-        timeIntervalValues[i] ? timeIntervalValues[i]['4. close'] : '0.00',
-        earliestDataPoint
-      )
-    })
-  }
-
-  return [dataPoints, earliestDataPoint, latestDataPoint]
-}
 
 class Canvas extends React.Component {
   state = {
@@ -90,9 +25,8 @@ class Canvas extends React.Component {
   componentDidMount () {
     const { data = defaultApiData, spyData } = this.props
 
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
-
-    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateSpyDataPoints(spyData)
+    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, INTERVAL_KEY, 'standard')
+    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateDataPoints(spyData, INTERVAL_KEY, 'standard')
 
     this.setState({
       dataPoints,

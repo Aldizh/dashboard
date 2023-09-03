@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Canvas from './ComparisonChart'
 import { getApiUrl, numberWithCommas } from './utils'
 import useDataApi from '../../hooks/useData'
-import { MetaData, TimeSeries } from "../../types"
+import { ChartData } from '../../types'
 
 const Standard = (props: {
   search: string
@@ -22,10 +22,7 @@ const Standard = (props: {
   DividendYield: string
   Sector: string
   data: {
-    data: {
-      ['Meta Data']: MetaData
-      ['Time Series (15min)']: TimeSeries
-    }
+    data: ChartData
   }
 }) => {
   const {

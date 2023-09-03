@@ -5,41 +5,8 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-const calculateDataPoints = (symbolData) => {
-  // const copy = symbolData.split(/\r?\n|\r|\n/g) // mutate reference
-  const data = symbolData["Monthly Adjusted Time Series"]
-  
-  // time, open, high, low, close, volume
-  // 2008-04-30: {1. open: '63.0000', 2. high: '84.8100', 3. low: '60.3100', 4. close: '83.4500'
-
-  const dataPoints = []
-  const timeIntervalKeys = []
-  const timeIntervalValues = []
-
-  Object.entries(data).forEach((row) => {
-    // we care about the closing price for the y axis and date time for x-axis
-    timeIntervalKeys.push(`${row[0]}`) // date
-    timeIntervalValues.push(row[1]) // closing price
-  })
-
-  const lastIndex = timeIntervalKeys.length - 1
-  const earliestDataPoint = timeIntervalValues[lastIndex]
-    ? timeIntervalValues[lastIndex]['4. close']
-    : 0
-  const latestDataPoint = timeIntervalValues[0]
-    ? timeIntervalValues[0]['4. close']
-    : 0
-
-  for (let i = lastIndex; i > 0; i--) {
-    dataPoints.push({
-      x: new Date(timeIntervalKeys[i]),
-      y: Number(timeIntervalValues[i]['4. close'])
-    })
-  }
-
-  return [dataPoints, earliestDataPoint, latestDataPoint]
-}
-
+import { calculateDataPoints } from '../../../utils/charts'
+import { MONTHLY_INTERVAL_ADJUSTED_KEY } from '../../../utils/consts'
 class Canvas extends React.Component {
   state = {
     dataPoints: [],
@@ -49,9 +16,10 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     const { data = '' } = this.props
-    const monthlyData = data["Monthly Adjusted Time Series"]
+    const intervalKey = MONTHLY_INTERVAL_ADJUSTED_KEY
+    const monthlyData = data[intervalKey]
     if (monthlyData) {
-      const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
+      const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, intervalKey, "standard")
 
       this.setState({
         dataPoints,

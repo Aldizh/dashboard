@@ -7,43 +7,10 @@ import Typography from '@material-ui/core/Typography'
 import moment from 'moment'
 
 import { DIGITAL_CURRENCY_INTERVAL_KEY } from '../../../utils/consts'
+import { getXData, calculateDataPoints } from '../../../utils/charts'
 
 const INTERVAL_KEY = DIGITAL_CURRENCY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
-
-// Get x axis data (simple date or datetime)
-const getXData = (res) => {
-  if (!res[INTERVAL_KEY]) return ['2022-01-01']
-  return Object.keys(res[INTERVAL_KEY])
-}
-
-// Get y axis data (price at the close of the day)
-const getYData = (res) => {
-  if (!res[INTERVAL_KEY]) return [{ '4b. close (USD)': 0.0 }]
-  return Object.values(res[INTERVAL_KEY])
-}
-
-const calculateDataPoints = (symbolData) => {
-  const dataPoints = []
-  const timeIntervalKeys = getXData(symbolData) // date strings in reverse order
-  const timeIntervalValues = getYData(symbolData)
-  const lastIndex = timeIntervalKeys.length - 1
-  const earliestDataPoint = timeIntervalValues[lastIndex]
-    ? timeIntervalValues[lastIndex]['4b. close (USD)']
-    : 0
-  const latestDataPoint = timeIntervalValues[0]
-    ? timeIntervalValues[0]['4b. close (USD)']
-    : 0
-
-  for (let i = lastIndex; i > 0; i--) {
-    dataPoints.push({
-      x: new Date(timeIntervalKeys[i]),
-      y: Number(timeIntervalValues[i]['4b. close (USD)'])
-    })
-  }
-
-  return [dataPoints, earliestDataPoint, latestDataPoint]
-}
 
 class Canvas extends React.Component {
   state = {
@@ -54,7 +21,7 @@ class Canvas extends React.Component {
 
   componentDidMount () {
     const { data = defaultApiData } = this.props
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data)
+    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, INTERVAL_KEY, "crypto")
 
     this.setState({
       dataPoints,
