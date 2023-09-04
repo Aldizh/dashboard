@@ -23,8 +23,8 @@ import {
   isComparisonStockChart
 } from './utils'
 
-const Main = ({ classes }) => {
-  const [symbol, setSymbol] = useState('') // set while typing
+const Fetcher = ({ classes }) => {
+  const [symbol, setSymbol] = useState('') // tracks user input
   const [search, setSearch] = useState('') // ticker symbol
   const [seriesType, setSeriesType] = useState('') // chart type (e.g historical crypto, spy vs aapl)
   const [apiError, setApiError] = useState('')
@@ -51,18 +51,6 @@ const Main = ({ classes }) => {
     search,
     getApiUrl(search, seriesType)
   )
-
-  // News articles related to the search term
-  const {
-    data: articleData,
-    isLoading: articlesLoading,
-    isError: articlesError,
-    updateUrl: updateArticlesUrl
-  } = useDataApi(
-    search,
-    getApiUrl(search, 'NEWS_SENTIMENT')
-  )
-  const feed = articleData.data.feed
 
   // Crypto data related to the search term
   const {
@@ -93,17 +81,9 @@ const Main = ({ classes }) => {
       updateSeriesUrl(getApiUrl(search, seriesType))
     } else if (search && !isLoading && isHistoricalCryptoChart(seriesType)) {
       updateCryptoUrl(getApiUrl(search, seriesType))
-      updateArticlesUrl(getApiUrl(search, 'NEWS_SENTIMENT'))
     }
   }, [search, seriesType])
 
-  const {
-    Name,
-    Exchange,
-    Sector,
-    MarketCapitalization,
-    DividendYield
-  } = fundamentalsData.data
   useEffect(() => {
     if (search && !fundamentalsIsLoading) {
       updateFundamentalsUrl(getFundamentalsUrl(search))
@@ -165,12 +145,8 @@ const Main = ({ classes }) => {
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
-              Name={Name}
-              Exchange={Exchange}
-              MarketCapitalization={MarketCapitalization}
-              DividendYield={DividendYield}
-              Sector={Sector}
               data={data}
+              metrics={fundamentalsData.data}
             />
           )}
           {symbol && isHistoricalStockChart(seriesType) && (
@@ -181,6 +157,7 @@ const Main = ({ classes }) => {
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
+              metrics={fundamentalsData.data}
             />
           )}
           {symbol && isHistoricalCryptoChart(seriesType) && (
@@ -194,10 +171,9 @@ const Main = ({ classes }) => {
                 seriesType={seriesType}
               />
               <News
-                feed={feed}
                 symbol={symbol}
-                articlesLoading={articlesLoading}
-                articlesError={articlesError}
+                search={search}
+                getApiUrl={getApiUrl}
               />
             </>
           )}
@@ -218,8 +194,8 @@ const Main = ({ classes }) => {
   )
 }
 
-Main.propTypes = {
+Fetcher.propTypes = {
   classes: PropTypes.object
 }
 
-export default Main
+export default Fetcher

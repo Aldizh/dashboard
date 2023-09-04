@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CanvasJSChart } from 'canvasjs-react-charts'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
 
 import { calculateDataPoints } from '../../../utils/charts'
-import { MONTHLY_INTERVAL_ADJUSTED_KEY } from '../../../utils/consts'
+import InfoCard from '../InfoCard'
+
 class Canvas extends React.Component {
   state = {
     dataPoints: [],
@@ -15,11 +13,14 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    const { data = '' } = this.props
-    const intervalKey = MONTHLY_INTERVAL_ADJUSTED_KEY
+    const { data = {}, intervalKey } = this.props
     const monthlyData = data[intervalKey]
     if (monthlyData) {
-      const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, intervalKey, "standard")
+      const [
+        dataPoints,
+        earliestDataPoint,
+        latestDataPoint
+      ] = calculateDataPoints(data, intervalKey, "standard")
 
       this.setState({
         dataPoints,
@@ -38,13 +39,11 @@ class Canvas extends React.Component {
 
   // Get data points for the given ticker and the benchmark (SPY)
   render () {
-    const { search } = this.props
+    const { search, metrics } = this.props
 
     const latestDate = new Date()
     const earliestDate = new Date();
     earliestDate.setDate(earliestDate.getDate() - 30);
-
-    const lastUpdate = new Date().toDateString()
 
     const options = {
       title: {
@@ -64,19 +63,7 @@ class Canvas extends React.Component {
 
     return (
       <>
-        <Card
-          variant="outlined"
-          style={{
-            margin: '10px auto',
-            width: '70%'
-          }}
-        >
-          <CardContent>
-            <Typography variant="subtitle1" gutterBottom>
-              Last Updated: {lastUpdate}
-            </Typography>
-          </CardContent>
-        </Card>
+        <InfoCard metrics={metrics} />
         <>
           <CanvasJSChart
             containerProps={{

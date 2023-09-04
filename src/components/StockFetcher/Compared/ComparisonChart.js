@@ -6,11 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import moment from 'moment'
 
-import { getXData, calculateDataPoints } from '../../utils/charts'
-import { INTRADAY_INTERVAL_KEY } from '../../utils/consts'
-
-const INTERVAL_KEY = INTRADAY_INTERVAL_KEY
-const defaultApiData = { INTERVAL_KEY: {} }
+import { getXData, calculateDataPoints } from '../../../utils/charts'
 
 class Canvas extends React.Component {
   state = {
@@ -23,10 +19,10 @@ class Canvas extends React.Component {
   }
 
   componentDidMount () {
-    const { data = defaultApiData, spyData } = this.props
+    const { data = {}, spyData, intervalKey } = this.props
 
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, INTERVAL_KEY, 'standard')
-    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateDataPoints(spyData, INTERVAL_KEY, 'standard')
+    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, intervalKey, 'standard')
+    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateDataPoints(spyData, intervalKey, 'standard')
 
     this.setState({
       dataPoints,
@@ -46,7 +42,7 @@ class Canvas extends React.Component {
 
   // Get data points for the given ticker and the benchmark (SPY)
   render () {
-    const { data, search } = this.props
+    const { data, search, intervalKey } = this.props
     const {
       earliestDataPoint,
       latestDataPoint,
@@ -55,7 +51,7 @@ class Canvas extends React.Component {
     } = this.state
 
     // x-axis data (not sure why but is coming in reverse chronological order)
-    const timeStamps = getXData(data)
+    const timeStamps = getXData(data, intervalKey)
     const latestDate = new Date(timeStamps[0])
     const earliestDate = new Date(timeStamps[timeStamps.length - 1])
 
@@ -64,7 +60,7 @@ class Canvas extends React.Component {
     const diffInTime = latestDate.getTime() - earliestDate.getTime()
     const diffInDays = Math.round(diffInTime / oneDay)
     const { ['3. Last Refreshed']: updatedTimestamp } = data['Meta Data'] || {}
-    const lastUpdate = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
+    const lastRefresh = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
     const options = {
       theme: 'light2',
       animationEnabled: true,
@@ -142,7 +138,7 @@ class Canvas extends React.Component {
               {search} Growth: <b>{stockGrowth}%</b>
             </Typography>
             <Typography color="primary" variant="subtitle1" gutterBottom>
-              Last Updated: <b>{lastUpdate}</b>
+              Last Data Refresh: <b>{lastRefresh}</b>
             </Typography>
           </CardContent>
         </Card>

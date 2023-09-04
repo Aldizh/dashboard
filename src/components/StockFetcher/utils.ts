@@ -7,10 +7,6 @@ const isComparisonStockChart = (type: string) => type === TIME_SERIES_INTRADAY
 const isHistoricalStockChart = (type: string) => type === TIME_SERIES_MONTHLY_ADJUSTED
 const isHistoricalCryptoChart = (type: string) => type === DIGITAL_CURRENCY_DAILY
 
-// regex to look for any point in the string that has a multiple of 3 digits in a row after it,
-const numberWithCommas = (x: string | number) =>
-  x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
 const getApiUrl = (symbol: string, seriesType: string) => {
   switch (seriesType) {
     case TIME_SERIES_MONTHLY_ADJUSTED:
@@ -33,6 +29,5 @@ export {
   getFundamentalsUrl,
   isHistoricalStockChart,
   isHistoricalCryptoChart,
-  isComparisonStockChart,
-  numberWithCommas
+  isComparisonStockChart
 }

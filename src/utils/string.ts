@@ -12,8 +12,16 @@ export const capitalize = (word: string | null): string => {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
-// // function to format date to normal form
-// export const formatDate = value => moment(new Date(value)).format("MM/DD/YYYY");
+export const formatToDecimal = (amount: string): string => {
+  const decimalAmt = parseFloat(amount)
+  return (decimalAmt * 100).toFixed(2)
+}
+
+// regex to look for any point in the string that has a multiple of 3 digits in a row after it,
+export const numberWithCommas = (x: string | number) =>
+  x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+export const formatDate = (value: string) => new Date(value).toLocaleDateString();
 
 // // function to fomrat time to hh:mm:ss
 // export const formatTime = value => {
