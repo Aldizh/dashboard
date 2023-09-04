@@ -9,7 +9,7 @@ import ListPage from './components/ListPage'
 import ExpandableTable from './components/ExpandableTable'
 import NavBar from './components/NavBar'
 import Footer from './components/shared/Footer'
-import Main from './Main'
+import Main from './components/Main'
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -23,11 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     marginRight: theme.spacing(2)
-  },
-  main: {
-    display: 'flex',
-
-    alignItems: 'center'
   },
   heroContent: {
     // backgroundColor: theme.palette.background.paper,

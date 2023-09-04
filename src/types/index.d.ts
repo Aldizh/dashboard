@@ -1,5 +1,4 @@
 interface ClassesType {
-  main: string,
   app: string,
   footer: string
   cardMedia: string,

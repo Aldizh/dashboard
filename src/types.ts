@@ -4,6 +4,8 @@ enum chartKeys {
   metaData = 'Meta Data'
 }
 
+// TO DO: Create a union type with crypto metadata
+//        with conditional attributes so it can be reused
 type MetaData = {
   ['1. Information']: string
   ['2. Symbol']: string
