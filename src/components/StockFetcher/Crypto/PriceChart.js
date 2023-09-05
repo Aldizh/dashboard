@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CanvasJSChart } from 'canvasjs-react-charts'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import moment from 'moment'
+import React from "react"
+import PropTypes from "prop-types"
+import { CanvasJSChart } from "canvasjs-react-charts"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
+import moment from "moment"
 
-import { DIGITAL_CURRENCY_INTERVAL_KEY } from '../../../utils/consts'
-import { getXData, calculateDataPoints } from '../../../utils/charts'
+import { DIGITAL_CURRENCY_INTERVAL_KEY } from "../../../utils/consts"
+import { getXData, calculateDataPoints } from "../../../utils/charts"
 
 const INTERVAL_KEY = DIGITAL_CURRENCY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
@@ -50,17 +50,17 @@ class Canvas extends React.Component {
     const latestDate = new Date(dates[0])
     const earliestDate = new Date(dates[dates.length - 1])
     const {
-      ['3. Digital Currency Name']: tickerName,
-      ['5. Market Name']: market,
-      ['6. Last Refreshed']: updatedTimestamp
-    } = data['Meta Data'] || {}
-    const lastUpdate = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
+      ["3. Digital Currency Name"]: tickerName,
+      ["5. Market Name"]: market,
+      ["6. Last Refreshed"]: updatedTimestamp
+    } = data["Meta Data"] || {}
+    const lastUpdate = moment(updatedTimestamp).format("MMMM Do YYYY, h:mm:ss a");
     const options = {
       title: {
         text: `Historical price for ${search} since ${earliestDate.toDateString()}`
       },
       data: [{
-        type: 'area', // other options ["spline", "area", "column"]
+        type: "area", // other options ["spline", "area", "column"]
         dataPoints: this.state.dataPoints
       }],
       navigator: {
@@ -76,8 +76,8 @@ class Canvas extends React.Component {
         <Card
           variant="outlined"
           style={{
-            margin: '10px auto',
-            width: '70%'
+            margin: "10px auto",
+            width: "70%"
           }}
         >
           <CardContent>
@@ -95,9 +95,9 @@ class Canvas extends React.Component {
         <>
           <CanvasJSChart
             containerProps={{
-              width: '100%',
-              height: '450px',
-              margin: 'auto'
+              width: "100%",
+              height: "450px",
+              margin: "auto"
             }}
             options={options}
             onRef={(ref) => (this.chart = ref)}

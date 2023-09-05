@@ -1,3 +1,3 @@
-import ChipsTooltip from './ChipsTooltip'
+import ChipsTooltip from "./ChipsTooltip"
 
 export default ChipsTooltip

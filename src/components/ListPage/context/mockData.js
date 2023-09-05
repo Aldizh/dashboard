@@ -1,5 +1,5 @@
-import faker from 'faker'
-import { v4 as uuidv4 } from 'uuid';
+import faker from "faker"
+import { v4 as uuidv4 } from "uuid";
 
 export const generateData = () => {
   const rows = []
@@ -13,20 +13,20 @@ export const generateData = () => {
       annual_fee: faker.finance.amount(),
       from_date: `${faker.date.past()}`,
       to_date: `${faker.date.future()}`,
-      membership_type: i % 2 === 0 ? 'Basic' : 'Premium'
+      membership_type: i % 2 === 0 ? "Basic" : "Premium"
     })
   }
   const currenciesReference = []
   const countriesReference = []
 
   const membershipTypesReference = [
-    { code: 'B', description: 'Basic' },
-    { code: 'P', description: 'Premium' }
+    { code: "B", description: "Basic" },
+    { code: "P", description: "Premium" }
   ]
 
   const chipData = [
-    { filterBy: 'membership_type', filterText: 'Basic', code: 'B' },
-    { filterBy: 'membership_type', filterText: 'Premium', code: 'P' }
+    { filterBy: "membership_type", filterText: "Basic", code: "B" },
+    { filterBy: "membership_type", filterText: "Premium", code: "P" }
   ]
 
   rows.forEach((row) => {

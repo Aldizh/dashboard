@@ -1,17 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 
 const SVG = ({
   style = {
-    position: 'absolute',
-    right: '5px',
-    bottom: '15px',
-    paddingRight: '4px',
-    enableBackground: 'new 0 0 451 451'
+    position: "absolute",
+    right: "5px",
+    bottom: "15px",
+    paddingRight: "4px",
+    enableBackground: "new 0 0 451 451"
   },
   // fill = '#000',
-  width = '15px',
-  height = '20px',
+  width = "15px",
+  height = "20px",
   // className = '',
   // viewBox = '0 0 40 26'
 }) => (

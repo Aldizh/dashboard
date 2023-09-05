@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CanvasJSChart } from 'canvasjs-react-charts'
+import React from "react"
+import PropTypes from "prop-types"
+import { CanvasJSChart } from "canvasjs-react-charts"
 
-import { calculateDataPoints } from '../../../utils/charts'
-import InfoCard from '../InfoCard'
+import { calculateDataPoints } from "../../../utils/charts"
+import InfoCard from "../InfoCard"
 
 class Canvas extends React.Component {
   state = {
@@ -50,7 +50,7 @@ class Canvas extends React.Component {
         text: `Historical monthly price data for ${search}`
       },
       data: [{
-        type: 'area', // Change it to "spline", "area", "column"
+        type: "area", // Change it to "spline", "area", "column"
         dataPoints: this.state.dataPoints
       }],
       navigator: {
@@ -67,9 +67,9 @@ class Canvas extends React.Component {
         <>
           <CanvasJSChart
             containerProps={{
-              width: '100%',
-              height: '450px',
-              margin: 'auto'
+              width: "100%",
+              height: "450px",
+              margin: "auto"
             }}
             options={options}
             onRef={(ref) => (this.chart = ref)}
@@ -83,7 +83,9 @@ class Canvas extends React.Component {
 
 Canvas.propTypes = {
   data: PropTypes.array,
-  search: PropTypes.string
+  search: PropTypes.string,
+  intervalKey: PropTypes.string,
+  metrics: PropTypes.object
 }
 
 export default Canvas

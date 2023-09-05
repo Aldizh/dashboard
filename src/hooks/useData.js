@@ -1,7 +1,7 @@
-import { useState, useEffect, useReducer } from 'react'
-import axios from 'axios'
+import { useState, useEffect, useReducer } from "react"
+import axios from "axios"
 
-import { FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE } from '../utils/consts'
+import { FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE } from "../utils/consts"
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -32,21 +32,21 @@ const dataFetchReducer = (state, action) => {
 // Define expected data format from the API
 const defaultState = {
   data: {
-    'Meta Data': {
-      '1. Information': 'Intraday (15min) open, high, low, close prices and volume',
-      '2. Symbol': 'SPY',
-      '3. Last Refreshed': '2021-12-02 20:00:00',
-      '4. Interval': '15min',
-      '5. Output Size': 'Full size',
-      '6. Time Zone': 'US/Eastern'
+    "Meta Data": {
+      "1. Information": "Intraday (15min) open, high, low, close prices and volume",
+      "2. Symbol": "SPY",
+      "3. Last Refreshed": "2021-12-02 20:00:00",
+      "4. Interval": "15min",
+      "5. Output Size": "Full size",
+      "6. Time Zone": "US/Eastern"
     },
-    'Time Series (15min)': {
-      '2021-10-22 04:15:00': {
-        '1. open': 70.1025,
-        '2. high': 73.1825,
-        '3. low': 69.1825,
-        '4. close': 71.0543,
-        '5. volume': 101
+    "Time Series (15min)": {
+      "2021-10-22 04:15:00": {
+        "1. open": 70.1025,
+        "2. high": 73.1825,
+        "3. low": 69.1825,
+        "4. close": 71.0543,
+        "5. volume": 101
       }
     }
   }

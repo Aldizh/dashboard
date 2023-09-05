@@ -1,57 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import { Table, Segment, Grid } from 'semantic-ui-react'
-import ParticlesBg from 'particles-bg'
-import { Outlet } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import React, { useState, useEffect } from "react"
+import { Table, Segment, Grid } from "semantic-ui-react"
+import ParticlesBg from "particles-bg"
+import { Outlet } from "react-router-dom"
+import CssBaseline from "@material-ui/core/CssBaseline"
 
-import NavBar from '../NavBar'
-import Footer from '../shared/Footer'
-import './styles.css'
+import NavBar from "../NavBar"
+import Footer from "../shared/Footer"
+import "./styles.css"
 
 const tempData = [
   {
-    type: 'Onboard Contractor',
-    status: 'Pending',
-    tasks: '2 of 4',
-    date: '2014-04-18',
-    name1: 'Create Zendesk Ticket',
-    name2: 'LDAP Access',
+    type: "Onboard Contractor",
+    status: "Pending",
+    tasks: "2 of 4",
+    date: "2014-04-18",
+    name1: "Create Zendesk Ticket",
+    name2: "LDAP Access",
     percent: 50
   },
   {
-    type: 'Onboard Employee',
-    status: 'Done',
-    tasks: '1 of 3',
-    date: '2014-04-21',
-    name1: 'Equipment Setup',
-    name2: 'Microsoft Training',
+    type: "Onboard Employee",
+    status: "Done",
+    tasks: "1 of 3",
+    date: "2014-04-21",
+    name1: "Equipment Setup",
+    name2: "Microsoft Training",
     percent: 100
   },
   {
-    type: 'Onboard Contractor',
-    status: 'Error',
-    tasks: '3 of 3',
-    date: '2014-08-09',
-    name1: 'Create Zendesk Ticket',
-    name2: 'LDAP Access',
+    type: "Onboard Contractor",
+    status: "Error",
+    tasks: "3 of 3",
+    date: "2014-08-09",
+    name1: "Create Zendesk Ticket",
+    name2: "LDAP Access",
     percent: 25
   },
   {
-    type: 'Terminate Contractor',
-    status: 'Done',
-    tasks: '2 of 4',
-    date: '2014-04-24',
-    name1: 'Create Zendesk Ticket',
-    name2: 'LDAP Access',
+    type: "Terminate Contractor",
+    status: "Done",
+    tasks: "2 of 4",
+    date: "2014-04-24",
+    name1: "Create Zendesk Ticket",
+    name2: "LDAP Access",
     percent: 100
   },
   {
-    type: 'Terminate Contractor',
-    status: 'Pending',
-    tasks: '1 of 4',
-    date: '2014-04-26',
-    name1: 'Create Zendesk Ticket',
-    name2: 'LDAP Access',
+    type: "Terminate Contractor",
+    status: "Pending",
+    tasks: "1 of 4",
+    date: "2014-04-26",
+    name1: "Create Zendesk Ticket",
+    name2: "LDAP Access",
     percent: 90
   }
 ]

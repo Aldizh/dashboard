@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CanvasJS, CanvasJSChart } from 'canvasjs-react-charts'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import moment from 'moment'
+import React from "react"
+import PropTypes from "prop-types"
+import { CanvasJS, CanvasJSChart } from "canvasjs-react-charts"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
+import moment from "moment"
 
-import { getXData, calculateDataPoints } from '../../../utils/charts'
+import { getXData, calculateDataPoints } from "../../../utils/charts"
 
-class Canvas extends React.Component {
+class Comparison extends React.Component {
   state = {
     dataPoints: [],
     spyDataPoints: [],
@@ -21,8 +21,8 @@ class Canvas extends React.Component {
   componentDidMount () {
     const { data = {}, spyData, intervalKey } = this.props
 
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, intervalKey, 'standard')
-    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateDataPoints(spyData, intervalKey, 'standard')
+    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, intervalKey, "standard")
+    const [spyDataPoints, earliestSPYDataPoint, latestSPYDataPoint] = calculateDataPoints(spyData, intervalKey, "standard")
 
     this.setState({
       dataPoints,
@@ -59,24 +59,24 @@ class Canvas extends React.Component {
     const oneDay = 1000 * 60 * 60 * 24
     const diffInTime = latestDate.getTime() - earliestDate.getTime()
     const diffInDays = Math.round(diffInTime / oneDay)
-    const { ['3. Last Refreshed']: updatedTimestamp } = data['Meta Data'] || {}
-    const lastRefresh = moment(updatedTimestamp).format('MMMM Do YYYY, h:mm:ss a');
+    const { ["3. Last Refreshed"]: updatedTimestamp } = data["Meta Data"] || {}
+    const lastRefresh = moment(updatedTimestamp).format("MMMM Do YYYY, h:mm:ss a");
     const options = {
-      theme: 'light2',
+      theme: "light2",
       animationEnabled: true,
       title: {
         text: `Historical Price Comparison: ${search} vs SPY over the last ${diffInDays} days`
       },
       axisY: {
-        title: 'Price (weighted to 100$)',
-        prefix: '$'
+        title: "Price (weighted to 100$)",
+        prefix: "$"
       },
       axisX: {
-        title: 'Day',
+        title: "Day",
         interVal: 1,
-        interValType: 'day',
+        interValType: "day",
         labelFormatter: function (e) {
-          return CanvasJS.formatDate(e.value, 'DD MMM')
+          return CanvasJS.formatDate(e.value, "DD MMM")
         }
       },
       toolTip: {
@@ -84,21 +84,21 @@ class Canvas extends React.Component {
       },
       data: [
         {
-          type: 'spline',
+          type: "spline",
           name: `${search}`,
           showInLegend: true,
-          xValueType: 'dateTime',
-          xValueFormatString: 'DD MMM YYYY',
-          yValueFormatString: '$##.00',
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM YYYY",
+          yValueFormatString: "$##.00",
           dataPoints: this.state.dataPoints
         },
         {
-          type: 'spline',
-          name: 'SPY',
+          type: "spline",
+          name: "SPY",
           showInLegend: true,
-          xValueType: 'dateTime',
-          xValueFormatString: 'DD MMM YYYY',
-          yValueFormatString: '$##.00',
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM YYYY",
+          yValueFormatString: "$##.00",
           dataPoints: this.state.spyDataPoints
         }
       ],
@@ -126,8 +126,8 @@ class Canvas extends React.Component {
         <Card
           variant="outlined"
           style={{
-            margin: '10px auto',
-            width: '70%'
+            margin: "10px auto",
+            width: "70%"
           }}
         >
           <CardContent>
@@ -145,9 +145,9 @@ class Canvas extends React.Component {
         <>
           <CanvasJSChart
             containerProps={{
-              width: '100%',
-              height: '450px',
-              margin: 'auto'
+              width: "100%",
+              height: "450px",
+              margin: "auto"
             }}
             options={options}
             onRef={(ref) => (this.chart = ref)}
@@ -159,10 +159,12 @@ class Canvas extends React.Component {
   }
 }
 
-Canvas.propTypes = {
+Comparison.propTypes = {
   data: PropTypes.object,
   spyData: PropTypes.object,
-  search: PropTypes.string
+  search: PropTypes.string,
+  intervalKey: PropTypes.string,
+  metrics: PropTypes.object,
 }
 
-export default Canvas
+export default Comparison

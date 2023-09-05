@@ -1,19 +1,19 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import PropTypes from 'prop-types'
-import ParticlesBg from 'particles-bg'
-import { Outlet } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import React, { useState, useEffect } from 'react'
-import useDataApi from '../../hooks/useData'
-import NavBar from '../NavBar'
-import Footer from '../shared/Footer'
-import News from '../shared/News'
+import PropTypes from "prop-types"
+import ParticlesBg from "particles-bg"
+import { Outlet } from "react-router-dom"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import React, { useState, useEffect } from "react"
+import useDataApi from "../../hooks/useData"
+import NavBar from "../NavBar"
+import Footer from "../shared/Footer"
+import News from "../shared/News"
 
-import Price from './Stocks'
-import Crypto from './Crypto'
-import Compared from './Compared'
+import Price from "./Stocks"
+import Crypto from "./Crypto"
+import Compared from "./Compared"
 
 import {
   getApiUrl,
@@ -21,18 +21,18 @@ import {
   isHistoricalStockChart,
   isHistoricalCryptoChart,
   isComparisonStockChart
-} from './utils'
+} from "./utils"
 
 const Fetcher = ({ classes }) => {
-  const [symbol, setSymbol] = useState('') // tracks user input
-  const [search, setSearch] = useState('') // ticker symbol
-  const [seriesType, setSeriesType] = useState('') // chart type (e.g historical crypto, spy vs aapl)
-  const [apiError, setApiError] = useState('')
+  const [symbol, setSymbol] = useState("") // tracks user input
+  const [search, setSearch] = useState("") // ticker symbol
+  const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
+  const [apiError, setApiError] = useState("")
 
   const resetState = () => {
-    setSearch('')
-    setSymbol('')
-    setApiError('')
+    setSearch("")
+    setSymbol("")
+    setApiError("")
   }
 
   const handleSelectChange = (event) => {
@@ -99,8 +99,8 @@ const Fetcher = ({ classes }) => {
       fundamentalsData.data.Note ||
       data.data.Note
     if (newApiError) {
-      console.log('got an api error...', newApiError)
-      setApiError('Daily Limit Reached') // most likely use case
+      console.log("got an api error...", newApiError)
+      setApiError("Daily Limit Reached") // most likely use case
     }
   }, [search, seriesType, data.data])
 
@@ -118,9 +118,9 @@ const Fetcher = ({ classes }) => {
           <select
             onChange={handleSelectChange}
             style={{
-              width: '170px',
-              padding: '2px',
-              fontSize: '14px'
+              width: "170px",
+              padding: "2px",
+              fontSize: "14px"
             }}
           >
             <option value="">Select an option</option>
@@ -182,7 +182,7 @@ const Fetcher = ({ classes }) => {
       <ParticlesBg
         type="circle"
         bg={{
-          position: 'fixed',
+          position: "fixed",
           zIndex: -1,
           top: 0,
           left: 0

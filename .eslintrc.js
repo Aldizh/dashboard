@@ -17,6 +17,14 @@ module.exports = {
   rules: {
     "react/jsx-uses-vars": "warn",
     "camelcase": "off",
+    "@typescript-eslint/quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/no-explicit-any": ["off"], // override
     "@typescript-eslint/no-explicit-any": ["off"] // override

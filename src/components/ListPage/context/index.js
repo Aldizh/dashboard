@@ -1,7 +1,7 @@
 // Global state for announcement dialog
-import React, { createContext, useContext, useReducer } from 'react'
-import PropTypes from 'prop-types'
-import listPageContext from './reducer'
+import React, { createContext, useContext, useReducer } from "react"
+import PropTypes from "prop-types"
+import listPageContext from "./reducer"
 
 export const StateContext = createContext()
 

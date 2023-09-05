@@ -1,3 +1,3 @@
-import CopyRight from './CopyRight'
+import CopyRight from "./CopyRight"
 
 export default CopyRight
