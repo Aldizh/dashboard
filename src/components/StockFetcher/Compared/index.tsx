@@ -10,25 +10,16 @@ import useDataApi from '../../../hooks/useData'
 import { ChartData } from '../../../types'
 import { INTRADAY_INTERVAL_KEY } from '../../../utils/consts'
 
+import type { Metrics } from  '../../../types/Stocks'
+
 const Standard = (props: {
   search: string
   symbol: string
   apiError: string
   isLoading: boolean
   seriesType: string
-  data: {
-    data: ChartData
-  },
-  metrics: {
-    Name: string
-    Exchange: string
-    MarketCapitalization: string
-    DividendYield: string,
-    DividendDate: string,
-    QuarterlyRevenueGrowthYOY: string,
-    QuarterlyEarningsGrowthYOY: string,
-    Sector: string
-  }
+  data: { data: ChartData },
+  metrics: Metrics
 }) => {
   const {
     search,

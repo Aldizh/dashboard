@@ -4,21 +4,11 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
 import { formatToDecimal, formatDate } from '../../../utils/string'
+import type { Metrics } from  '../../../types/Stocks'
 
-const InfoCard = (props: { metrics: {
-  Name: string
-  Exchange: string
-  MarketCapitalization: string
-  DividendYield: string,
-  DividendDate: string,
-  QuarterlyRevenueGrowthYOY: string,
-  QuarterlyEarningsGrowthYOY: string,
-  Sector: string
-}}) => {
+const InfoCard = (props: { metrics: Metrics }) => {
   const {
     Name,
-    Exchange,
-    MarketCapitalization,
     QuarterlyRevenueGrowthYOY,
     QuarterlyEarningsGrowthYOY,
     DividendYield,

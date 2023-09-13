@@ -14,7 +14,6 @@ interface ReferenceData {
   description: string
 }
 
-
 enum MembershipType {
   Basic = "Basic",
   Premium = "Premium"
