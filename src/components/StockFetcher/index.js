@@ -42,37 +42,45 @@ const Fetcher = ({ classes }) => {
   }
 
   // Historic data for the search term
-  const {
-    data,
-    isLoading,
-    isError,
-    updateUrl: updateSeriesUrl
-  } = useDataApi(
+  const parsedData = useDataApi(
     search,
-    getApiUrl(search, seriesType)
+    getApiUrl(search, seriesType),
   )
 
-  // Crypto data related to the search term
-  const {
-    data: cryptoData,
-    isLoading: cryptoLoading,
-    isError: cryptoError,
-    updateUrl: updateCryptoUrl
-  } = useDataApi(
-    search,
-    getApiUrl(search, seriesType)
-  )
+  // initialize stock chart data
+  let data = { data: {} }
+  let isLoading = false
+  let isError = false
+  let updateSeriesUrl = () => {}
 
-  // Fundamentals data for the search term
-  const {
-    data: fundamentalsData,
-    isLoading: fundamentalsIsLoading,
-    isError: fundamentalsIsError,
-    updateUrl: updateFundamentalsUrl
-  } = useDataApi(
+  // initialize crypto chart data
+  let cryptoData = { data: {} }
+  let cryptoLoading = false
+  let cryptoError = false
+  let updateCryptoUrl = () => {}
+
+  // load the correct data based on series type
+  if (isHistoricalCryptoChart(seriesType)) {
+    cryptoData = parsedData.data
+    cryptoLoading = parsedData.isLoading
+    cryptoError = parsedData.isError
+    updateCryptoUrl = parsedData.updateUrl
+  } else {
+    data = parsedData.data
+    isLoading = parsedData.isLoading
+    isError = parsedData.isError
+    updateSeriesUrl = parsedData.updateUrl
+  }
+
+  // fundamentals data (crypto is excluded)
+  const fundamentals = useDataApi(
     search,
     getFundamentalsUrl(search)
   )
+  const fundamentalsData = fundamentals.data
+  const fundamentalsIsLoading = fundamentals.isLoading
+  const fundamentalsIsError = fundamentals.isError
+  const updateFundamentalsUrl = fundamentals.updateUrl
 
   useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {

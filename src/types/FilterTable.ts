@@ -16,7 +16,6 @@ export interface TableHeadingType {
   label: string
 }
 
-
 interface Chip {
   code: string,
   filterBy: string,
