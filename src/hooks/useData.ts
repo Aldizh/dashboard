@@ -1,6 +1,8 @@
 import { useState, useEffect, useReducer } from "react"
 import axios from "axios"
 
+import { ChartData } from "../types"
+
 import {
   FETCH_INIT,
   FETCH_SUCCESS,
@@ -11,7 +13,21 @@ import {
   DIGITAL_CURRENCY_DAILY,
 } from "../utils/consts"
 
-const dataFetchReducer = (state, action) => {
+type Action = {
+  type: string,
+  payload?: object
+}
+
+/* TO DO: State should have the following type
+   There is an issue with dispatch is being defined
+   in usereducer hook
+    {
+      isError: boolean,
+      isLoading: boolean,
+      data: ChartData
+    }
+*/
+const dataFetchReducer = (state: any, action: Action) => {
   switch (action.type) {
     case FETCH_INIT:
       return {
@@ -38,7 +54,9 @@ const dataFetchReducer = (state, action) => {
 }
 
 // Define expected data format from the API
-const getDefaultState = (url) => {
+const getDefaultState = <T extends string>(url: T): {
+  data: ChartData | {}
+} => {
   if (url.includes(TIME_SERIES_INTRADAY)) {
     return {
       data: {
@@ -115,52 +133,54 @@ const getDefaultState = (url) => {
   } else if (url.includes(OVERVIEW)) {
     return {
       data: {
-        "Symbol": "MSFT",
-        "AssetType": "Common Stock",
-        "Name": "Microsoft Corporation",
-        "Description": "Microsoft Corporation is an American multinational technology company which produces computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 21 in the 2020 Fortune 500 rankings of the largest United States corporations by total revenue; it was the world's largest software maker by revenue as of 2016. It is considered one of the Big Five companies in the U.S. information technology industry, along with Google, Apple, Amazon, and Facebook.",
-        "CIK": "789019",
-        "Exchange": "NASDAQ",
-        "Currency": "USD",
-        "Country": "USA",
-        "Sector": "TECHNOLOGY",
-        "Industry": "SERVICES-PREPACKAGED SOFTWARE",
-        "Address": "ONE MICROSOFT WAY, REDMOND, WA, US",
-        "FiscalYearEnd": "June",
-        "LatestQuarter": "2023-06-30",
-        "MarketCapitalization": "2496845054000",
-        "EBITDA": "102022996000",
-        "PERatio": "34.68",
-        "PEGRatio": "2.275",
-        "BookValue": "27.75",
-        "DividendPerShare": "2.72",
-        "DividendYield": "0.0082",
-        "EPS": "9.69",
-        "RevenuePerShareTTM": "28.46",
-        "ProfitMargin": "0.342",
-        "OperatingMarginTTM": "0.418",
-        "ReturnOnAssetsTTM": "0.142",
-        "ReturnOnEquityTTM": "0.388",
-        "RevenueTTM": "211914998000",
-        "GrossProfitTTM": "135620000000",
-        "DilutedEPSTTM": "9.69",
-        "QuarterlyEarningsGrowthYOY": "0.202",
-        "QuarterlyRevenueGrowthYOY": "0.083",
-        "AnalystTargetPrice": "359.97",
-        "TrailingPE": "34.68",
-        "ForwardPE": "27.03",
-        "PriceToSalesRatioTTM": "9.14",
-        "PriceToBookRatio": "11.05",
-        "EVToRevenue": "9.21",
-        "EVToEBITDA": "18.55",
-        "Beta": "0.905",
-        "52WeekHigh": "366.01",
-        "52WeekLow": "211.39",
-        "50DayMovingAverage": "332.48",
-        "200DayMovingAverage": "291.76",
-        "SharesOutstanding": "7429760000",
-        "DividendDate": "2023-09-14",
-        "ExDividendDate": "2023-08-16"
+        "Meta Data": {
+          "Symbol": "MSFT",
+          "AssetType": "Common Stock",
+          "Name": "Microsoft Corporation",
+          "Description": "Microsoft Corporation is an American multinational technology company which produces computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 21 in the 2020 Fortune 500 rankings of the largest United States corporations by total revenue; it was the world's largest software maker by revenue as of 2016. It is considered one of the Big Five companies in the U.S. information technology industry, along with Google, Apple, Amazon, and Facebook.",
+          "CIK": "789019",
+          "Exchange": "NASDAQ",
+          "Currency": "USD",
+          "Country": "USA",
+          "Sector": "TECHNOLOGY",
+          "Industry": "SERVICES-PREPACKAGED SOFTWARE",
+          "Address": "ONE MICROSOFT WAY, REDMOND, WA, US",
+          "FiscalYearEnd": "June",
+          "LatestQuarter": "2023-06-30",
+          "MarketCapitalization": "2496845054000",
+          "EBITDA": "102022996000",
+          "PERatio": "34.68",
+          "PEGRatio": "2.275",
+          "BookValue": "27.75",
+          "DividendPerShare": "2.72",
+          "DividendYield": "0.0082",
+          "EPS": "9.69",
+          "RevenuePerShareTTM": "28.46",
+          "ProfitMargin": "0.342",
+          "OperatingMarginTTM": "0.418",
+          "ReturnOnAssetsTTM": "0.142",
+          "ReturnOnEquityTTM": "0.388",
+          "RevenueTTM": "211914998000",
+          "GrossProfitTTM": "135620000000",
+          "DilutedEPSTTM": "9.69",
+          "QuarterlyEarningsGrowthYOY": "0.202",
+          "QuarterlyRevenueGrowthYOY": "0.083",
+          "AnalystTargetPrice": "359.97",
+          "TrailingPE": "34.68",
+          "ForwardPE": "27.03",
+          "PriceToSalesRatioTTM": "9.14",
+          "PriceToBookRatio": "11.05",
+          "EVToRevenue": "9.21",
+          "EVToEBITDA": "18.55",
+          "Beta": "0.905",
+          "52WeekHigh": "366.01",
+          "52WeekLow": "211.39",
+          "50DayMovingAverage": "332.48",
+          "200DayMovingAverage": "291.76",
+          "SharesOutstanding": "7429760000",
+          "DividendDate": "2023-09-14",
+          "ExDividendDate": "2023-08-16"
+        }
       }
     }
   } else return { data: {}}
@@ -170,7 +190,7 @@ const getDefaultState = (url) => {
   has daily threshold of 5 calls per minute. We need to check other
   open APIs or consider a paid plan for the full features.
 */
-const useDataApi = (search, initialUrl) => {
+const useDataApi = (search: string, initialUrl: string) => {
   const [url, setUrl] = useState(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -197,7 +217,7 @@ const useDataApi = (search, initialUrl) => {
     if (search) fetchData()
   }, [url])
 
-  const updateUrl = (url) => setUrl(url)
+  const updateUrl = (url: string) => setUrl(url)
 
   return { ...state, updateUrl }
 }

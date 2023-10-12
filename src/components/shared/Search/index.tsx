@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import TextField from '@material-ui/core/TextField';
 
 import SearchSVG from './SearchIcon'
 import './search.css'
@@ -13,11 +14,16 @@ const Search = ({
   handleSearch: (e: string) => void
 }): ReactElement => (
   <div className="searchBox">
-    <input
-      type="text"
-      placeholder={`${searchBy} Search`}
-      value={searchText}
-      onChange={(e) => handleSearch(e.target.value)}
+    <TextField
+      fullWidth
+      variant="standard"
+      color="primary"
+      label={`${searchBy} Search`}
+      placeholder={searchText}
+      value={searchText || ""}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        handleSearch(event.target.value);
+      }}
     />
     <SearchSVG
       style={{

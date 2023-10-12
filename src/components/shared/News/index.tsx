@@ -69,7 +69,7 @@ const News = (props: {
     search,
     getApiUrl(search, NEWS_SENTIMENT)
   )
-  const feed: Feed = articleData.data.feed
+  const feed: Feed = articleData?.data?.feed
 
   useEffect(() => {
    if (search && !articlesLoading) {
