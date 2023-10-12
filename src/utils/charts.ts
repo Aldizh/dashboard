@@ -19,7 +19,10 @@ const getYData = (res: ChartData, INTERVAL_KEY: chartKeys) => {
 }
 
 const calculateDataPoints = (symbolData: ChartData, INTERVAL_KEY: chartKeys, type: string) => {
-  const dataPoints = []
+  const dataPoints: Array<{
+    x: Date,
+    y: number
+  }> = []
   const closingAttribute = type === "standard" ? '4. close' : '4b. close (USD)'
   const timeIntervalKeys = getXData(symbolData, INTERVAL_KEY) // date strings in reverse order
   const timeIntervalValues: any[] = getYData(symbolData, INTERVAL_KEY)

@@ -8,6 +8,16 @@ import NavBar from "../NavBar"
 import Footer from "../shared/Footer"
 import "./styles.css"
 
+type Item = {
+  type: string,
+  status: string,
+  date: string,
+  tasks: string,
+  name1: string,
+  name2: string,
+  percent: number
+}
+
 const tempData = [
   {
     type: "Onboard Contractor",
@@ -56,7 +66,7 @@ const tempData = [
   }
 ]
 
-const renderGridSubColumns = (item, index) => {
+const renderGridSubColumns = (item: Item, index: number) => {
   let taskName = item.name1
   if (index > 1) taskName = item.name2
   return (
@@ -81,17 +91,19 @@ const renderGridSubColumns = (item, index) => {
   )
 }
 
-const ExapndableTable = (classes) => {
-  const [expandedRows, setExpanded] = useState([])
-  const [allItemRows, setData] = useState([])
+const ExapndableTable = ({classes}: {classes: ClassesType}) => {
+  const [expandedRows, setExpanded] = useState<Array<number>>([]);
+  const [allItemRows, setData] = useState<Array<JSX.Element[]>>([]);
+
+  console.log('allItemRows...', allItemRows)
 
   useEffect(() => {
-    const handleRowClick = (rowId) => {
-      const currentExpandedRows = expandedRows
+    const handleRowClick = (rowId: number) => {
+      const currentExpandedRows: Array<number> = expandedRows
       const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId)
       
       // This allows for only one row to be expanded at a time
-      const newExpandedRows = isRowCurrentlyExpanded ? [] : [rowId]
+      const newExpandedRows: Array<number> = isRowCurrentlyExpanded ? [] : [rowId]
 
       // This allows for multiple rows to be expanded at a time
       // const newExpandedRows = isRowCurrentlyExpanded
@@ -101,7 +113,7 @@ const ExapndableTable = (classes) => {
       setExpanded(newExpandedRows)
     }
 
-    const renderItemCaret = (rowId) => {
+    const renderItemCaret = (rowId: number) => {
       const currentExpandedRows = expandedRows
       const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId)
 
@@ -112,7 +124,7 @@ const ExapndableTable = (classes) => {
       }
     }
 
-    const renderItem = (item, index) => {
+    const renderItem = (item: Item, index: number) => {
       const itemRows = [
         <Table.Row
           onClick={() => handleRowClick(index)}
@@ -136,15 +148,15 @@ const ExapndableTable = (classes) => {
 
       return itemRows
     }
-    let allItemRows = []
+    let allItemRows: Array<JSX.Element[]> = []
     tempData.forEach((item, index) => {
       const perItemRows = renderItem(item, index)
-      allItemRows = allItemRows.concat(perItemRows)
+      allItemRows = [...allItemRows, perItemRows]
     })
     setData(allItemRows)
   }, [expandedRows])
 
-  const renderItemDetails = (item) => (
+  const renderItemDetails = (item: Item) => (
     <Segment basic>
       <h2>2 Active Tasks</h2>
       {renderGridSubColumns(item, 1)}
