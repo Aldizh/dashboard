@@ -52,7 +52,7 @@ const Standard = (props: {
               <Comparison
                 search={search}
                 data={data.data}
-                spyData={spyData.data.data}
+                spyData={spyData?.data?.data}
                 symbol={symbol}
                 intervalKey={INTRADAY_INTERVAL_KEY}
               />
