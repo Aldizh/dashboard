@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import SearchSVG from './SearchIcon'
 import './search.css'
 
+const capitalized = (word: string): string  => word.charAt(0).toUpperCase() + word.slice(1)
+
 const Search = ({
   searchBy,
   searchText,
@@ -11,18 +13,19 @@ const Search = ({
 }: {
   searchBy: string
   searchText: string
-  handleSearch: (e: string) => void
+  handleSearch: (text: string, type: string) => void
 }): ReactElement => (
-  <div className="searchBox">
+  <>
     <TextField
       fullWidth
       variant="standard"
       color="primary"
-      label={`${searchBy} Search`}
+      className="searchBox"
+      label={`${capitalized(searchBy)} Search`}
       placeholder={searchText}
       value={searchText || ""}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        handleSearch(event.target.value);
+        handleSearch(event.target.value, searchBy);
       }}
     />
     <SearchSVG
@@ -39,7 +42,7 @@ const Search = ({
       className = ''
       viewBox = '0 0 40 26'
     />
-  </div>
+  </>
 )
 
 export default Search

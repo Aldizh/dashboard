@@ -15,19 +15,34 @@ const theme = createTheme({
   }
 })
 
+  // TO DO: Chips within the same category should be AND instead of OR
 const getNewMembers = (chips: Chips, members: Members) => {
-  if (!chips.length) return members
-  const newMembers: Members | any[] = []
+  if (!chips.length) return members // no filters, return everything
 
-  const getKeyValue = (key: string) => (obj: Record<string, any>) => obj[key];
+  return members.filter((member) => {
+    const countryChips = chips.filter((currChip) => currChip.filterBy === "country")
+    const currencyChips = chips.filter((currChip) => currChip.filterBy === "currency")
+    const membershipChips = chips.filter((currChip) => currChip.filterBy === "membership_type")
 
-  chips.forEach((currChip) => {
-    const memberByCode = members.find((member) => getKeyValue(currChip.filterBy)(member) === currChip.code)
-    const memberByText = members.find((member) => getKeyValue(currChip.filterBy)(member) === currChip.filterText)
-    const member = memberByCode || memberByText
-    if (member) newMembers.push(member)
+    const countryCodes = countryChips.map(chip => chip.code)
+    const currencyCodes = currencyChips.map(chip => chip.code)
+    const memberShipCodes = membershipChips.map(chip => chip.filterText)
+
+    // * if the the selection within a group is present then consider all chips for that category
+    return (
+      (
+        !countryCodes.length ||
+        countryCodes.includes(member["country"])
+      ) &&
+      (
+        !currencyCodes.length ||
+        currencyCodes.includes(member["currency"])
+      ) &&  (
+        !memberShipCodes.length ||
+        memberShipCodes.includes(member["membership_type"])
+      )
+    )
   })
-  return newMembers
 }
 
 const Toolbar = ({ members }: { members: Members }) => {

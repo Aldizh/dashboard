@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
-import { useListPageContext } from './context'
+import { useListPageContext } from '../context'
 
 const styles = (theme: any) => ({
   root: {
@@ -20,14 +19,32 @@ const calcuateFilteredData = (chips: Array<{
   filterText: string,
   code: string
 }>, members: Array<any> = []) => {
-  if (!chips.length) return members
-  return members.filter((member) =>
-    chips.every(
-      (currChip) =>
-        member[currChip.filterBy] === currChip.code ||
-        member[currChip.filterBy] === currChip.filterText
+  if (!chips.length) return members // no filters, return everything
+
+  return members.filter((member) => {
+    const countryChips = chips.filter((currChip) => currChip.filterBy === "country")
+    const currencyChips = chips.filter((currChip) => currChip.filterBy === "currency")
+    const membershipChips = chips.filter((currChip) => currChip.filterBy === "membership_type")
+
+    const countryCodes = countryChips.map(chip => chip.code)
+    const currencyCodes = currencyChips.map(chip => chip.code)
+    const memberShipCodes = membershipChips.map(chip => chip.filterText)
+
+    // * if the the selection within a group is present then consider all chips for that category
+    return (
+      (
+        !countryCodes.length ||
+        countryCodes.includes(member["country"])
+      ) &&
+      (
+        !currencyCodes.length ||
+        currencyCodes.includes(member["currency"])
+      ) &&  (
+        !memberShipCodes.length ||
+        memberShipCodes.includes(member["membership_type"])
+      )
     )
-  )
+  })
 }
 
 const SectionList = (props: any) => {
@@ -108,44 +125,4 @@ const SectionList = (props: any) => {
   )
 }
 
-SectionList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  filterFacets: PropTypes.array,
-  searchText: PropTypes.string,
-  filterBy: PropTypes.string,
-  toggleChips: PropTypes.func,
-  isIchecked: PropTypes.func
-}
-
 export default withStyles(styles)(SectionList)
-// <List style={Object.assign({}, Style.SectionList)}>
-//   {props.filterFacets.map((item, index) => {
-//     if (
-//       item.description
-//         .toLowerCase()
-//         .indexOf(props.searchText.toLowerCase()) !== -1
-//     ) {
-//       return (
-//         <ListItem
-//           style={{ fontSize: 12 }}
-//           key={index}
-//           leftCheckbox={
-//             <Checkbox
-//               onCheck={event => {
-//                 props.toggleChips(
-//                   item.code,
-//                   item.description,
-//                   props.filterBy
-//                 );
-//               }}
-//               defaultChecked={props.isIchecked(item.description)}
-//             />
-//           }
-//           primaryText={item}
-//         />
-//       );
-//     } else {
-//       return <div>{item}</div>;
-//     }
-//   })}
-// </List>

@@ -13,7 +13,6 @@ import Main from './components/Main'
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    position: 'relative',
     textAlign: 'center',
     // backgroundImage: 'url(./images/background.jpg)',
     // backgroundRepeat: 'no-repeat',
