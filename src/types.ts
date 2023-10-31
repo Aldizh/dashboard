@@ -114,7 +114,8 @@ interface ChartData {
   [chartKeys.dailyTimeSeries]?: TimeSeriesSocksDaily,
   [chartKeys.digitalDailyCurrency]?: TimeSeriesCryptoDaily,
   [chartKeys.monthlyTimeSeries]?: TimeSeriesSocksMonthly,
-  [chartKeys.metaData]: CryptoMetaData
+  [chartKeys.metaData]?: CryptoMetaData,
+  Information?: string
 }
 
 export type {

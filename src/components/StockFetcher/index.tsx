@@ -1,16 +1,15 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import PropTypes from "prop-types"
+import React, { useState, useEffect } from "react"
 import ParticlesBg from "particles-bg"
 import { Outlet } from "react-router-dom"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import React, { useState, useEffect } from "react"
+
 import useDataApi from "../../hooks/useData"
 import NavBar from "../NavBar"
 import Footer from "../shared/Footer"
 import News from "../shared/News"
-
 import Price from "./Stocks"
 import Crypto from "./Crypto"
 import Compared from "./Compared"
@@ -23,7 +22,12 @@ import {
   isComparisonStockChart
 } from "./utils"
 
-const Fetcher = ({ classes }) => {
+import { ChartData } from "../../types"
+
+const Fetcher = ({ classes }: { classes: {
+  footer: string,
+  app: string
+} }) => {
   const [symbol, setSymbol] = useState("") // tracks user input
   const [search, setSearch] = useState("") // ticker symbol
   const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
@@ -35,41 +39,49 @@ const Fetcher = ({ classes }) => {
     setApiError("")
   }
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     resetState()
     setSeriesType(event.target.value)
     event.preventDefault() // prevent bubbling up
   }
 
-  // Historic data for the search term
-  const parsedData = useDataApi(
+  // Historical data for the search term
+  const historicalData = useDataApi(
     search,
     getApiUrl(search, seriesType),
   )
 
   // initialize stock chart data
-  let data = { data: {} }
+  let stockData: { data: ChartData } = {
+    data: {
+      Information: "",
+    }
+  }
   let isLoading = false
   let isError = false
-  let updateSeriesUrl = () => {}
+  let updateSeriesUrl = (url: string) => {}
 
   // initialize crypto chart data
-  let cryptoData = { data: {} }
+  let cryptoData: { data: ChartData } = {
+    data: {
+      Information: "",
+    }
+  }
   let cryptoLoading = false
   let cryptoError = false
-  let updateCryptoUrl = () => {}
+  let updateCryptoUrl = (url: string) => {}
 
   // load the correct data based on series type
   if (isHistoricalCryptoChart(seriesType)) {
-    cryptoData = parsedData.data
-    cryptoLoading = parsedData.isLoading
-    cryptoError = parsedData.isError
-    updateCryptoUrl = parsedData.updateUrl
+    cryptoData = historicalData.data
+    cryptoLoading = historicalData.isLoading
+    cryptoError = historicalData.isError
+    updateCryptoUrl = historicalData.updateUrl
   } else {
-    data = parsedData.data
-    isLoading = parsedData.isLoading
-    isError = parsedData.isError
-    updateSeriesUrl = parsedData.updateUrl
+    stockData = historicalData.data
+    isLoading = historicalData.isLoading
+    isError = historicalData.isError
+    updateSeriesUrl = historicalData.updateUrl
   }
 
   // fundamentals data (crypto is excluded)
@@ -104,13 +116,14 @@ const Fetcher = ({ classes }) => {
       isError ||
       cryptoError ||
       fundamentalsIsError ||
-      fundamentalsData.data.Note ||
-      data.data.Note
+      fundamentalsData?.data?.Information ||
+      stockData?.data?.Information ||
+      cryptoData?.data?.Information
     if (newApiError) {
       console.log("got an api error...", newApiError)
       setApiError("Daily Limit Reached") // most likely use case
     }
-  }, [search, seriesType, data.data])
+  }, [search, seriesType, stockData.data])
 
   return (
     <>
@@ -153,7 +166,7 @@ const Fetcher = ({ classes }) => {
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
-              data={data}
+              data={stockData}
               metrics={fundamentalsData.data}
             />
           )}
@@ -161,7 +174,7 @@ const Fetcher = ({ classes }) => {
             <Price
               search={search}
               symbol={symbol}
-              data={data}
+              data={stockData}
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
@@ -189,21 +202,12 @@ const Fetcher = ({ classes }) => {
       </div>
       <ParticlesBg
         type="circle"
-        bg={{
-          position: "fixed",
-          zIndex: -1,
-          top: 0,
-          left: 0
-        }}
+        bg={true}
       />
       <Outlet />
       <Footer classes={classes} />
     </>
   )
-}
-
-Fetcher.propTypes = {
-  classes: PropTypes.object
 }
 
 export default Fetcher

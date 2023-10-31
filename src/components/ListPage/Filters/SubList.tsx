@@ -4,7 +4,9 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
+
 import { useListPageContext } from '../context'
+import { getNewMembers } from '../../FilterTable/utils'
 
 const styles = (theme: any) => ({
   root: {
@@ -12,40 +14,6 @@ const styles = (theme: any) => ({
     // backgroundColor: theme.palette.background.paper
   }
 })
-
-// Update membership data by looking at chips
-const calcuateFilteredData = (chips: Array<{
-  filterBy: string,
-  filterText: string,
-  code: string
-}>, members: Array<any> = []) => {
-  if (!chips.length) return members // no filters, return everything
-
-  return members.filter((member) => {
-    const countryChips = chips.filter((currChip) => currChip.filterBy === "country")
-    const currencyChips = chips.filter((currChip) => currChip.filterBy === "currency")
-    const membershipChips = chips.filter((currChip) => currChip.filterBy === "membership_type")
-
-    const countryCodes = countryChips.map(chip => chip.code)
-    const currencyCodes = currencyChips.map(chip => chip.code)
-    const memberShipCodes = membershipChips.map(chip => chip.filterText)
-
-    // * if the the selection within a group is present then consider all chips for that category
-    return (
-      (
-        !countryCodes.length ||
-        countryCodes.includes(member["country"])
-      ) &&
-      (
-        !currencyCodes.length ||
-        currencyCodes.includes(member["currency"])
-      ) &&  (
-        !memberShipCodes.length ||
-        memberShipCodes.includes(member["membership_type"])
-      )
-    )
-  })
-}
 
 const SectionList = (props: any) => {
   const { classes, filterFacets, members, filterBy, isIchecked } = props
@@ -72,7 +40,7 @@ const SectionList = (props: any) => {
     dispatch({ type: 'update_chips', data: newchips })
     dispatch({
       type: 'update_members',
-      data: calcuateFilteredData(newchips, members)
+      data: getNewMembers(newchips, members)
     })
   }
 

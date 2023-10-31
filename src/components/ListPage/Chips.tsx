@@ -1,9 +1,12 @@
 import React from 'react'
 import { Chip } from '@material-ui/core'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+
+// types
 import type { Members, Chips } from '../../types/FilterTable'
 
 // local imports
+import { getNewMembers } from '../FilterTable/utils'
 import { useListPageContext } from './context'
 import './styles.css'
 
@@ -14,36 +17,6 @@ const theme = createTheme({
     }
   }
 })
-
-  // TO DO: Chips within the same category should be AND instead of OR
-const getNewMembers = (chips: Chips, members: Members) => {
-  if (!chips.length) return members // no filters, return everything
-
-  return members.filter((member) => {
-    const countryChips = chips.filter((currChip) => currChip.filterBy === "country")
-    const currencyChips = chips.filter((currChip) => currChip.filterBy === "currency")
-    const membershipChips = chips.filter((currChip) => currChip.filterBy === "membership_type")
-
-    const countryCodes = countryChips.map(chip => chip.code)
-    const currencyCodes = currencyChips.map(chip => chip.code)
-    const memberShipCodes = membershipChips.map(chip => chip.filterText)
-
-    // * if the the selection within a group is present then consider all chips for that category
-    return (
-      (
-        !countryCodes.length ||
-        countryCodes.includes(member["country"])
-      ) &&
-      (
-        !currencyCodes.length ||
-        currencyCodes.includes(member["currency"])
-      ) &&  (
-        !memberShipCodes.length ||
-        memberShipCodes.includes(member["membership_type"])
-      )
-    )
-  })
-}
 
 const Toolbar = ({ members }: { members: Members }) => {
   const [data, dispatch] = useListPageContext()

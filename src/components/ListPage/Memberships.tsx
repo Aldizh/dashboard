@@ -141,7 +141,12 @@ const MemberSetup = (props: {
         autoDelete={true}
         autoDeleteTime={6000}
       />
-      <Grid container justifyContent='center' xs={12}>
+      <Grid
+        item={true}
+        container
+        justifyContent='center'
+        xs={12}
+      >
         <h3>Add new member</h3>
       </Grid>
       <form className={classes.root} noValidate autoComplete="off">
@@ -246,7 +251,12 @@ const MemberSetup = (props: {
           />
         </FormControl>
       </form>
-      <Grid container justifyContent='center' xs={12}>
+      <Grid
+        item={true}
+        container
+        justifyContent='center'
+        xs={12}
+      >
         <Button
           variant="contained"
           color="secondary"

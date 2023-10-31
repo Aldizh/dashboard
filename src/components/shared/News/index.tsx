@@ -11,11 +11,6 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
-  },
   title: {
     fontSize: 14
   },
@@ -87,13 +82,13 @@ const News = (props: {
         feed.splice(0, 5).map(article =>
           <Card key={article.title} className={classes.root}>
             <CardContent>
-              <Typography>{article.authors[0]}
+              <Typography>
+                <span>{article.authors[0]} : </span>
                 <Link
-                  style={{
-                    padding: 5
-                  }}
+                  color="primary"
                   href={article.url}
-                  variant="inherit">
+                  variant="inherit"
+                >
                   {article.title}
                 </Link>
               </Typography>

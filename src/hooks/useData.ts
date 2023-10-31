@@ -18,15 +18,7 @@ type Action = {
   payload?: object
 }
 
-/* TO DO: State should have the following type
-   There is an issue with dispatch is being defined
-   in usereducer hook
-    {
-      isError: boolean,
-      isLoading: boolean,
-      data: ChartData
-    }
-*/
+// TO DO: Replace any with actual type
 const dataFetchReducer = (state: any, action: Action) => {
   switch (action.type) {
     case FETCH_INIT:
@@ -206,7 +198,7 @@ const useDataApi = (search: string, initialUrl: string) => {
         const result = await axios(url)
 
         // We hit the threshold of 5 calls per minute
-        if (result.data.Note) dispatch({ type: FETCH_FAILURE })
+        if (result.data.Information) dispatch({ type: FETCH_FAILURE })
 
         dispatch({ type: FETCH_SUCCESS, payload: result })
       } catch (error) {

@@ -18,7 +18,8 @@ const Extended = (props: {
   },
   metrics: Record<string, string>,
   apiError: string // TO DO: specify the type
-  isLoading: boolean
+  isLoading: boolean,
+  seriesType: string
 }) => {
   const {
     search,

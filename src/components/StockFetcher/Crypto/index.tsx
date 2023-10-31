@@ -15,7 +15,8 @@ const Extended = (props: {
     data: ChartData
   },
   apiError: string,
-  isLoading: boolean
+  isLoading: boolean,
+  seriesType: string
 }) => {
   const {
     search, // final search term (used to get data)
