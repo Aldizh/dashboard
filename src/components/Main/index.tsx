@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react"
+import { Link } from "react-router-dom"
 import {
   Button,
   Card,
@@ -9,14 +9,14 @@ import {
   Container,
   Grid,
   Typography
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import chart from '../../images/chart.jpg'
-import listImg from '../../images/list_table.png'
-import expandImg from '../../images/expand_table.png'
+import chart from "../../images/chart.jpg"
+import listImg from "../../images/list_table.png"
+import expandImg from "../../images/expand_table.png"
 
-import Hero from './Hero'
-import MainCards from './Cards'
+import Hero from "./Hero"
+import MainCards from "./Cards"
 
 const Stocks = ({classes, key}: {classes: ClassesType, key: number}) => (
   <Grid item key={key} xs={12} sm={6} md={4}>
@@ -37,7 +37,7 @@ const Stocks = ({classes, key}: {classes: ClassesType, key: number}) => (
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary">
-          <Link to={'/stocks'}>View</Link>
+          <Link to={"/stocks"}>View</Link>
         </Button>
       </CardActions>
     </Card>
@@ -62,7 +62,7 @@ const FilterTable = ({classes, key, title}: {classes: ClassesType, key: number, 
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary">
-          <Link to={'/filter_table'}>View</Link>
+          <Link to={"/filter_table"}>View</Link>
         </Button>
       </CardActions>
     </Card>
@@ -87,7 +87,7 @@ const ExpandTable = ({classes, key, title}: {classes: ClassesType, key: number, 
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary">
-          <Link to={'/expand_table'}>View</Link>
+          <Link to={"/expand_table"}>View</Link>
         </Button>
       </CardActions>
     </Card>

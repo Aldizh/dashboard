@@ -1,15 +1,15 @@
 import {
   Container,
   Typography
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 
 // override the default color for primary variant
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#440eaf'
+      main: "#440eaf"
     }
   }
 })

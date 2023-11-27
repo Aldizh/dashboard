@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect } from 'react'
-import { Card, Link } from '@material-ui/core'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { Fragment, useEffect } from "react"
+import { Card, Link } from "@material-ui/core"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
+import { makeStyles } from "@material-ui/core/styles"
 
-import useDataApi from '../../../hooks/useData'
-import { NEWS_SENTIMENT } from '../../../utils/consts'
+import useDataApi from "../../../hooks/useData"
+import { NEWS_SENTIMENT } from "../../../utils/consts"
 
 const useStyles = makeStyles({
   root: {
@@ -77,7 +77,7 @@ const News = (props: {
   return (
     <Fragment>
       <h1>Top 5 News Articles</h1>
-      {articlesLoading && <div style={{ textAlign: 'center' }}>Loading...</div>}
+      {articlesLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
       {feed && symbol && !articlesError &&
         feed.splice(0, 5).map(article =>
           <Card key={article.title} className={classes.root}>

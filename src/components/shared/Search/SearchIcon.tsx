@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement } from "react"
 
 const SVG = ({style, width, height}: {
   style: {

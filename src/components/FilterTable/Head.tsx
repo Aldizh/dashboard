@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 import {
   TableSortLabel,
   TableHead,
   TableRow,
   TableCell,
   Checkbox
-} from '@material-ui/core'
+} from "@material-ui/core"
 
-import { headCells } from './config'
+import { headCells } from "./config"
 
 function Head (props: {
   classes: any,
@@ -32,8 +32,8 @@ function Head (props: {
     onRequestSort(event, property)
   }
   // typescript is stubborn about SortDirection => string conversion
-  let orderByDirection: 'asc'| 'desc' = 'asc'
-  if (order === 'desc') orderByDirection = 'desc'
+  let orderByDirection: "asc"| "desc" = "asc"
+  if (order === "desc") orderByDirection = "desc"
 
   return (
     <TableHead>
@@ -43,26 +43,26 @@ function Head (props: {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'center'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? orderByDirection : 'desc'}
+            align={headCell.numeric ? "right" : "center"}
+            padding={headCell.disablePadding ? "none" : "normal"}
+            sortDirection={orderBy === headCell.id ? orderByDirection : "desc"}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? orderByDirection : 'asc'}
+              direction={orderBy === headCell.id ? orderByDirection : "asc"}
               onClick={sortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id
                 ? (
                 <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </span>
                   )
                 : null}
@@ -79,7 +79,7 @@ Head.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired
 }

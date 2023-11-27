@@ -1,9 +1,9 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import React, { Fragment } from 'react'
-import PriceChart from './PriceChart'
-import { ChartData } from '../../../types'
+import React, { Fragment } from "react"
+import PriceChart from "./PriceChart"
+import { ChartData } from "../../../types"
 
 // TO DO: Will need to accumulate different monthly slices to calculate over a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature
@@ -25,7 +25,7 @@ const Extended = (props: {
     apiError,
     isLoading
   } = props
-  const cryptoTimeSeries = data.data['Time Series (Digital Currency Daily)']
+  const cryptoTimeSeries = data.data["Time Series (Digital Currency Daily)"]
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18 }}>Click search to get latest info...</div>}

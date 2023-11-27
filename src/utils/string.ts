@@ -1,6 +1,6 @@
-export const formatCurrency = (value: number = 0.00, currencyStyle: string = 'USD'): string => {
-  const formatted = `${new Intl.NumberFormat('en-US', {
-    style: 'currency',
+export const formatCurrency = (value: number = 0.00, currencyStyle: string = "USD"): string => {
+  const formatted = `${new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency: `${currencyStyle}`
   }).format(value)}`
 
@@ -8,7 +8,7 @@ export const formatCurrency = (value: number = 0.00, currencyStyle: string = 'US
 }
 
 export const capitalize = (word: string | null): string => {
-  if (!word) return ''
+  if (!word) return ""
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
@@ -19,7 +19,7 @@ export const formatToDecimal = (amount: string): string => {
 
 // regex to look for any point in the string that has a multiple of 3 digits in a row after it,
 export const numberWithCommas = (x: string | number) =>
-  x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 export const formatDate = (value: string) => new Date(value).toLocaleDateString();
 

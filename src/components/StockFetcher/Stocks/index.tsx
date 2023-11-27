@@ -1,11 +1,11 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react"
 
-import PriceChart from './RecentPriceChart'
-import { ChartData } from '../../../types'
-import { MONTHLY_INTERVAL_ADJUSTED_KEY } from '../../../utils/consts'
+import PriceChart from "./RecentPriceChart"
+import { ChartData } from "../../../types"
+import { MONTHLY_INTERVAL_ADJUSTED_KEY } from "../../../utils/consts"
 
 // TO DO: Will need to accumulate different monthly slices to calculate oevr a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature

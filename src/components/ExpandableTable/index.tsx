@@ -95,7 +95,7 @@ const ExapndableTable = ({classes}: {classes: ClassesType}) => {
   const [expandedRows, setExpanded] = useState<Array<number>>([]);
   const [allItemRows, setData] = useState<Array<JSX.Element[]>>([]);
 
-  console.log('allItemRows...', allItemRows)
+  console.log("allItemRows...", allItemRows)
 
   useEffect(() => {
     const handleRowClick = (rowId: number) => {

@@ -1,19 +1,19 @@
-import React from 'react'
-import { Chip } from '@material-ui/core'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import React from "react"
+import { Chip } from "@material-ui/core"
+import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 
 // types
-import type { Members, Chips } from '../../types/FilterTable'
+import type { Members, Chips } from "../../types/FilterTable"
 
 // local imports
-import { getNewMembers } from '../FilterTable/utils'
-import { useListPageContext } from './context'
-import './styles.css'
+import { getNewMembers } from "../FilterTable/utils"
+import { useListPageContext } from "./context"
+import "./styles.css"
 
 const theme = createTheme({
   palette: {
     secondary: {
-      main: '#00FFFF'
+      main: "#00FFFF"
     }
   }
 })
@@ -30,9 +30,9 @@ const Toolbar = ({ members }: { members: Members }) => {
     } else {
       newchips.splice(index, 1)
     }
-    dispatch({ type: 'update_chips', data: newchips })
+    dispatch({ type: "update_chips", data: newchips })
     dispatch({
-      type: 'update_members',
+      type: "update_members",
       data: getNewMembers(newchips, members)
     })
   }
@@ -48,7 +48,7 @@ const Toolbar = ({ members }: { members: Members }) => {
               onDelete={() => {
                 toggleChips(chip)
               }}
-              className={'memberChip'}
+              className={"memberChip"}
               color="secondary"
             />
           ))}

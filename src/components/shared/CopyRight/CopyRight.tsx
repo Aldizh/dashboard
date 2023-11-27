@@ -1,5 +1,5 @@
-import Typography from '@material-ui/core/Typography'
-import React, { ReactElement } from 'react'
+import Typography from "@material-ui/core/Typography"
+import React, { ReactElement } from "react"
 
 const Copyright = (): ReactElement => {
   return (
@@ -9,7 +9,7 @@ const Copyright = (): ReactElement => {
         color="textSecondary"
         align="center"
       >
-        {'Copyright © '}
+        {"Copyright © "}
         <a
           target="_blank"
           rel="noreferrer"
@@ -18,7 +18,7 @@ const Copyright = (): ReactElement => {
           Dashboard&nbsp;
         </a>
         {new Date().getFullYear()}
-        {'.'}
+        {"."}
       </Typography>
     </>
   )

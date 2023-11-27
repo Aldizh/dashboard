@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react'
-import TextField from '@material-ui/core/TextField';
+import React, { ReactElement } from "react"
+import TextField from "@material-ui/core/TextField";
 
-import SearchSVG from './SearchIcon'
+import SearchSVG from "./SearchIcon"
 
 const capitalized = (word: string): string  => word.charAt(0).toUpperCase() + word.slice(1)
 
@@ -29,11 +29,11 @@ const Search = ({
     />
     <SearchSVG
       style={{
-        position: 'absolute',
-        right: '5px',
-        bottom: '15px',
-        paddingRight: '4px',
-        enableBackground: 'new 0 0 451 451'
+        position: "absolute",
+        right: "5px",
+        bottom: "15px",
+        paddingRight: "4px",
+        enableBackground: "new 0 0 451 451"
       }}
       fill = '#000'
       width = '15px'

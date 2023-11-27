@@ -1,16 +1,16 @@
 // Documentation for canvas js: https://canvasjs.com/docs
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react"
 
-import Comparison from './ComparisonChart'
-import InfoCard from '../InfoCard'
+import Comparison from "./ComparisonChart"
+import InfoCard from "../InfoCard"
 
-import { getApiUrl } from '../utils'
-import useDataApi from '../../../hooks/useData'
-import { ChartData } from '../../../types'
-import { INTRADAY_INTERVAL_KEY } from '../../../utils/consts'
+import { getApiUrl } from "../utils"
+import useDataApi from "../../../hooks/useData"
+import { ChartData } from "../../../types"
+import { INTRADAY_INTERVAL_KEY } from "../../../utils/consts"
 
-import type { Metrics } from  '../../../types/Stocks'
+import type { Metrics } from  "../../../types/Stocks"
 
 const Standard = (props: {
   search: string
@@ -34,8 +34,8 @@ const Standard = (props: {
   // S&P data fetch called on render and series type change
   // (no need for fundamentals, used for comparison)
   const spyData = useDataApi(
-    'SPY',
-    getApiUrl('SPY', seriesType)
+    "SPY",
+    getApiUrl("SPY", seriesType)
   )
 
   return (
