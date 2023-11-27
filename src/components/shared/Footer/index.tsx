@@ -1,6 +1,6 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Copyright from '../CopyRight'
+import React from "react"
+import Typography from "@material-ui/core/Typography"
+import Copyright from "../CopyRight"
 
 const Footer = ({ classes }: {
   classes: {
@@ -25,7 +25,7 @@ const Footer = ({ classes }: {
       >
         medium
       </a>
-      {' blog'}
+      {" blog"}
     </Typography>
     <Copyright />
   </footer>

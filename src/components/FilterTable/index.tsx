@@ -1,30 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import clsx from 'clsx'
-import { lighten, makeStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableRow from '@material-ui/core/TableRow'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Checkbox from '@material-ui/core/Checkbox'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Switch from '@material-ui/core/Switch'
+import React from "react"
+import PropTypes from "prop-types"
+import clsx from "clsx"
+import { lighten, makeStyles } from "@material-ui/core/styles"
+import Table from "@material-ui/core/Table"
+import TableBody from "@material-ui/core/TableBody"
+import TableCell from "@material-ui/core/TableCell"
+import TableContainer from "@material-ui/core/TableContainer"
+import TablePagination from "@material-ui/core/TablePagination"
+import TableRow from "@material-ui/core/TableRow"
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
+import Paper from "@material-ui/core/Paper"
+import Checkbox from "@material-ui/core/Checkbox"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Switch from "@material-ui/core/Switch"
 
-import EnhancedTableHead from './Head'
-import ChipsTooltip from '../shared/ChipsTooltip'
+import EnhancedTableHead from "./Head"
+import ChipsTooltip from "../shared/ChipsTooltip"
 
-import { formatDate, stableSort } from './utils'
-import { formatCurrency } from '../../utils/string'
-import { useListPageContext } from '../ListPage/context' // TO DO: Make this generic
+import { formatDate, stableSort } from "./utils"
+import { formatCurrency } from "../../utils/string"
+import { useListPageContext } from "../ListPage/context" // TO DO: Make this generic
 
 const useToolbarStyles = makeStyles((theme) => ({
   highlight:
-    theme.palette.type === 'light'
+    theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85)
@@ -34,7 +34,7 @@ const useToolbarStyles = makeStyles((theme) => ({
           backgroundColor: theme.palette.secondary.dark
         },
   title: {
-    flex: '1 1 100%'
+    flex: "1 1 100%"
   }
 }))
 
@@ -54,7 +54,7 @@ const EnhancedTableToolbar = (props: {
       updated = updated.filter((row) => member !== row.name)
     })
     setSelected([])
-    dispatch({ type: 'update_members', data: updated })
+    dispatch({ type: "update_members", data: updated })
   }
 
   return (
@@ -97,10 +97,10 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%'
+    width: "100%"
   },
   paper: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(2)
   },
   table: {
@@ -108,12 +108,12 @@ const useStyles = makeStyles((theme) => ({
   },
   visuallyHidden: {
     border: 0,
-    clip: 'rect(0 0 0 0)',
+    clip: "rect(0 0 0 0)",
     height: 1,
     margin: -1,
-    overflow: 'hidden',
+    overflow: "hidden",
     padding: 0,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     width: 1
   }
@@ -121,8 +121,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable () {
   const classes = useStyles()
-  const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('calories')
+  const [order, setOrder] = React.useState("asc")
+  const [orderBy, setOrderBy] = React.useState("calories")
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
@@ -131,8 +131,8 @@ export default function EnhancedTable () {
   const rows = data.members
 
   const handleRequestSort = (event: any, property: string) => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
+    const isAsc = orderBy === property && order === "asc"
+    setOrder(isAsc ? "desc" : "asc")
     setOrderBy(property)
   }
 
@@ -195,7 +195,7 @@ export default function EnhancedTable () {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -236,7 +236,7 @@ export default function EnhancedTable () {
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId
+                            "aria-labelledby": labelId
                           }}
                         />
                       </TableCell>

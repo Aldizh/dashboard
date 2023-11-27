@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 import {
   FormControl,
   TextField,
@@ -7,29 +7,29 @@ import {
   Input,
   Select,
   Button
-} from '@material-ui/core'
-import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
+} from "@material-ui/core"
+import { makeStyles, createTheme, ThemeProvider } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
 
 // local imports
-import type { Member } from '../../types/FilterTable'
-import type { ToastType } from '../../types/Toast'
-import Toast from '../shared/Toast'
-import { useListPageContext } from './context'
-import infoIcon from '../../images/info.svg'
-import './styles.css'
+import type { Member } from "../../types/FilterTable"
+import type { ToastType } from "../../types/Toast"
+import Toast from "../shared/Toast"
+import { useListPageContext } from "./context"
+import infoIcon from "../../images/info.svg"
+import "./styles.css"
 
 const theme = createTheme({
   palette: {
     secondary: {
-      main: '#00FFFF'
+      main: "#00FFFF"
     }
   }
 })
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1)
     }
   }
@@ -41,13 +41,13 @@ const MemberSetup = (props: {
   membershipTypesReference: Array<ReferenceData>,
 }) => {
   const [toastList, setToastList] = useState<[ToastType] | []>([]);
-  const [name, setName] = useState('')
-  const [annual_fee, setFee] = useState('')
-  const [membership_type, setType] = useState({ code: '', description: '' })
-  const [country, setCountry] = useState({ code: '', description: '' })
-  const [currency, setCurrency] = useState({ code: '', description: '' })
-  const [from_date, setFromDate] = useState('')
-  const [to_date, setToDate] = useState('')
+  const [name, setName] = useState("")
+  const [annual_fee, setFee] = useState("")
+  const [membership_type, setType] = useState({ code: "", description: "" })
+  const [country, setCountry] = useState({ code: "", description: "" })
+  const [currency, setCurrency] = useState({ code: "", description: "" })
+  const [from_date, setFromDate] = useState("")
+  const [to_date, setToDate] = useState("")
 
   const { countriesReference, currenciesReference, membershipTypesReference } =
     props
@@ -57,28 +57,28 @@ const MemberSetup = (props: {
   useEffect(() => setDefaults(), [])
 
   const setDefaults = () => {
-    setName('John')
-    setFee('10')
+    setName("John")
+    setFee("10")
     setCountry(countriesReference[0])
     setCurrency(currenciesReference[0])
     setType(membershipTypesReference[0])
-    setFromDate('2021-05-24')
-    setToDate('2022-05-24')
+    setFromDate("2021-05-24")
+    setToDate("2022-05-24")
   }
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: string) => {
     const fieldId = id || event.target.id
     switch (fieldId) {
-      case 'name':
+      case "name":
         setName(event.target.value)
         break
-      case 'annual_fee':
+      case "annual_fee":
         setFee(event.target.value)
         break
-      case 'from_date':
+      case "from_date":
         setFromDate(event.target.value)
         break
-      case 'to_date':
+      case "to_date":
         setToDate(event.target.value)
         break
       default:
@@ -89,15 +89,15 @@ const MemberSetup = (props: {
   const handleSelectChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>, id: string) => {
     const fieldId = id
     switch (fieldId) {
-      case 'country':
+      case "country":
         const matchingCountry = countriesReference.find(country => country.code === event.target.value)
         if (matchingCountry) setCountry(matchingCountry)
         break
-      case 'currency':
+      case "currency":
         const matchingCurrency = currenciesReference.find(currency => currency.code === event.target.value)
         if (matchingCurrency) setCurrency(matchingCurrency)
         break
-      case 'membership_type':
+      case "membership_type":
         const matchingType = membershipTypesReference.find(membership => membership.code === event.target.value)
         if (matchingType) setType(matchingType)
         break
@@ -119,12 +119,12 @@ const MemberSetup = (props: {
       currency: currency.description
     }
     updatedMembers.push(memberToAdd)
-    dispatch({ type: 'update_members', data: updatedMembers })
+    dispatch({ type: "update_members", data: updatedMembers })
     const toastList: [ToastType] | [] = [{
       id: 1,
-      title: 'New member added',
-      description: '',
-      backgroundColor: '#3f51b5',
+      title: "New member added",
+      description: "",
+      backgroundColor: "#212b63",
       icon: infoIcon
     }]
     setToastList(toastList)
@@ -137,7 +137,7 @@ const MemberSetup = (props: {
     <ThemeProvider theme={theme}>
       <Toast
         toastList={toastList}
-        position={'bottom-right'}
+        position={"bottom-right"}
         autoDelete={true}
         autoDeleteTime={6000}
       />
@@ -155,7 +155,7 @@ const MemberSetup = (props: {
           <Input
             id="name"
             value={name}
-            onChange={(e) => handleFormChange(e, 'name')}
+            onChange={(e) => handleFormChange(e, "name")}
           />
         </FormControl>
         <FormControl>
@@ -164,7 +164,7 @@ const MemberSetup = (props: {
             labelId="country"
             id="country"
             value={country.code}
-            onChange={(e) => handleSelectChange(e, 'country')}
+            onChange={(e) => handleSelectChange(e, "country")}
           >
             {countriesReference.map((option) => (
               <MenuItem
@@ -183,7 +183,7 @@ const MemberSetup = (props: {
             labelId="membership"
             id="membership"
             value={membership_type.code}
-            onChange={(e) => handleSelectChange(e, 'membership_type')}
+            onChange={(e) => handleSelectChange(e, "membership_type")}
           >
             {membershipTypesReference.map((option) => (
               <MenuItem
@@ -202,7 +202,7 @@ const MemberSetup = (props: {
             labelId="currency"
             id="currency"
             value={currency.code}
-            onChange={(e) => handleSelectChange(e, 'currency')}
+            onChange={(e) => handleSelectChange(e, "currency")}
           >
             {currenciesReference.map((option) => (
               <MenuItem
@@ -220,7 +220,7 @@ const MemberSetup = (props: {
           <Input
             id="annual_fee"
             value={annual_fee}
-            onChange={(e) => handleFormChange(e, 'annual_fee')}
+            onChange={(e) => handleFormChange(e, "annual_fee")}
             disabled={false}
           />
         </FormControl>
@@ -230,7 +230,7 @@ const MemberSetup = (props: {
             label="From Date"
             type="date"
             value={from_date}
-            onChange={(e) => handleFormChange(e, 'from_date')}
+            onChange={(e) => handleFormChange(e, "from_date")}
             InputLabelProps={{
               shrink: true
             }}
@@ -243,7 +243,7 @@ const MemberSetup = (props: {
             label="To Date"
             type="date"
             value={to_date}
-            onChange={(e) => handleFormChange(e, 'to_date')}
+            onChange={(e) => handleFormChange(e, "to_date")}
             InputLabelProps={{
               shrink: true
             }}
@@ -261,7 +261,7 @@ const MemberSetup = (props: {
           variant="contained"
           color="secondary"
           onClick={handleAdd}
-          className={'addButton'}
+          className={"addButton"}
         >
           Add
         </Button>

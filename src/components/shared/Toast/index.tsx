@@ -1,7 +1,7 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState, useEffect } from "react"
 
-import './Toast.css'
-import type { ToastType } from '../../../types/Toast'
+import "./Toast.css"
+import type { ToastType } from "../../../types/Toast"
 
 const Toast = (props: {
   toastList: [ToastType] | []

@@ -1,14 +1,14 @@
-import type { Members, Chips } from '../../types/FilterTable'
+import type { Members, Chips } from "../../types/FilterTable"
 
 export const formatDate = (dateVal: string): string => {
   const options: Record<string, string> = {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric"
   }
 
-  return new Date(dateVal).toLocaleDateString('en-US', options)
+  return new Date(dateVal).toLocaleDateString("en-US", options)
 }
 
 const descendingComparator = (a: Record<string, string>, b: Record<string, string>, orderBy: string) => {
@@ -22,7 +22,7 @@ const descendingComparator = (a: Record<string, string>, b: Record<string, strin
 }
 
 const getComparator = (order :string, orderBy: string) =>
-  order === 'desc'
+  order === "desc"
     ? (a: Record<string, string>, b: Record<string, string>) => descendingComparator(a, b, orderBy)
     : (a: Record<string, string>, b: Record<string, string>) => -descendingComparator(a, b, orderBy)
 

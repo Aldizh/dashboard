@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Checkbox from '@material-ui/core/Checkbox'
+import React, { useState } from "react"
+import { withStyles } from "@material-ui/core/styles"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import Checkbox from "@material-ui/core/Checkbox"
 
-import { useListPageContext } from '../context'
-import { getNewMembers } from '../../FilterTable/utils'
+import { useListPageContext } from "../context"
+import { getNewMembers } from "../../FilterTable/utils"
 
 const styles = (theme: any) => ({
   root: {
-    width: '100%',
+    width: "100%",
     // backgroundColor: theme.palette.background.paper
   }
 })
@@ -37,9 +37,9 @@ const SectionList = (props: any) => {
     } else {
       newchips.splice(index, 1)
     }
-    dispatch({ type: 'update_chips', data: newchips })
+    dispatch({ type: "update_chips", data: newchips })
     dispatch({
-      type: 'update_members',
+      type: "update_members",
       data: getNewMembers(newchips, members)
     })
   }

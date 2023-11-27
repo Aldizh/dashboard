@@ -1,10 +1,10 @@
-import React from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
+import React from "react"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
 
-import { formatToDecimal, formatDate } from '../../../utils/string'
-import type { Metrics } from  '../../../types/Stocks'
+import { formatToDecimal, formatDate } from "../../../utils/string"
+import type { Metrics } from  "../../../types/Stocks"
 
 const InfoCard = (props: { metrics: Metrics }) => {
   const {
@@ -22,8 +22,8 @@ const InfoCard = (props: { metrics: Metrics }) => {
     <Card
       variant="outlined"
       style={{
-        margin: '10px auto',
-        width: '70%'
+        margin: "10px auto",
+        width: "70%"
     }}
     >
       <CardContent>

@@ -1,36 +1,36 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { AppBar, Toolbar } from '@material-ui/core'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import './styles.css'
+import React, { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { AppBar, Toolbar } from "@material-ui/core"
+import { createTheme, ThemeProvider } from "@material-ui/core/styles"
+import "./styles.css"
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffd8d8'
+      main: "#ffd8d8"
     }
   }
 })
 
 const NavBar = () => {
   const handleHomeClickResponsive = () => {
-    const x: HTMLElement | null = document.getElementById('myTopnav')
-    if (x && x.className === 'topnav') {
-      x.className += ' responsive'
+    const x: HTMLElement | null = document.getElementById("myTopnav")
+    if (x && x.className === "topnav") {
+      x.className += " responsive"
     } else {
-      if (x) x.className = 'topnav'
+      if (x) x.className = "topnav"
     }
   }
 
   useEffect(() => {
-    const pages = ['/', '/stocks', '/filter_table', '/expand_table']
+    const pages = ["/", "/stocks", "/filter_table", "/expand_table"]
     let curPage = document.URL
-    curPage = curPage.substring(curPage.lastIndexOf('/'))
+    curPage = curPage.substring(curPage.lastIndexOf("/"))
     const routeIndex = pages.indexOf(curPage)
 
     // Applies color based on current page
-    const links = document.getElementById('myTopnav')?.children
-    links && links[routeIndex] && links[routeIndex].classList.add('current-link')
+    const links = document.getElementById("myTopnav")?.children
+    links && links[routeIndex] && links[routeIndex].classList.add("current-link")
   }, [])
 
   return (
@@ -41,7 +41,7 @@ const NavBar = () => {
             <Link to="/stocks">Stocks</Link>
             <Link to="/filter_table">Filter Table</Link>
             <Link to="/expand_table">Expand Table</Link>
-            <a href={'#'} className="icon" onClick={handleHomeClickResponsive}>
+            <a href={"#"} className="icon" onClick={handleHomeClickResponsive}>
               <i className="fa fa-bars"></i>
             </a>
           </div>
