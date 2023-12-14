@@ -1,4 +1,4 @@
-import type { Members, Chips } from "../../types/FilterTable"
+import type { Members, Chips } from "../../../types/FilterTable"
 
 export const formatDate = (dateVal: string): string => {
   const options: Record<string, string> = {

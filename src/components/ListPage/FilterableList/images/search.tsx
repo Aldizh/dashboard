@@ -1,5 +1,8 @@
-import React from "react"
-import PropTypes from "prop-types"
+type SVGProps = {
+  style: object,
+  width: string,
+  height: string,
+}
 
 const SVG = ({
   style = {
@@ -14,7 +17,7 @@ const SVG = ({
   height = "20px",
   // className = '',
   // viewBox = '0 0 40 26'
-}) => (
+}: SVGProps) => (
   <svg
     version="1.1"
     id="Capa_1"
@@ -38,11 +41,5 @@ const SVG = ({
     </g>
   </svg>
 )
-
-SVG.propTypes = {
-  style: PropTypes.object,
-  width: PropTypes.string,
-  height: PropTypes.string
-}
 
 export default SVG

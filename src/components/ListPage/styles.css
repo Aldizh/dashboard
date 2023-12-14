@@ -5,6 +5,7 @@
   font-weight: bold;
   font-size: 16px;
 }
+
 .addButton {
   height: 30px;
   margin-bottom: 10px;
@@ -15,10 +16,22 @@
   padding: 6px;
 }
 
+/* here we are overriding the default material UI css
+   consider using a separate class attribute instead
+*/
 .MuiListItem-gutters {
-  padding-left: 0 !important;
+  padding-left: 0!important;
 }
 
 .leftDrawer {
   text-align: right;
+}
+
+.burgerLabel {
+  padding-right: 15px!important;
+}
+
+.centerControl {
+  display: inline-flex;
+  align-items: center
 }

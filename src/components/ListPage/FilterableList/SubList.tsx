@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { withStyles } from "@material-ui/core/styles"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
@@ -6,12 +6,12 @@ import ListItemText from "@material-ui/core/ListItemText"
 import Checkbox from "@material-ui/core/Checkbox"
 
 import { useListPageContext } from "../context"
-import { getNewMembers } from "../../FilterTable/utils"
+import { getNewMembers } from "./utils"
 
-const styles = (theme: any) => ({
+const styles = () => ({
   root: {
     width: "100%",
-    // backgroundColor: theme.palette.background.paper
+    backgroundColor: "#e5e2e2"
   }
 })
 

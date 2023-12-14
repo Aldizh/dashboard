@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react"
-import {
-  FormControl,
-  TextField,
-  MenuItem,
-  InputLabel,
-  Input,
-  Select,
-  Button
-} from "@material-ui/core"
-import { makeStyles, createTheme, ThemeProvider } from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
+import Select from "@material-ui/core/Select"
+import FormControl from "@material-ui/core/FormControl"
+import TextField from "@material-ui/core/TextField"
+import MenuItem from "@material-ui/core/MenuItem"
+import Input from "@material-ui/core/Input"
+import InputLabel from "@material-ui/core/InputLabel"
 import Grid from "@material-ui/core/Grid"
+import { makeStyles } from "@material-ui/core/styles"
 
 // local imports
 import type { Member } from "../../types/FilterTable"
@@ -18,14 +16,6 @@ import Toast from "../shared/Toast"
 import { useListPageContext } from "./context"
 import infoIcon from "../../images/info.svg"
 import "./styles.css"
-
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: "#00FFFF"
-    }
-  }
-})
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,7 +124,7 @@ const MemberSetup = (props: {
   const classes = useStyles()
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Toast
         toastList={toastList}
         position={"bottom-right"}
@@ -266,7 +256,7 @@ const MemberSetup = (props: {
           Add
         </Button>
       </Grid>
-    </ThemeProvider>
+    </>
   )
 }
 

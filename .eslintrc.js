@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     "camelcase": "off",
+    "react/react-in-jsx-scope": "off", // avoid the need for import react statement
     "@typescript-eslint/quotes": [
       "error",
       "double",
@@ -27,7 +28,7 @@ module.exports = {
     ],
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/no-explicit-any": ["off"], // override
-    "@typescript-eslint/no-explicit-any": ["off"] // override
+    "@typescript-eslint/no-explicit-any": ["off"], // override
   },
   "settings": {
     "react": {

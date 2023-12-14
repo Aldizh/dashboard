@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { styled, useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -12,9 +12,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import Memberships from "../Memberships"
-import Chips from "../Chips"
-import FilterTable from "../../FilterTable"
-
+import Chips from "./Chips"
+import FilterTable from "./FilterTable"
 import SubList from "./SubList"
 import Search from "../../shared/Search"
 
@@ -22,7 +21,9 @@ import "../styles.css"
 
 const drawerWidth = 260;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open"
+})(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -37,8 +38,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
-    }),
-  }),
+    })
+  })
 );
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -143,8 +144,11 @@ export default function Filters(props) {
         <Divider />
       </Drawer>
       <Main open={open}>
-        <div style={{display: "inline-flex", flexDirection: "column"}}>
-          <InputLabel>{open ? "Close" : "Open"} Filters</InputLabel>
+        <div className="centerControl">
+          <InputLabel
+            className="burgerLabel"
+            disableAnimation={true}
+          >{open ? "Close" : "Open"} Filters</InputLabel>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -157,9 +161,8 @@ export default function Filters(props) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Chips members={members} />
         </div>
+        <Chips members={members} />
         <FilterTable />
         <Grid
           item={true}

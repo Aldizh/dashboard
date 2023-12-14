@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import PropTypes from "prop-types"
 import { Outlet } from "react-router-dom"
 import ParticlesBg from "particles-bg"
@@ -8,7 +8,7 @@ import Footer from "../shared/Footer"
 import { StateProvider } from "./context/index"
 import { generateData } from "./context/mockData"
 import { capitalize } from "../../utils/string"
-import Filters from "./Filters"
+import FilterableList from "./FilterableList"
 
 // randomly generated data
 // contains a list of objects in format: {code: String, description: String}
@@ -20,7 +20,20 @@ const [
   chipData
 ] = generateData()
 
-const ListPage = (props) => {
+enum FilterType {
+  "country",
+  "currency",
+  "memberships"
+}
+
+type Props = {
+  classes: {
+    app: string,
+    footer: string
+  },
+}
+
+const ListPage = (props: Props) => {
   const [members, setMembers] = useState(rows)
   const [countryFilterData, setCountryFilterData] = useState(countriesReference)
   const [currencyFilterData, setCurrencyFilterData] =
@@ -30,14 +43,14 @@ const ListPage = (props) => {
   const [searchTextCurrencies, setSearchTextCurrencies] = useState("")
   const [searchTextMemberships, setSearchTextMemberships] = useState("")
 
-  const isIchecked = (description) => {
+  const isIchecked = (description: string) => {
     const index = chipData.map((chip) => chip.filterText).indexOf(description)
     return index !== -1
   }
 
-  const handleSearch = (text, type) => {
+  const handleSearch = (text: string, type: FilterType) => {
     switch (type) {
-      case "country":
+      case FilterType.country:
         setSearchTextCountries(text)
         setCountryFilterData(
           countriesReference.filter((country) =>
@@ -45,13 +58,13 @@ const ListPage = (props) => {
           )
         )
         break
-      case "currency":
+      case FilterType.currency:
         setSearchTextCurrencies(text)
         setCurrencyFilterData(
           currenciesReference.filter((curr) => curr.description.includes(text))
         )
         break
-      case "memberships":
+      case FilterType.memberships:
         setSearchTextMemberships(text)
         break
       default:
@@ -66,7 +79,7 @@ const ListPage = (props) => {
           <CssBaseline />
           <NavBar />
           <div className={props.classes.app}>
-            <Filters
+            <FilterableList
               countriesReference={countriesReference}
               membershipTypesReference={membershipTypesReference}
               currenciesReference={currenciesReference}

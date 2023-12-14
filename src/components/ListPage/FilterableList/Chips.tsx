@@ -3,12 +3,12 @@ import { Chip } from "@material-ui/core"
 import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 
 // types
-import type { Members, Chips } from "../../types/FilterTable"
+import type { Members, Chips } from "../../../types/FilterTable"
 
 // local imports
-import { getNewMembers } from "../FilterTable/utils"
-import { useListPageContext } from "./context"
-import "./styles.css"
+import { getNewMembers } from "./utils"
+import { useListPageContext } from "../context"
+import "../styles.css"
 
 const theme = createTheme({
   palette: {

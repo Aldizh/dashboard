@@ -1,4 +1,4 @@
-import type { TableHeadingType } from "../../types/FilterTable"
+import type { TableHeadingType } from "../../../../types/FilterTable"
 
 export const headCells: TableHeadingType[] = [
   { id: "name", numeric: false, disablePadding: true, label: "Name" },

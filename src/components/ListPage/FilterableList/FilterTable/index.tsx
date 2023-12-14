@@ -16,11 +16,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Switch from "@material-ui/core/Switch"
 
 import EnhancedTableHead from "./Head"
-import ChipsTooltip from "../shared/ChipsTooltip"
+import ChipsTooltip from "../../../shared/ChipsTooltip"
 
-import { formatDate, stableSort } from "./utils"
-import { formatCurrency } from "../../utils/string"
-import { useListPageContext } from "../ListPage/context" // TO DO: Make this generic
+import { formatDate, stableSort } from "../utils"
+import { formatCurrency } from "../../../../utils/string"
+import { useListPageContext } from "../../context" // TO DO: Make this generic
 
 const useToolbarStyles = makeStyles((theme) => ({
   highlight:
