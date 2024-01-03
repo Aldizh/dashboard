@@ -1,5 +1,4 @@
 interface ClassesType {
-  app: string,
   footer: string
   cardMedia: string,
   cardContent: string,
@@ -12,9 +11,4 @@ interface ClassesType {
 interface ReferenceData {
   code: string,
   description: string
-}
-
-enum MembershipType {
-  Basic = "Basic",
-  Premium = "Premium"
 }

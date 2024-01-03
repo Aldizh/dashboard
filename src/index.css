@@ -4,6 +4,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
 }
 
 code {
@@ -12,5 +14,6 @@ code {
 }
 
 footer {
-  position: relative;
+  bottom: 0;
+  width: 100%;
 }

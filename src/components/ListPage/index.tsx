@@ -1,17 +1,16 @@
 import { useState } from "react"
-import PropTypes from "prop-types"
 import { Outlet } from "react-router-dom"
 import ParticlesBg from "particles-bg"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import NavBar from "../NavBar"
-import Footer from "../shared/Footer"
+
 import { StateProvider } from "./context/index"
 import { generateData } from "./context/mockData"
 import { capitalize } from "../../utils/string"
 import FilterableList from "./FilterableList"
+import { FilterType } from "../../types/FilterTable"
+
 
 // randomly generated data
-// contains a list of objects in format: {code: String, description: String}
+// contains a list of objects in format: {code: string, description: string}
 const [
   rows,
   countriesReference,
@@ -20,20 +19,9 @@ const [
   chipData
 ] = generateData()
 
-enum FilterType {
-  "country",
-  "currency",
-  "memberships"
-}
-
-type Props = {
-  classes: {
-    app: string,
-    footer: string
-  },
-}
-
-const ListPage = (props: Props) => {
+const ListPage = (props: {
+  classes: ClassesType
+}) => {
   const [members, setMembers] = useState(rows)
   const [countryFilterData, setCountryFilterData] = useState(countriesReference)
   const [currencyFilterData, setCurrencyFilterData] =
@@ -75,36 +63,27 @@ const ListPage = (props: Props) => {
   return (
     <StateProvider initialState={{ chips: chipData, members: rows }}>
       {
-        <>
-          <CssBaseline />
-          <NavBar />
-          <div className={props.classes.app}>
-            <FilterableList
-              countriesReference={countriesReference}
-              membershipTypesReference={membershipTypesReference}
-              currenciesReference={currenciesReference}
-              handleSearch={handleSearch}
-              isIchecked={isIchecked}
-              searchTextCountries={searchTextCountries}
-              countryFilterData={countryFilterData}
-              currencyFilterData={currencyFilterData}
-              searchTextCurrencies={searchTextCurrencies}
-              searchTextMemberships={searchTextMemberships}
-              setMembers={setMembers}
-              members={members}
-            />
-            <ParticlesBg type="circle" bg={true} />
-            <Outlet />
-          </div>
-          <Footer classes={props.classes} />
-        </>
+        <div className={props.classes.cardGrid}>
+          <FilterableList
+            countriesReference={countriesReference}
+            membershipTypesReference={membershipTypesReference}
+            currenciesReference={currenciesReference}
+            handleSearch={handleSearch}
+            isIchecked={isIchecked}
+            searchTextCountries={searchTextCountries}
+            countryFilterData={countryFilterData}
+            currencyFilterData={currencyFilterData}
+            searchTextCurrencies={searchTextCurrencies}
+            searchTextMemberships={searchTextMemberships}
+            setMembers={setMembers}
+            members={members}
+          />
+          <ParticlesBg type="circle" bg={true} />
+          <Outlet />
+        </div>
       }
     </StateProvider>
   )
-}
-
-ListPage.propTypes = {
-  classes: PropTypes.object
 }
 
 export default ListPage

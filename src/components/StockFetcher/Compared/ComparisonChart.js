@@ -146,7 +146,7 @@ class Comparison extends React.Component {
           <CanvasJSChart
             containerProps={{
               width: "100%",
-              height: "450px",
+              height: "440px",
               margin: "auto"
             }}
             options={options}

@@ -12,8 +12,6 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import Checkbox from "@material-ui/core/Checkbox"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import Switch from "@material-ui/core/Switch"
 
 import EnhancedTableHead from "./Head"
 import ChipsTooltip from "../../../shared/ChipsTooltip"
@@ -82,7 +80,7 @@ const EnhancedTableToolbar = (props: {
         >
           Memberships
         </Typography>
-          )}
+      )}
 
       <ChipsTooltip numSelected={numSelected} deleteMembers={deleteMembers} />
     </Toolbar>
@@ -97,11 +95,10 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%"
+    padding: theme.spacing(2)
   },
   paper: {
     width: "100%",
-    marginBottom: theme.spacing(2)
   },
   table: {
     minWidth: 750
@@ -112,21 +109,19 @@ const useStyles = makeStyles((theme) => ({
     height: 1,
     margin: -1,
     overflow: "hidden",
-    padding: 0,
     position: "absolute",
     top: 20,
     width: 1
   }
 }))
 
-export default function EnhancedTable () {
+export default function EnhancedTable() {
   const classes = useStyles()
   const [order, setOrder] = React.useState("asc")
   const [orderBy, setOrderBy] = React.useState("calories")
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const [dense, setDense] = React.useState(false)
-  const [rowsPerPage, setRowsPerPage] = React.useState(20)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const [data, dispatch] = useListPageContext()
   const rows = data.members
 
@@ -176,10 +171,6 @@ export default function EnhancedTable () {
     setPage(0)
   }
 
-  const handleChangeDense = (event: any) => {
-    setDense(event.target.checked)
-  }
-
   const isSelected = (name: never) => selected.includes(name)
 
   return (
@@ -195,7 +186,7 @@ export default function EnhancedTable () {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            size={"small"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -279,10 +270,6 @@ export default function EnhancedTable () {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   )
 }

@@ -20,7 +20,18 @@ interface Chip {
   code: string,
   filterBy: string,
   filterText: string,
-} 
+}
 
 export type Members = Array<Member>
 export type Chips = Array<Chip>
+
+export type ReferenceData = {
+  code: string,
+  description: string
+}
+
+export enum FilterType {
+  country = "country",
+  currency = "currency",
+  memberships = "memberships"
+}

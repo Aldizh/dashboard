@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Table, Segment, Grid } from "semantic-ui-react"
 import ParticlesBg from "particles-bg"
 import { Outlet } from "react-router-dom"
-import CssBaseline from "@material-ui/core/CssBaseline"
 
-import NavBar from "../NavBar"
-import Footer from "../shared/Footer"
 import "./styles.css"
 
 type Item = {
@@ -91,11 +88,9 @@ const renderGridSubColumns = (item: Item, index: number) => {
   )
 }
 
-const ExapndableTable = ({classes}: {classes: ClassesType}) => {
+export default function ExpandTable() {
   const [expandedRows, setExpanded] = useState<Array<number>>([]);
   const [allItemRows, setData] = useState<Array<JSX.Element[]>>([]);
-
-  console.log("allItemRows...", allItemRows)
 
   useEffect(() => {
     const handleRowClick = (rowId: number) => {
@@ -166,27 +161,22 @@ const ExapndableTable = ({classes}: {classes: ClassesType}) => {
 
   return (
     <>
-    <CssBaseline />
-    <NavBar />
-    <div className="expandTable">
-      <Table selectable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell />
-            <Table.HeaderCell>Activity Type</Table.HeaderCell>
-            <Table.HeaderCell>Overall Status</Table.HeaderCell>
-            <Table.HeaderCell>Date Created</Table.HeaderCell>
-            <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{allItemRows}</Table.Body>
-      </Table>
-    </div>
-    <ParticlesBg type="circle" bg={true} />
-    <Outlet />
-    <Footer classes={classes} />
+      <div className="expandTable">
+        <Table selectable>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell />
+              <Table.HeaderCell>Activity Type</Table.HeaderCell>
+              <Table.HeaderCell>Overall Status</Table.HeaderCell>
+              <Table.HeaderCell>Date Created</Table.HeaderCell>
+              <Table.HeaderCell>Tasks Completed</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{allItemRows}</Table.Body>
+        </Table>
+      </div>
+      <ParticlesBg type="circle" bg={true} />
+      <Outlet />
     </>
   )
 }
-
-export default ExapndableTable

@@ -47,7 +47,6 @@ const Standard = (props: {
         <div>
           {seriesType && (
             <>
-              <p style={{ fontSize: 16 }}>Showing data for {symbol}</p>
               <InfoCard metrics={metrics} />
               <Comparison
                 search={search}

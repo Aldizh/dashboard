@@ -2,6 +2,7 @@ import React, { ReactElement } from "react"
 import TextField from "@material-ui/core/TextField";
 
 import SearchSVG from "./SearchIcon"
+import { FilterType } from "../../../types/FilterTable"
 
 const capitalized = (word: string): string  => word.charAt(0).toUpperCase() + word.slice(1)
 
@@ -10,9 +11,9 @@ const Search = ({
   searchText,
   handleSearch,
 }: {
-  searchBy: string
+  searchBy: FilterType
   searchText: string
-  handleSearch: (text: string, type: string) => void
+  handleSearch: (text: string, type: FilterType) => void
 }): ReactElement => (
   <>
     <TextField

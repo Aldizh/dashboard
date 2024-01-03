@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { AppBar, Toolbar } from "@material-ui/core"
 import { createTheme, ThemeProvider } from "@material-ui/core/styles"
@@ -35,9 +35,14 @@ const NavBar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="static" color="primary" elevation={0}>
+      <AppBar
+        position="relative"
+        color="primary"
+        elevation={0}
+      >
         <Toolbar>
           <div className="topnav" id="myTopnav">
+            <Link to="/">Home</Link>
             <Link to="/stocks">Stocks</Link>
             <Link to="/filter_table">Filter Table</Link>
             <Link to="/expand_table">Expand Table</Link>

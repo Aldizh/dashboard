@@ -4,11 +4,8 @@
 import React, { useState, useEffect } from "react"
 import ParticlesBg from "particles-bg"
 import { Outlet } from "react-router-dom"
-import CssBaseline from "@material-ui/core/CssBaseline"
 
 import useDataApi from "../../hooks/useData"
-import NavBar from "../NavBar"
-import Footer from "../shared/Footer"
 import News from "../shared/News"
 import Price from "./Stocks"
 import Crypto from "./Crypto"
@@ -24,10 +21,7 @@ import {
 
 import { ChartData } from "../../types"
 
-const Fetcher = ({ classes }: { classes: {
-  footer: string,
-  app: string
-} }) => {
+const Fetcher = ({ classes }: { classes: ClassesType }) => {
   const [symbol, setSymbol] = useState("") // tracks user input
   const [search, setSearch] = useState("") // ticker symbol
   const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
@@ -127,9 +121,7 @@ const Fetcher = ({ classes }: { classes: {
 
   return (
     <>
-      <CssBaseline />
-      <NavBar />
-      <div className={classes.app}>
+      <div className={classes.cardGrid}>
         <form
           onSubmit={(event) => {
             event.preventDefault()
@@ -205,7 +197,6 @@ const Fetcher = ({ classes }: { classes: {
         bg={true}
       />
       <Outlet />
-      <Footer classes={classes} />
     </>
   )
 }

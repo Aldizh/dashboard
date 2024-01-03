@@ -132,129 +132,129 @@ const MemberSetup = (props: {
         autoDeleteTime={6000}
       />
       <Grid
-        item={true}
         container
         justifyContent='center'
         xs={12}
       >
         <h3>Add new member</h3>
       </Grid>
-      <form className={classes.root} noValidate autoComplete="off">
-        <FormControl>
-          <InputLabel htmlFor="name">Name</InputLabel>
-          <Input
-            id="name"
-            value={name}
-            onChange={(e) => handleFormChange(e, "name")}
-          />
-        </FormControl>
-        <FormControl>
-          <InputLabel id="country">Country</InputLabel>
-          <Select
-            labelId="country"
-            id="country"
-            value={country.code}
-            onChange={(e) => handleSelectChange(e, "country")}
-          >
-            {countriesReference.map((option) => (
-              <MenuItem
-                id={`${option.code}_cntry`}
-                key={option.code}
-                value={option.code}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={12}>
+          <form className={classes.root} noValidate autoComplete="off">
+            <FormControl>
+              <InputLabel htmlFor="name">Name</InputLabel>
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => handleFormChange(e, "name")}
+              />
+            </FormControl>
+            <FormControl>
+              <InputLabel id="country">Country</InputLabel>
+              <Select
+                labelId="country"
+                id="country"
+                value={country.code}
+                onChange={(e) => handleSelectChange(e, "country")}
               >
-                {option.description}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <InputLabel id="membership">Type</InputLabel>
-          <Select
-            labelId="membership"
-            id="membership"
-            value={membership_type.code}
-            onChange={(e) => handleSelectChange(e, "membership_type")}
-          >
-            {membershipTypesReference.map((option) => (
-              <MenuItem
-                id={`${option.code}_membership`}
-                key={option.code}
-                value={option.code}
+                {countriesReference.map((option) => (
+                  <MenuItem
+                    id={`${option.code}_cntry`}
+                    key={option.code}
+                    value={option.code}
+                  >
+                    {option.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="membership">Type</InputLabel>
+              <Select
+                labelId="membership"
+                id="membership"
+                value={membership_type.code}
+                onChange={(e) => handleSelectChange(e, "membership_type")}
               >
-                {option.description}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <InputLabel id="membership">Currency</InputLabel>
-          <Select
-            labelId="currency"
-            id="currency"
-            value={currency.code}
-            onChange={(e) => handleSelectChange(e, "currency")}
-          >
-            {currenciesReference.map((option) => (
-              <MenuItem
-                id={`${option.code}_currency`}
-                key={option.code}
-                value={option.code}
+                {membershipTypesReference.map((option) => (
+                  <MenuItem
+                    id={`${option.code}_membership`}
+                    key={option.code}
+                    value={option.code}
+                  >
+                    {option.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="membership">Currency</InputLabel>
+              <Select
+                labelId="currency"
+                id="currency"
+                value={currency.code}
+                onChange={(e) => handleSelectChange(e, "currency")}
               >
-                {option.description}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>
-          <Input
-            id="annual_fee"
-            value={annual_fee}
-            onChange={(e) => handleFormChange(e, "annual_fee")}
-            disabled={false}
-          />
-        </FormControl>
-        <FormControl>
-          <TextField
-            id="from_date"
-            label="From Date"
-            type="date"
-            value={from_date}
-            onChange={(e) => handleFormChange(e, "from_date")}
-            InputLabelProps={{
-              shrink: true
-            }}
-            disabled={false}
-          />
-        </FormControl>
-        <FormControl>
-          <TextField
-            id="to_date"
-            label="To Date"
-            type="date"
-            value={to_date}
-            onChange={(e) => handleFormChange(e, "to_date")}
-            InputLabelProps={{
-              shrink: true
-            }}
-            disabled={false}
-          />
-        </FormControl>
-      </form>
-      <Grid
-        item={true}
-        container
-        justifyContent='center'
-        xs={12}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleAdd}
-          className={"addButton"}
-        >
-          Add
-        </Button>
+                {currenciesReference.map((option) => (
+                  <MenuItem
+                    id={`${option.code}_currency`}
+                    key={option.code}
+                    value={option.code}
+                  >
+                    {option.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>
+              <Input
+                id="annual_fee"
+                value={annual_fee}
+                onChange={(e) => handleFormChange(e, "annual_fee")}
+                disabled={false}
+              />
+            </FormControl>
+            <FormControl>
+              <TextField
+                id="from_date"
+                label="From Date"
+                type="date"
+                value={from_date}
+                onChange={(e) => handleFormChange(e, "from_date")}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                disabled={false}
+              />
+            </FormControl>
+            <FormControl>
+              <TextField
+                id="to_date"
+                label="To Date"
+                type="date"
+                value={to_date}
+                onChange={(e) => handleFormChange(e, "to_date")}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                disabled={false}
+              />
+            </FormControl>
+          </form>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={12}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleAdd}
+            className={"addButton"}
+          >
+            Add
+          </Button>
+        </Grid>
       </Grid>
     </>
   )

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
+import ParticlesBg from "particles-bg"
 import {
   Button,
   Card,
@@ -31,7 +32,6 @@ import MainCards from "./Cards"
 
 const Stocks = ({classes, key}: {classes: ClassesType, key: number}) => (
   <ThemeProvider theme={theme}>
-
     <Grid item key={key} xs={12} sm={6} md={4}>
       <Card className={classes.card}>
         <CardMedia
@@ -45,7 +45,7 @@ const Stocks = ({classes, key}: {classes: ClassesType, key: number}) => (
           </Typography>
           <Typography>
             Compare any ticker symbol against the S&P benchmark to get
-            stock&apos performance.
+            that asset&apos;s performance.
           </Typography>
         </CardContent>
         <CardActions className={classes.cardActions}>
@@ -109,6 +109,7 @@ const ExpandTable = ({classes, key, title}: {classes: ClassesType, key: number, 
 )
 
 const Main = ({ classes }: { classes: ClassesType}) => (
+  <>
   <Container className={classes.cardGrid} maxWidth="md">
     <Hero heroClass={classes.heroContent} />
     <MainCards>
@@ -117,6 +118,9 @@ const Main = ({ classes }: { classes: ClassesType}) => (
       <ExpandTable classes={classes} key={3} title="Expandable Table" />
     </MainCards>
   </Container>
+  <ParticlesBg type="circle" bg={true} />
+  <Outlet />
+  </>
 )
 
 export default Main

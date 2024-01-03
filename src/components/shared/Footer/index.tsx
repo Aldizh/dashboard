@@ -1,13 +1,15 @@
-import React from "react"
 import Typography from "@material-ui/core/Typography"
 import Copyright from "../CopyRight"
 
-const Footer = ({ classes }: {
+const Footer = ({ classes, stickyFooter }: {
   classes: {
     footer: string
-  }
+  },
+  stickyFooter: boolean
 }) => (
-  <footer className={classes.footer}>
+  <footer className={classes.footer} style={stickyFooter ? {
+    position: "fixed"
+  }: {}}>
     <Typography variant="h6" align="center" gutterBottom>
       Thank you for visiting
     </Typography>
