@@ -92,18 +92,16 @@ class Canvas extends React.Component {
             </Typography>
           </CardContent>
         </Card>
-        <>
-          <CanvasJSChart
-            containerProps={{
-              width: "100%",
-              height: "440px",
-              margin: "auto"
-            }}
-            options={options}
-            onRef={(ref) => (this.chart = ref)}
-          />
-          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
-        </>
+        <CanvasJSChart
+          containerProps={{
+            width: "100%",
+            height: "440px",
+            margin: "auto"
+          }}
+          options={options}
+          onRef={(ref) => (this.chart = ref)}
+        />
+        {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
       </>
     )
   }

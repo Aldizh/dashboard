@@ -1,91 +1,79 @@
-import React from "react"
+import { useEffect, useRef, useState } from "react"
 import PropTypes from "prop-types"
 import { CanvasJSChart } from "canvasjs-react-charts"
-
 import { calculateDataPoints } from "../../../utils/charts"
 import InfoCard from "../InfoCard"
 
-class Canvas extends React.Component {
-  state = {
-    dataPoints: [],
-    earliestDataPoint: 0,
-    latestDataPoint: 0
-  }
+const Canvas = (props) => {
+  const { search, metrics } = props;
 
-  componentDidMount() {
-    const { data = {}, intervalKey } = this.props
-    const monthlyData = data[intervalKey]
+  let earliestDate = new Date();
+  earliestDate.setDate(earliestDate.getDate() - 30);
+
+  const chartRef = useRef(null);
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    const { data = {}, intervalKey } = props;
+    const monthlyData = data[intervalKey];
     if (monthlyData) {
       const [
-        dataPoints,
-        earliestDataPoint,
-        latestDataPoint
-      ] = calculateDataPoints(data, intervalKey, "standard")
+        calculatedDataPoints,
+        calculatedEarliestDataPoint,
+        calculatedLatestDataPoint,
+      ] = calculateDataPoints(data, intervalKey, "standard");
 
-      this.setState({
-        dataPoints,
-        earliestDataPoint,
-        latestDataPoint
-      })
-  
-      this.chart.render()
+      const newOptions = {
+        title: {
+          text: `Historical monthly price data for ${search}`,
+        },
+        data: [
+          {
+            type: "area", // Change it to "spline", "area", "column"
+            dataPoints: calculatedDataPoints,
+          },
+        ],
+        navigator: {
+          slider: {
+            minimum: calculatedEarliestDataPoint,
+            maximum: calculatedLatestDataPoint,
+          },
+        },
+      };
+
+      setOptions(newOptions);
     }
+  }, [JSON.stringify(props)]); // Why stringify? read: https://github.com/facebook/react/issues/14476
 
-  }
 
-  componentWillUnmount () {
-    this.chart = null
-  }
+  useEffect(() => {
+    chartRef.current && chartRef.current.render();
+  }, [])
 
-  // Get data points for the given ticker and the benchmark (SPY)
-  render () {
-    const { search, metrics } = this.props
-
-    const latestDate = new Date()
-    const earliestDate = new Date();
-    earliestDate.setDate(earliestDate.getDate() - 30);
-
-    const options = {
-      title: {
-        text: `Historical monthly price data for ${search}`
-      },
-      data: [{
-        type: "area", // Change it to "spline", "area", "column"
-        dataPoints: this.state.dataPoints
-      }],
-      navigator: {
-        slider: {
-          minimum: earliestDate,
-          maximum: latestDate
-        }
-      }
-    }
-
-    return (
-      <>
-        <InfoCard metrics={metrics} />
-        <>
-          <CanvasJSChart
-            containerProps={{
-              width: "100%",
-              height: "440px",
-              margin: "auto"
-            }}
-            options={options}
-            onRef={(ref) => (this.chart = ref)}
-          />
-          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
-        </>
-      </>
-    )
-  }
-}
+  return options ? (
+    <>
+      <InfoCard metrics={metrics.data} />
+      <CanvasJSChart
+        containerProps={{
+          width: "100%",
+          height: "440px",
+          margin: "auto",
+        }}
+        options={options}
+        onRef={(ref) => (chartRef.current = ref)}
+      />
+    </>
+  ) : (
+    <div />
+  );
+};
 
 Canvas.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   search: PropTypes.string,
   intervalKey: PropTypes.string,
-  metrics: PropTypes.object
-}
+  metrics: PropTypes.object,
+  symbol: PropTypes.string,
+};
 
-export default Canvas
+export default Canvas;
