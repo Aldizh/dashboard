@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom"
 
 import useDataApi from "../../hooks/useData"
 import News from "../shared/News"
-import Price from "./Stocks"
+import ExtendedHistory from "./Stocks"
 import Crypto from "./Crypto"
 import Compared from "./Compared"
 
@@ -19,17 +19,17 @@ import {
   isComparisonStockChart
 } from "./utils"
 
-import { ChartData } from "../../types"
+import { ChartData, FundamentalsMetaData } from "../../types"
 
 const Fetcher = ({ classes }: { classes: ClassesType }) => {
-  const [symbol, setSymbol] = useState("") // tracks user input
-  const [search, setSearch] = useState("") // ticker symbol
+  const [userInput, setUserInput] = useState("") // tracks user input
+  const [search, setSearch] = useState("") // final ticker symbol
   const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
   const [apiError, setApiError] = useState("")
 
   const resetState = () => {
     setSearch("")
-    setSymbol("")
+    setUserInput("")
     setApiError("")
   }
 
@@ -39,58 +39,58 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
     event.preventDefault() // prevent bubbling up
   }
 
-  // Historical data for the search term
-  const historicalData = useDataApi(
+  // historical data tracking variable assignments
+  let isLoading = false
+  let isError = false
+  let isCryptoLoading = false
+  let isCryptoError = false
+
+  let stockData: ChartData = {}
+  let cryptoData: ChartData = {}
+
+  let updateCryptoUrl: (url: string) => void
+  let updateSeriesUrl: (url: string) => void = () => {}
+
+  // Historical data for the search term (either cryto or stock)
+  const historicalData: {
+    data: ChartData,
+    isLoading: boolean,
+    isError: boolean,
+    updateUrl: (url: string) => void
+  } = useDataApi(
     search,
     getApiUrl(search, seriesType),
   )
 
-  // initialize stock chart data
-  let stockData: { data: ChartData } = {
-    data: {
-      Information: "",
-    }
-  }
-  let isLoading = false
-  let isError = false
-  let updateSeriesUrl = (url: string) => {}
-
-  // initialize crypto chart data
-  let cryptoData: { data: ChartData } = {
-    data: {
-      Information: "",
-    }
-  }
-  let cryptoLoading = false
-  let cryptoError = false
-  let updateCryptoUrl = (url: string) => {}
-
   // load the correct data based on series type
   if (isHistoricalCryptoChart(seriesType)) {
-    cryptoData = historicalData
-    cryptoLoading = historicalData.isLoading
-    cryptoError = historicalData.isError
+    cryptoData = historicalData.data
+    isCryptoLoading = historicalData.isLoading
+    isCryptoError = historicalData.isError
     updateCryptoUrl = historicalData.updateUrl
   } else {
-    stockData = historicalData
+    stockData = historicalData.data
     isLoading = historicalData.isLoading
     isError = historicalData.isError
     updateSeriesUrl = historicalData.updateUrl
   }
 
   // fundamentals data (crypto is excluded)
-  const fundamentals = useDataApi(
+  const fundamentals: {
+    data: FundamentalsMetaData,
+    isLoading: boolean,
+    isError: boolean,
+    updateUrl: (url: string) => void
+  } = useDataApi(
     search,
     getFundamentalsUrl(search)
   )
-
   const {
     data: fundamentalsData,
-    isLoading: fundamentalsIsLoading,
-    isError: fundamentalsIsError,
+    isLoading: isFundamentalsLoading,
+    isError: isFundamentalsError,
     updateUrl: updateFundamentalsUrl
   } = fundamentals
-
 
   useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {
@@ -103,25 +103,24 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
   }, [search, seriesType])
 
   useEffect(() => {
-    if (search && !fundamentalsIsLoading) {
+    if (search && !isFundamentalsLoading) {
       updateFundamentalsUrl(getFundamentalsUrl(search))
     }
   }, [search, seriesType])
 
   // Set corresponding errors if any from the above
   useEffect(() => {
-    const newApiError =
+    const hasApiError =
       isError ||
-      cryptoError ||
-      fundamentalsIsError ||
-      fundamentals.data?.Information ||
-      stockData?.data?.Information ||
-      cryptoData?.data?.Information
-    if (newApiError) {
-      console.log("got an api error...", newApiError)
+      isCryptoError ||
+      isFundamentalsError ||
+      fundamentalsData?.Information ||
+      stockData?.Information ||
+      cryptoData?.Information
+    if (hasApiError) {
       setApiError("Daily Limit Reached") // most likely use case
     }
-  }, [search, seriesType, stockData.data])
+  }, [search, seriesType])
 
   return (
     <>
@@ -147,53 +146,47 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
           </select>
           <input
             type="text"
-            value={symbol}
-            onChange={(event) => setSymbol(event.target.value)}
+            value={userInput}
+            onChange={(event) => setUserInput(event.target.value)}
           />
-          <button onClick={() => setSearch(symbol)} type="submit">
+          <button onClick={() => setSearch(userInput)} type="submit">
             Search
           </button>
         </form>
         <React.Fragment>
-          {symbol && isComparisonStockChart(seriesType) && (
+          {userInput && !apiError && isComparisonStockChart(seriesType) && (
             <Compared
               search={search}
-              symbol={symbol}
-              apiError={apiError}
-              isLoading={isLoading}
-              seriesType={seriesType}
-              data={stockData.data}
-              metrics={fundamentalsData}
-            />
-          )}
-          {symbol && isHistoricalStockChart(seriesType) && (
-            <Price
-              search={search}
-              symbol={symbol}
               data={stockData}
-              apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
               metrics={fundamentalsData}
             />
           )}
-          {symbol && isHistoricalCryptoChart(seriesType) && (
+          {userInput && !apiError && isHistoricalStockChart(seriesType) && (
+            <ExtendedHistory
+              search={search}
+              data={stockData}
+              isLoading={isLoading}
+              seriesType={seriesType}
+              metrics={fundamentalsData}
+            />
+          )}
+          {userInput && !apiError && isHistoricalCryptoChart(seriesType) && (
             <>
               <Crypto
                 search={search}
-                symbol={symbol}
                 data={cryptoData}
-                apiError={apiError}
-                isLoading={cryptoLoading}
+                isLoading={isCryptoLoading}
                 seriesType={seriesType}
               />
               <News
-                symbol={symbol}
                 search={search}
                 getApiUrl={getApiUrl}
               />
             </>
           )}
+          {apiError && <b style={{color: "darkred"}}>{apiError}</b>}
         </React.Fragment>
       </div>
       <ParticlesBg

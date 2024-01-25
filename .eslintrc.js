@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json'] // Specify it only for TypeScript files
   },
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     "camelcase": "off",
     "react/react-in-jsx-scope": "off", // avoid the need for import react statement

@@ -86,7 +86,8 @@ type FundamentalsMetaData = {
   "200DayMovingAverage":string,
   "SharesOutstanding": string,
   "DividendDate": string,
-  "ExDividendDate": string
+  "ExDividendDate": string,
+  "Information": string
 }
 
 // union type
@@ -138,6 +139,7 @@ type ChartData =
 export type {
   MetaData,
   ChartData,
+  FundamentalsMetaData,
   chartKeyTypes
 }
 

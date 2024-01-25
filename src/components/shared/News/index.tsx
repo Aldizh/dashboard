@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles"
 
 import useDataApi from "../../../hooks/useData"
 import { NEWS_SENTIMENT } from "../../../utils/consts"
+import { Feed, ArticleData } from "../../../types/News"
 
 const useStyles = makeStyles({
   root: {
@@ -19,38 +20,12 @@ const useStyles = makeStyles({
   }
 })
 
-type Feed = [{
-  authors: [string],
-  banner_image: string,
-  category_within_source: string,
-  overall_sentiment_label: string,
-  overall_sentiment_score: number,
-  source: string,
-  source_domain: string,
-  summary: string,
-  ticker_sentiment: [{
-    relevance_score: string,
-    ticker: string,
-    ticker_sentiment_label: string,
-    ticker_sentiment_score: string
-  }],
-  time_published: string,
-  topics: [{
-    topic: string,
-    relevance_score: string
-  }],
-  title: string,
-  url: string
-}]
-
 const News = (props: {
-  symbol: string
   search: string,
-  getApiUrl: (symbol: string, seriesType: string) => string
+  getApiUrl: (ticker: string, seriesType: string) => string
 }) => {
   const {
     search,
-    symbol,
     getApiUrl
   } = props
 
@@ -60,11 +35,16 @@ const News = (props: {
     isLoading: articlesLoading,
     isError: articlesError,
     updateUrl: updateArticlesUrl
+  }: {
+    data: ArticleData,
+    isLoading: boolean,
+    isError: boolean,
+    updateUrl: (url: string) => void
   } = useDataApi(
     search,
     getApiUrl(search, NEWS_SENTIMENT)
   )
-  const feed: Feed = articleData?.data?.feed
+  const feed: Feed = articleData?.feed
 
   useEffect(() => {
    if (search && !articlesLoading) {
@@ -78,7 +58,7 @@ const News = (props: {
     <Fragment>
       <h1>Top 5 News Articles</h1>
       {articlesLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
-      {feed && symbol && !articlesError &&
+      {feed && !articlesError &&
         feed.splice(0, 5).map(article =>
           <Card key={article.title} className={classes.root}>
             <CardContent>

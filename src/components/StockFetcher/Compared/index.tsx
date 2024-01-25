@@ -14,19 +14,13 @@ import type { Metrics } from  "../../../types/Stocks"
 
 const Standard = (props: {
   search: string
-  symbol: string
-  apiError: string
   isLoading: boolean
   seriesType: string
-  data: ChartData,
-  metrics: {
-    data: Metrics
-  }
+  data: ChartData
+  metrics: Metrics
 }) => {
   const {
     search,
-    symbol,
-    apiError,
     isLoading,
     seriesType,
     data,
@@ -43,18 +37,16 @@ const Standard = (props: {
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18 }}>Click search to get data for ticker symbol...</div>}
-      {apiError && <div>{apiError}</div>}
-      {!apiError && search && isLoading && <div>Loading ...</div>}
-      {!apiError && search && !isLoading && (
+      {search && isLoading && <div>Loading ...</div>}
+      {search && !isLoading && (
         <div>
           {seriesType && (
             <>
-              {metrics.data !== undefined && <InfoCard metrics={metrics.data} />}
+              <InfoCard metrics={metrics} />
               <Comparison
                 search={search}
                 data={data}
-                spyData={spyData?.data?.data}
-                symbol={symbol}
+                spyData={spyData.data}
                 intervalKey={INTRADAY_INTERVAL_KEY}
               />
             </>

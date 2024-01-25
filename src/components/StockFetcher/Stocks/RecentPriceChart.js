@@ -4,7 +4,7 @@ import { CanvasJSChart } from "canvasjs-react-charts"
 import { calculateDataPoints } from "../../../utils/charts"
 import InfoCard from "../InfoCard"
 
-const Canvas = (props) => {
+const RecentHistory = (props) => {
   const { search, metrics } = props;
 
   let earliestDate = new Date();
@@ -52,7 +52,7 @@ const Canvas = (props) => {
 
   return options ? (
     <>
-      <InfoCard metrics={metrics.data} />
+      <InfoCard metrics={metrics} />
       <CanvasJSChart
         containerProps={{
           width: "100%",
@@ -68,12 +68,11 @@ const Canvas = (props) => {
   );
 };
 
-Canvas.propTypes = {
+RecentHistory.propTypes = {
   data: PropTypes.object,
   search: PropTypes.string,
   intervalKey: PropTypes.string,
-  metrics: PropTypes.object,
-  symbol: PropTypes.string,
+  metrics: PropTypes.object
 };
 
-export default Canvas;
+export default RecentHistory;

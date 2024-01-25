@@ -1,8 +1,6 @@
 import { useState, useEffect, useReducer } from "react"
 import axios from "axios"
 
-import { ChartData } from "../types"
-
 import {
   FETCH_INIT,
   FETCH_SUCCESS,
@@ -12,6 +10,7 @@ import {
   OVERVIEW,
   DIGITAL_CURRENCY_DAILY,
 } from "../utils/consts"
+import { ChartData } from "../types"
 
 type Action = {
   type: string,
@@ -117,7 +116,6 @@ const getDefaultState = <T extends string>(url: T): any => {
             "6. market cap (USD)": "15747.83960000"
           }
         }
-  
       }
     }
   } else if (url.includes(OVERVIEW)) {
@@ -173,56 +171,57 @@ const getDefaultState = <T extends string>(url: T): any => {
         }
       }
     }
-  }
-  return {
-    data: {
-      "Meta Data": {
-        "Symbol": "MSFT",
-        "AssetType": "Common Stock",
-        "Name": "Microsoft Corporation",
-        "Description": "Microsoft Corporation is an American multinational technology company which produces computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 21 in the 2020 Fortune 500 rankings of the largest United States corporations by total revenue; it was the world's largest software maker by revenue as of 2016. It is considered one of the Big Five companies in the U.S. information technology industry, along with Google, Apple, Amazon, and Facebook.",
-        "CIK": "789019",
-        "Exchange": "NASDAQ",
-        "Currency": "USD",
-        "Country": "USA",
-        "Sector": "TECHNOLOGY",
-        "Industry": "SERVICES-PREPACKAGED SOFTWARE",
-        "Address": "ONE MICROSOFT WAY, REDMOND, WA, US",
-        "FiscalYearEnd": "June",
-        "LatestQuarter": "2023-06-30",
-        "MarketCapitalization": "2496845054000",
-        "EBITDA": "102022996000",
-        "PERatio": "34.68",
-        "PEGRatio": "2.275",
-        "BookValue": "27.75",
-        "DividendPerShare": "2.72",
-        "DividendYield": "0.0082",
-        "EPS": "9.69",
-        "RevenuePerShareTTM": "28.46",
-        "ProfitMargin": "0.342",
-        "OperatingMarginTTM": "0.418",
-        "ReturnOnAssetsTTM": "0.142",
-        "ReturnOnEquityTTM": "0.388",
-        "RevenueTTM": "211914998000",
-        "GrossProfitTTM": "135620000000",
-        "DilutedEPSTTM": "9.69",
-        "QuarterlyEarningsGrowthYOY": "0.202",
-        "QuarterlyRevenueGrowthYOY": "0.083",
-        "AnalystTargetPrice": "359.97",
-        "TrailingPE": "34.68",
-        "ForwardPE": "27.03",
-        "PriceToSalesRatioTTM": "9.14",
-        "PriceToBookRatio": "11.05",
-        "EVToRevenue": "9.21",
-        "EVToEBITDA": "18.55",
-        "Beta": "0.905",
-        "52WeekHigh": "366.01",
-        "52WeekLow": "211.39",
-        "50DayMovingAverage": "332.48",
-        "200DayMovingAverage": "291.76",
-        "SharesOutstanding": "7429760000",
-        "DividendDate": "2023-09-14",
-        "ExDividendDate": "2023-08-16"
+  } else {
+    return {
+      data: {
+        "Meta Data": {
+          "Symbol": "MSFT",
+          "AssetType": "Common Stock",
+          "Name": "Microsoft Corporation",
+          "Description": "Microsoft Corporation is an American multinational technology company which produces computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 21 in the 2020 Fortune 500 rankings of the largest United States corporations by total revenue; it was the world's largest software maker by revenue as of 2016. It is considered one of the Big Five companies in the U.S. information technology industry, along with Google, Apple, Amazon, and Facebook.",
+          "CIK": "789019",
+          "Exchange": "NASDAQ",
+          "Currency": "USD",
+          "Country": "USA",
+          "Sector": "TECHNOLOGY",
+          "Industry": "SERVICES-PREPACKAGED SOFTWARE",
+          "Address": "ONE MICROSOFT WAY, REDMOND, WA, US",
+          "FiscalYearEnd": "June",
+          "LatestQuarter": "2023-06-30",
+          "MarketCapitalization": "2496845054000",
+          "EBITDA": "102022996000",
+          "PERatio": "34.68",
+          "PEGRatio": "2.275",
+          "BookValue": "27.75",
+          "DividendPerShare": "2.72",
+          "DividendYield": "0.0082",
+          "EPS": "9.69",
+          "RevenuePerShareTTM": "28.46",
+          "ProfitMargin": "0.342",
+          "OperatingMarginTTM": "0.418",
+          "ReturnOnAssetsTTM": "0.142",
+          "ReturnOnEquityTTM": "0.388",
+          "RevenueTTM": "211914998000",
+          "GrossProfitTTM": "135620000000",
+          "DilutedEPSTTM": "9.69",
+          "QuarterlyEarningsGrowthYOY": "0.202",
+          "QuarterlyRevenueGrowthYOY": "0.083",
+          "AnalystTargetPrice": "359.97",
+          "TrailingPE": "34.68",
+          "ForwardPE": "27.03",
+          "PriceToSalesRatioTTM": "9.14",
+          "PriceToBookRatio": "11.05",
+          "EVToRevenue": "9.21",
+          "EVToEBITDA": "18.55",
+          "Beta": "0.905",
+          "52WeekHigh": "366.01",
+          "52WeekLow": "211.39",
+          "50DayMovingAverage": "332.48",
+          "200DayMovingAverage": "291.76",
+          "SharesOutstanding": "7429760000",
+          "DividendDate": "2023-09-14",
+          "ExDividendDate": "2023-08-16"
+        }
       }
     }
   }
@@ -233,7 +232,7 @@ const getDefaultState = <T extends string>(url: T): any => {
   open APIs or consider a paid plan for the full features.
 */
 const useDataApi = (search: string, initialUrl: string) => {
-  const [url, setUrl] = useState(initialUrl)
+  const [url, setUrl] = useState<string>(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -245,12 +244,14 @@ const useDataApi = (search: string, initialUrl: string) => {
     const fetchData = async () => {
       dispatch({ type: FETCH_INIT })
       try {
-        const result = await axios(url)
+        const result: {
+          data: ChartData
+        } = await axios(url)
 
         // We hit the threshold of 5 calls per minute
         if (result.data.Information) dispatch({ type: FETCH_FAILURE })
 
-        dispatch({ type: FETCH_SUCCESS, payload: result })
+        dispatch({ type: FETCH_SUCCESS, payload: result.data })
       } catch (error) {
         dispatch({ type: FETCH_FAILURE })
       }

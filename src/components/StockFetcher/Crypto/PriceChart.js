@@ -1,10 +1,9 @@
-import React from "react"
+import React, { useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 import { CanvasJSChart } from "canvasjs-react-charts"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
-import moment from "moment"
 
 import { DIGITAL_CURRENCY_INTERVAL_KEY } from "../../../utils/consts"
 import { getXData, calculateDataPoints } from "../../../utils/charts"
@@ -12,40 +11,16 @@ import { getXData, calculateDataPoints } from "../../../utils/charts"
 const INTERVAL_KEY = DIGITAL_CURRENCY_INTERVAL_KEY
 const defaultApiData = { INTERVAL_KEY: {} }
 
-class Canvas extends React.Component {
-  state = {
-    dataPoints: [],
-    earliestDataPoint: 0,
-    latestDataPoint: 0
-  }
+const Canvas = (props) => {
+  const chartRef = useRef(null)
+  const [options, setOptions] = useState(null);
 
-  componentDidMount () {
-    const { data = defaultApiData } = this.props
-    const [dataPoints, earliestDataPoint, latestDataPoint] = calculateDataPoints(data, INTERVAL_KEY, "crypto")
+  const [market, setMarket] = useState(null)
+  const [tickerName, setTickerName] = useState("")
+  const [lastUpdate, setLastUpdate] = useState("")
 
-    this.setState({
-      dataPoints,
-      earliestDataPoint,
-      latestDataPoint
-    })
-
-    this.chart.render()
-  }
-
-  componentWillUnmount() {
-    this.chart = null
-    this.setState({
-      dataPoints: [],
-      earliestDataPoint: 0,
-      latestDataPoint: 0
-    })
-  }
-
-  // Get data points for the given ticker and the benchmark (SPY)
-  render () {
-    const { data, search } = this.props
-
-    // x-axis (api data is in reverse chronological order)
+  useEffect(() => {
+    const { data = defaultApiData, search } = props
     const dates = getXData(data)
     const latestDate = new Date(dates[0])
     const earliestDate = new Date(dates[dates.length - 1])
@@ -54,57 +29,73 @@ class Canvas extends React.Component {
       ["5. Market Name"]: market,
       ["6. Last Refreshed"]: updatedTimestamp
     } = data["Meta Data"] || {}
-    const lastUpdate = moment(updatedTimestamp).format("MMMM Do YYYY, h:mm:ss a");
+
+    setMarket(market)
+    setTickerName(tickerName)
+    setLastUpdate(updatedTimestamp)
+
+    const [calculatedDataPoints] = calculateDataPoints(data, INTERVAL_KEY, "crypto")
+
     const options = {
+      theme: "light2",
       title: {
-        text: `Historical price for ${search} since ${earliestDate.toDateString()}`
+        text: `Historical ${search} chart starting ${earliestDate.toDateString()}`
+      },
+      axisY: {
+        title: "Price",
+        prefix: "$"
       },
       data: [{
-        type: "area", // other options ["spline", "area", "column"]
-        dataPoints: this.state.dataPoints
+        type: "area",
+        dataPoints: calculatedDataPoints
       }],
       navigator: {
         slider: {
           minimum: earliestDate,
           maximum: latestDate
         }
-      }
+      },
     }
 
-    return (
-      <>
-        <Card
-          variant="outlined"
-          style={{
-            margin: "10px auto",
-            width: "70%"
-          }}
-        >
-          <CardContent>
-            <Typography color="primary" variant="subtitle1">
-              Asset: <b>{tickerName}</b>
-            </Typography>
-            <Typography color="primary" variant="subtitle1">
-              Trading in market: <b>{market}</b>
-            </Typography>
-            <Typography color="primary" variant="subtitle1" gutterBottom>
-              Last Updated: <b>{lastUpdate}</b>
-            </Typography>
-          </CardContent>
-        </Card>
-        <CanvasJSChart
-          containerProps={{
-            width: "100%",
-            height: "440px",
-            margin: "auto"
-          }}
-          options={options}
-          onRef={(ref) => (this.chart = ref)}
-        />
-        {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
-      </>
-    )
-  }
+    setOptions(options)
+  }, [JSON.stringify(props)]); // Why stringify? read: https://github.com/facebook/react/issues/14476
+
+  useEffect(() => {
+    chartRef.current && chartRef.current.render();
+  }, [])
+
+  return (
+    <>
+      <Card
+        variant="outlined"
+        style={{
+          margin: "10px auto",
+          width: "70%"
+        }}
+      >
+        <CardContent>
+          <Typography color="primary" variant="subtitle1">
+            Asset: <b>{tickerName}</b>
+          </Typography>
+          <Typography color="primary" variant="subtitle1">
+            Trading in market: <b>{market}</b>
+          </Typography>
+          <Typography color="primary" variant="subtitle1" gutterBottom>
+            Last Updated: <b>{(new Date(lastUpdate)).toLocaleString()}</b>
+          </Typography>
+        </CardContent>
+      </Card>
+      <CanvasJSChart
+        containerProps={{
+          width: "100%",
+          height: "440px",
+          margin: "auto"
+        }}
+        options={options}
+        onRef={(ref) => (chartRef.current = ref)}
+      />
+    </>
+  )
 }
 
 Canvas.propTypes = {

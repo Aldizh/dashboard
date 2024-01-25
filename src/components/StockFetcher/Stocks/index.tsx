@@ -12,35 +12,27 @@ import { MONTHLY_INTERVAL_ADJUSTED_KEY } from "../../../utils/consts"
 // But given the potential use cases will consider signing up
 const Extended = (props: {
   search: string,
-  symbol: string,
-  data: {
-    data: ChartData
-  },
+  data: ChartData,
   metrics: Record<string, string>,
-  apiError: string // TO DO: specify the type
   isLoading: boolean,
   seriesType: string
 }) => {
   const {
     search,
-    symbol,
     data,
     metrics,
-    apiError,
     isLoading
   } = props
 
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18 }}>Enter ticker symbol and click search to get latest info...</div>}
-      {apiError && <div>{apiError}</div>}
-      {!apiError && search && isLoading && <div>Loading ...</div>}
-      {!apiError && search && !isLoading && (
+      {search && isLoading && <div>Loading ...</div>}
+      {search && !isLoading && (
         <PriceChart
           search={search}
-          data={data.data}
+          data={data}
           metrics={metrics}
-          symbol={symbol}
           intervalKey={MONTHLY_INTERVAL_ADJUSTED_KEY}
         />
       )}

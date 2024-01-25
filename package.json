@@ -26,9 +26,10 @@
     "@types/ramda": "^0.29.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "eslint": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/types": "^6.19.1",
+    "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
@@ -38,7 +39,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "react-scripts": "^5.0.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

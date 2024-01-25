@@ -11,32 +11,24 @@ import { chartKeys } from "../../../types"
 // But given the potential use cases will consider signing up
 const Crypto = (props: {
   search: string,
-  symbol: string,
-  data: {
-    data: ChartData
-  }
-  apiError: string,
+  data: ChartData,
   isLoading: boolean,
   seriesType: string
 }) => {
   const {
     search, // final search term (used to get data)
-    symbol, // tracked
     data,
-    apiError,
     isLoading
   } = props
-  const cryptoTimeSeries = data.data[chartKeys.digitalDailyCurrency]
+  const cryptoTimeSeries = data[chartKeys.digitalDailyCurrency]
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18 }}>Click search to get latest info...</div>}
-      {apiError && <div>{apiError}</div>}
-      {!apiError && search && isLoading && <div>Loading ...</div>}
-      {!apiError && search && !isLoading && cryptoTimeSeries && (
+      {search && isLoading && <div>Loading ...</div>}
+      {search && !isLoading && cryptoTimeSeries && (
         <PriceChart
           search={search}
-          data={data.data}
-          symbol={symbol}
+          data={data}
         />
       )}
     </Fragment>
