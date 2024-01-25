@@ -5,7 +5,25 @@ enum chartKeys {
   metaData = "Meta Data"
 }
 
-type StockMetaData = {
+type chartKeyTypes = {
+  dailyTimeSeries: "Time Series (15min)",
+  monthlyTimeSeries: "Monthly Adjusted Time Series",
+  digitalDailyCurrency: "Time Series (Digital Currency Daily)",
+  metaData: "Meta Data",
+  information: "Information"
+
+}
+
+type StockDailyMetaData = {
+  "1. Information": string,
+  "2. Symbol": string,
+  "3. Last Refreshed": string,
+  "4. Interval": string,
+  "5. Output Size": string,
+  "6. Time Zone": string
+}
+
+type MonthlyDailyMetaData = {
   "1. Information": "Monthly Adjusted Prices and Volumes",
   "2. Symbol": "SPY",
   "3. Last Refreshed": "2023-09-14",
@@ -13,13 +31,13 @@ type StockMetaData = {
 }
 
 type CryptoMetaData = {
-  ["1. Information"]: string
-  ["2. Digital Currency Code"]: string
-  ["3. Digital Currency Name"]: string
-  ["4. Market Code"]: string
-  ["5. Market Name"]: string
-  ["6. Last Refreshed"]: string
-  ["7. Time Zone"]: string
+  "1. Information"?: string
+  "2. Digital Currency Code"?: string
+  "3. Digital Currency Name"?: string
+  "4. Market Code"?: string
+  "5. Market Name"?: string
+  "6. Last Refreshed"?: string
+  "7. Time Zone"?: string
 }
 
 type FundamentalsMetaData = {
@@ -72,54 +90,57 @@ type FundamentalsMetaData = {
 }
 
 // union type
-type MetaData = StockMetaData | CryptoMetaData | FundamentalsMetaData
+type MetaData = StockDailyMetaData | MonthlyDailyMetaData | CryptoMetaData | FundamentalsMetaData
 
-type TimeSeriesSocksDaily = {
-  [chartKeys.dailyTimeSeries]: Record<string, {
-    ["1. open"]: string,
-    ["2. high"]: string,
-    ["3. low"]: string,
-    ["4. close"]: string,
-  }>
+type DailyTimeSeriesValues = {
+  ["1. open"]: number;
+  ["2. high"]: number;
+  ["3. low"]: number;
+  ["4. close"]: number;
+  ["5. volume"]: number;
 };
 
-type TimeSeriesSocksMonthly = {
-  [chartKeys.monthlyTimeSeries]: Record<string, {
-    ["1. open"]: string,
-    ["2. high"]: string,
-    ["3. low"]: string,
-    ["4. close"]: string,
-    ["5. adjusted close"]:  string,
-    ["6. volume"]: string,
-    ["7. dividend amount"]: string
-  }>
-};
+type MonthlyTimeSeriesValues = {
+  ["1. open"]: string,
+  ["2. high"]: string,
+  ["3. low"]: string,
+  ["4. close"]: string,
+  ["5. adjusted close"]:  string,
+  ["6. volume"]: string,
+  ["7. dividend amount"]: string
+}
 
-type TimeSeriesCryptoDaily = {
-  [chartKeys.digitalDailyCurrency]: Record<string, {
+type TimeSeriesCryptoDaily = Record<string,
+  {
     ["1a. open (CNY)"]: string,
     ["1b. open (USD)"]: string,
     ["2a. high (CNY)"]: string,
     ["2b. high (USD)"]: string,
     ["3a. low (CNY)"]: string,
     ["3b. low (USD)"]: string,
-    ["4a. close (USD)"]: string,
+    ["4a. close (CNY)"]: string,
     ["4b. close (USD)"]: string,
     ["5. volume"]: string,
     ["6. market cap (USD)"]: string
-  }>
-}
+}>
 
-interface ChartData {
-  [chartKeys.dailyTimeSeries]?: TimeSeriesSocksDaily,
-  [chartKeys.digitalDailyCurrency]?: TimeSeriesCryptoDaily,
-  [chartKeys.monthlyTimeSeries]?: TimeSeriesSocksMonthly,
-  [chartKeys.metaData]?: CryptoMetaData,
-  Information?: string
-}
+// Generic
+type TimeSeries<T> = {
+  [timestamp: string]: Record<string, T>;
+};
+
+type ChartData =
+  {
+    [key: string]: TimeSeries<DailyTimeSeriesValues | MonthlyTimeSeriesValues | TimeSeriesCryptoDaily> |
+    MonthlyDailyMetaData | CryptoMetaData | FundamentalsMetaData | string,
+  }
 
 export type {
   MetaData,
   ChartData,
+  chartKeyTypes
+}
+
+export {
   chartKeys
 }

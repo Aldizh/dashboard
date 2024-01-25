@@ -67,12 +67,12 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
 
   // load the correct data based on series type
   if (isHistoricalCryptoChart(seriesType)) {
-    cryptoData = historicalData.data
+    cryptoData = historicalData
     cryptoLoading = historicalData.isLoading
     cryptoError = historicalData.isError
     updateCryptoUrl = historicalData.updateUrl
   } else {
-    stockData = historicalData.data
+    stockData = historicalData
     isLoading = historicalData.isLoading
     isError = historicalData.isError
     updateSeriesUrl = historicalData.updateUrl
@@ -83,10 +83,14 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
     search,
     getFundamentalsUrl(search)
   )
-  const fundamentalsData = fundamentals.data
-  const fundamentalsIsLoading = fundamentals.isLoading
-  const fundamentalsIsError = fundamentals.isError
-  const updateFundamentalsUrl = fundamentals.updateUrl
+
+  const {
+    data: fundamentalsData,
+    isLoading: fundamentalsIsLoading,
+    isError: fundamentalsIsError,
+    updateUrl: updateFundamentalsUrl
+  } = fundamentals
+
 
   useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {
@@ -110,7 +114,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
       isError ||
       cryptoError ||
       fundamentalsIsError ||
-      fundamentalsData?.data?.Information ||
+      fundamentals.data?.Information ||
       stockData?.data?.Information ||
       cryptoData?.data?.Information
     if (newApiError) {
@@ -158,8 +162,8 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
-              data={stockData}
-              metrics={fundamentalsData.data}
+              data={stockData.data}
+              metrics={fundamentalsData}
             />
           )}
           {symbol && isHistoricalStockChart(seriesType) && (
@@ -170,7 +174,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
               apiError={apiError}
               isLoading={isLoading}
               seriesType={seriesType}
-              metrics={fundamentalsData.data}
+              metrics={fundamentalsData}
             />
           )}
           {symbol && isHistoricalCryptoChart(seriesType) && (

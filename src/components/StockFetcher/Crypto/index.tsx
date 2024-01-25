@@ -3,17 +3,18 @@
 
 import React, { Fragment } from "react"
 import PriceChart from "./PriceChart"
-import { ChartData } from "../../../types"
+import type { ChartData } from "../../../types"
+import { chartKeys } from "../../../types"
 
 // TO DO: Will need to accumulate different monthly slices to calculate over a longer time horizon
 // Also because of 5 call limit it is hard to develop this feature
 // But given the potential use cases will consider signing up
-const Extended = (props: {
+const Crypto = (props: {
   search: string,
   symbol: string,
   data: {
     data: ChartData
-  },
+  }
   apiError: string,
   isLoading: boolean,
   seriesType: string
@@ -25,7 +26,7 @@ const Extended = (props: {
     apiError,
     isLoading
   } = props
-  const cryptoTimeSeries = data.data["Time Series (Digital Currency Daily)"]
+  const cryptoTimeSeries = data.data[chartKeys.digitalDailyCurrency]
   return (
     <Fragment>
       {!search && <div style={{ fontSize: 18 }}>Click search to get latest info...</div>}
@@ -42,4 +43,4 @@ const Extended = (props: {
   )
 }
 
-export default Extended
+export default Crypto

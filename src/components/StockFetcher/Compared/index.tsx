@@ -18,8 +18,10 @@ const Standard = (props: {
   apiError: string
   isLoading: boolean
   seriesType: string
-  data: { data: ChartData },
-  metrics: Metrics
+  data: ChartData,
+  metrics: {
+    data: Metrics
+  }
 }) => {
   const {
     search,
@@ -47,10 +49,10 @@ const Standard = (props: {
         <div>
           {seriesType && (
             <>
-              <InfoCard metrics={metrics} />
+              {metrics.data !== undefined && <InfoCard metrics={metrics.data} />}
               <Comparison
                 search={search}
-                data={data.data}
+                data={data}
                 spyData={spyData?.data?.data}
                 symbol={symbol}
                 intervalKey={INTRADAY_INTERVAL_KEY}
