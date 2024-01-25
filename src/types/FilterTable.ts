@@ -32,6 +32,5 @@ export type ReferenceData = {
 
 export enum FilterType {
   country = "country",
-  currency = "currency",
   memberships = "memberships"
 }

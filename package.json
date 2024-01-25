@@ -11,12 +11,13 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.24.0",
     "canvasjs-react-charts": "1.0.5",
+    "country-currency-map": "^2.1.7",
     "moment": "^2.29.4",
     "particles-bg": "^2.5.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "6",
-    "semantic-ui-react": "2.1.4",
+    "react-router-dom": "^6.21.3",
+    "semantic-ui-react": "^2.1.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -29,7 +30,6 @@
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.45.0",
     "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
     "faker": "^5.1.0",

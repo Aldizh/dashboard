@@ -8,6 +8,7 @@ import Input from "@material-ui/core/Input"
 import InputLabel from "@material-ui/core/InputLabel"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles"
+import currencyMap from "country-currency-map"
 
 // local imports
 import type { Member } from "../../types/FilterTable"
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const MemberSetup = (props: {
   countriesReference: Array<ReferenceData>,
-  currenciesReference: Array<ReferenceData>,
   membershipTypesReference: Array<ReferenceData>,
 }) => {
   const [toastList, setToastList] = useState<[ToastType] | []>([]);
@@ -39,8 +39,7 @@ const MemberSetup = (props: {
   const [from_date, setFromDate] = useState("")
   const [to_date, setToDate] = useState("")
 
-  const { countriesReference, currenciesReference, membershipTypesReference } =
-    props
+  const { countriesReference, membershipTypesReference } = props
   const [data, dispatch] = useListPageContext()
   const { members } = data
 
@@ -50,7 +49,7 @@ const MemberSetup = (props: {
     setName("John")
     setFee("10")
     setCountry(countriesReference[0])
-    setCurrency(currenciesReference[0])
+    setCurrency({ code: "USD", description: "USD" })
     setType(membershipTypesReference[0])
     setFromDate("2021-05-24")
     setToDate("2022-05-24")
@@ -81,11 +80,13 @@ const MemberSetup = (props: {
     switch (fieldId) {
       case "country":
         const matchingCountry = countriesReference.find(country => country.code === event.target.value)
-        if (matchingCountry) setCountry(matchingCountry)
-        break
-      case "currency":
-        const matchingCurrency = currenciesReference.find(currency => currency.code === event.target.value)
-        if (matchingCurrency) setCurrency(matchingCurrency)
+        if (matchingCountry) {
+          setCountry(matchingCountry)
+
+          const currency = currencyMap.getCurrencyAbbreviation(matchingCountry.code)
+          setCurrency({ code: currency, description: currency })
+        }
+
         break
       case "membership_type":
         const matchingType = membershipTypesReference.find(membership => membership.code === event.target.value)
@@ -188,23 +189,12 @@ const MemberSetup = (props: {
               </Select>
             </FormControl>
             <FormControl>
-              <InputLabel id="membership">Currency</InputLabel>
-              <Select
-                labelId="currency"
+              <TextField
                 id="currency"
+                label="Currency"
+                type="currency"
                 value={currency.code}
-                onChange={(e) => handleSelectChange(e, "currency")}
-              >
-                {currenciesReference.map((option) => (
-                  <MenuItem
-                    id={`${option.code}_currency`}
-                    key={option.code}
-                    value={option.code}
-                  >
-                    {option.description}
-                  </MenuItem>
-                ))}
-              </Select>
+              />
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>

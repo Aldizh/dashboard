@@ -57,28 +57,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Filters (props: {
   countriesReference: ReferenceData[],
-  currenciesReference: ReferenceData[],
   members: Members,
   setMembers: (members: Members) => void,
   membershipTypesReference: ReferenceData[],
   countryFilterData: ReferenceData[],
-  currencyFilterData: ReferenceData[],
   searchTextCountries: string,
-  searchTextCurrencies: string,
   searchTextMemberships: string,
   handleSearch: (text: string, type: FilterType) => void,
   isIchecked: (description: string) => boolean,
 }) {
   const {
     countryFilterData,
-    currencyFilterData,
     setMembers,
     members,
     searchTextCountries,
-    searchTextCurrencies,
     searchTextMemberships,
     countriesReference,
-    currenciesReference,
     membershipTypesReference,
     handleSearch,
     isIchecked,
@@ -129,22 +123,6 @@ export default function Filters (props: {
           <div style={{padding: 5}}>
             <Search
               handleSearch={handleSearch}
-              searchText={searchTextCurrencies}
-              searchBy={FilterType.currency}
-            />
-            <SubList
-              filterFacets={currencyFilterData}
-              members={members}
-              setMembers={setMembers}
-              filterBy={"currency"}
-              searchText={searchTextCurrencies}
-              isIchecked={isIchecked}
-            />
-          </div>
-          <Divider />
-          <div style={{padding: 5}}>
-            <Search
-              handleSearch={handleSearch}
               searchText={searchTextMemberships}
               searchBy={FilterType.memberships}
             />
@@ -182,7 +160,6 @@ export default function Filters (props: {
           <FilterTable />
           <Memberships
             countriesReference={countriesReference}
-            currenciesReference={currenciesReference}
             membershipTypesReference={membershipTypesReference}
           />
         </Main>
