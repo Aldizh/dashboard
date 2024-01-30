@@ -15,6 +15,7 @@ import Checkbox from "@material-ui/core/Checkbox"
 
 import EnhancedTableHead from "./Head"
 import ChipsTooltip from "../../../shared/ChipsTooltip"
+import type { Members } from "../../../../types/FilterTable"
 
 import { formatDate, stableSort } from "../utils"
 import { formatCurrency } from "../../../../utils/string"
@@ -37,10 +38,10 @@ const useToolbarStyles = makeStyles((theme) => ({
 }))
 
 const EnhancedTableToolbar = (props: {
-  selected: Array<never>,
-  rows: Array<any>,
-  setSelected: (arg0: Array<never>) => void,
-  dispatch: ({}) => object
+  selected: string[],
+  rows: Members,
+  setSelected: (arg: string[] | []) => void,
+  dispatch: (arg: { type: string, data: Members }) => void
 }) => {
   const classes = useToolbarStyles()
   const { rows, selected, setSelected, dispatch } = props
@@ -48,7 +49,7 @@ const EnhancedTableToolbar = (props: {
 
   const deleteMembers = () => {
     let updated = rows
-    selected.forEach(member => {
+    selected.forEach((member) => {
       updated = updated.filter((row) => member !== row.name)
     })
     setSelected([])
@@ -119,32 +120,31 @@ export default function EnhancedTable() {
   const classes = useStyles()
   const [order, setOrder] = React.useState("asc")
   const [orderBy, setOrderBy] = React.useState("calories")
-  const [selected, setSelected] = React.useState([])
+  const [selected, setSelected] = React.useState<string[]>([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const [data, dispatch] = useListPageContext()
   const rows = data.members
 
-  const handleRequestSort = (event: any, property: string) => {
+  const handleRequestSort = (_event: Event, property: string) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
     setOrderBy(property)
   }
 
-  const handleSelectAllClick = (event: any) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((row: {
+  const handleSelectAllClick = (event: Event) => {
+    const target = event.target as HTMLInputElement; // Type assertion
+    if (target.type === "checkbox" && target.checked) {
+      const newSelected = rows.map((row: {
         name: string
       }) => row.name)
-      setSelected(newSelecteds)
-      return
-    }
-    setSelected([])
+      setSelected(newSelected)
+    } else setSelected([])
   }
 
   const handleClick = (event: any, name: never) => {
     const selectedIndex = selected.indexOf(name)
-    let newSelected: Array<never> = []
+    let newSelected: string[] = []
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name)

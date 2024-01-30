@@ -28,7 +28,7 @@ const Canvas = (props) => {
       ["3. Digital Currency Name"]: tickerName,
       ["5. Market Name"]: market,
       ["6. Last Refreshed"]: updatedTimestamp
-    } = data["Meta Data"] || {}
+    } = data["Meta Data"] ?? {}
 
     setMarket(market)
     setTickerName(tickerName)

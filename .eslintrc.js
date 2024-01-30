@@ -27,8 +27,8 @@ module.exports = {
       }
     ],
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
-    "@typescript-eslint/no-explicit-any": ["off"], // override
-    "@typescript-eslint/no-explicit-any": ["off"], // override
+    "@typescript-eslint/no-explicit-any": ["off"], // override,
+    "no-empty-pattern": "error",
   },
   "settings": {
     "react": {
