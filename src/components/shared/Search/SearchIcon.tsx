@@ -3,9 +3,7 @@ import React, { ReactElement } from "react"
 const SVG = ({style, width, height}: {
   style: {
     position: any,
-    right: string,
-    bottom: string,
-    paddingRight: string,
+    top: string,
     enableBackground: string,
   }
   fill: string

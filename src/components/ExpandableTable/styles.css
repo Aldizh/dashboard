@@ -1,8 +1,9 @@
 .expandTable {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center; /* vertical align */
+  justify-content: center; /* horizontal align */
   padding: 5px;
+  height: 75vh; /* helps center the div */
 }
 
 .ui.table {

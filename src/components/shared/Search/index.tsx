@@ -15,7 +15,7 @@ const Search = ({
   searchText: string
   handleSearch: (text: string, type: FilterType) => void
 }): ReactElement => (
-  <>
+  <div style={{display: "flex"}}>
     <TextField
       fullWidth
       variant="standard"
@@ -30,10 +30,8 @@ const Search = ({
     />
     <SearchSVG
       style={{
-        position: "absolute",
-        right: "5px",
-        bottom: "15px",
-        paddingRight: "4px",
+        position: "relative",
+        top: "12px",
         enableBackground: "new 0 0 451 451"
       }}
       fill = '#000'
@@ -42,7 +40,7 @@ const Search = ({
       className = ''
       viewBox = '0 0 40 26'
     />
-  </>
+  </div>
 )
 
 export default Search

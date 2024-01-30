@@ -7,6 +7,7 @@ import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/CloseSharp";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
@@ -19,8 +20,6 @@ import { FilterType } from "../../../types/FilterTable"
 import type { ReferenceData, Members } from "../../../types/FilterTable"
 
 import "../styles.css"
-
-const drawerWidth = 260;
 
 type MainProps = {
   theme: Theme,
@@ -35,7 +34,6 @@ const Main = styled("main")(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
@@ -91,14 +89,13 @@ export default function Filters (props: {
           style={{
             padding: 5,
             flexShrink: 0,
-            width: drawerWidth,
             boxSizing: "border-box",
           }}
           variant="persistent"
-          anchor="left"
+          anchor="right"
           open={open}
         >
-          <DrawerHeader className="leftDrawer">
+          <DrawerHeader className="drawerManageIcon">
             <IconButton onClick={handleToggle}>
               {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
@@ -154,6 +151,18 @@ export default function Filters (props: {
               }}
             >
               <MenuIcon />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              aria-label="close drawer"
+              onClick={handleToggle}
+              edge="start"
+              style={{
+                marginRight: 5,
+                ...(!open && { display: "none" }),
+              }}
+            >
+              <CloseIcon />
             </IconButton>
           </div>
           <Chips members={members} />

@@ -135,7 +135,6 @@ const MemberSetup = (props: {
       <Grid
         container
         justifyContent='center'
-        xs={12}
       >
         <h3>Add new member</h3>
       </Grid>
@@ -235,7 +234,7 @@ const MemberSetup = (props: {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={12}>
+        <Grid item={true} xs={12} sm={12}>
           <Button
             variant="contained"
             color="secondary"

@@ -19,11 +19,14 @@
 /* here we are overriding the default material UI css
    consider using a separate class attribute instead
 */
+.MuiList-padding {
+  padding: 0!important;
+}
 .MuiListItem-gutters {
   padding-left: 0!important;
 }
 
-.leftDrawer {
+.drawerManageIcon {
   text-align: right;
 }
 
