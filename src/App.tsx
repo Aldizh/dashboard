@@ -59,7 +59,7 @@ const App = () => {
       <CssBaseline />
       <NavBar />
       <main>
-        <Container maxWidth="md">
+        <Container>
           <Routes>
             <Route path="/" element={<Home classes={classes}></Home>} />
             <Route path="stocks" element={<StcokFetcher classes={classes} />} />

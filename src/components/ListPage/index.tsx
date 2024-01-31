@@ -6,8 +6,7 @@ import { StateProvider } from "./context/index"
 import { generateData } from "./context/mockData"
 import { capitalize } from "../../utils/string"
 import FilterableList from "./FilterableList"
-import { FilterType } from "../../types/FilterTable"
-
+import { FilterType, Members } from "../../types/FilterTable"
 
 // randomly generated data
 // contains a list of objects in format: {code: string, description: string}
@@ -21,7 +20,7 @@ const [
 const ListPage = (props: {
   classes: ClassesType
 }) => {
-  const [members, setMembers] = useState(rows)
+  const [members, setMembers] = useState<Members>(rows)
   const [countryFilterData, setCountryFilterData] = useState(countriesReference)
 
   const [searchTextCountries, setSearchTextCountries] = useState("")

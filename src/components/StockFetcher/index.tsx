@@ -103,7 +103,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
   }, [search, seriesType])
 
   useEffect(() => {
-    if (search && !isFundamentalsLoading) {
+    if (search && !isFundamentalsLoading && !isHistoricalCryptoChart(seriesType)) {
       updateFundamentalsUrl(getFundamentalsUrl(search))
     }
   }, [search, seriesType])
@@ -154,7 +154,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
           </button>
         </form>
         <React.Fragment>
-          {userInput && !apiError && isComparisonStockChart(seriesType) && (
+          {search && !apiError && isComparisonStockChart(seriesType) && (
             <Compared
               search={search}
               data={stockData}
@@ -163,7 +163,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
               metrics={fundamentalsData}
             />
           )}
-          {userInput && !apiError && isHistoricalStockChart(seriesType) && (
+          {search && !apiError && isHistoricalStockChart(seriesType) && (
             <ExtendedHistory
               search={search}
               data={stockData}
@@ -172,7 +172,7 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
               metrics={fundamentalsData}
             />
           )}
-          {userInput && !apiError && isHistoricalCryptoChart(seriesType) && (
+          {search && !apiError && isHistoricalCryptoChart(seriesType) && (
             <>
               <Crypto
                 search={search}

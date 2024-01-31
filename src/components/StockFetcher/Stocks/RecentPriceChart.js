@@ -24,6 +24,7 @@ const RecentHistory = (props) => {
       ] = calculateDataPoints(data, intervalKey, "standard");
 
       const newOptions = {
+        theme: "light2",
         title: {
           text: `Historical monthly price data for ${search}`,
         },

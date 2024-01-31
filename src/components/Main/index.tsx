@@ -110,7 +110,7 @@ const ExpandTable = ({classes, key, title}: {classes: ClassesType, key: number, 
 
 const Main = ({ classes }: { classes: ClassesType}) => (
   <>
-  <Container className={classes.cardGrid} maxWidth="md">
+  <Container className={classes.cardGrid}>
     <Hero heroClass={classes.heroContent} />
     <MainCards>
       <Stocks classes={classes} key={1} />

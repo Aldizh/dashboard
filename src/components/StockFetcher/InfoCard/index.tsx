@@ -34,7 +34,7 @@ const InfoCard = (props: { metrics: Metrics }) => {
           Sector: {Sector}
         </Typography>
         <Typography color="primary" variant="subtitle1" gutterBottom>
-          Dividend Yield: {formatToDecimal(DividendYield)}%, Last Paid On: {formatDate(DividendDate)}
+          Dividend Yield: {formatToDecimal(DividendYield)}%, Paid On: {formatDate(DividendDate)}
         </Typography>
         <Typography color="primary" variant="subtitle1" gutterBottom>
           Quarterly Revenue Growth: {formatToDecimal(QuarterlyRevenueGrowthYOY)}%

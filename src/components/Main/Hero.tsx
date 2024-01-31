@@ -8,7 +8,7 @@ import ReactLogo from "./logo192.png"
 const HeroContainer = ({ heroClass }: { heroClass: string }) => {
   return (
     <div className={heroClass}>
-      <Container maxWidth="sm">
+      <Container>
         <img width={80} height={80} src={ReactLogo} alt="Logo" />
         <Typography
           variant="h4"
