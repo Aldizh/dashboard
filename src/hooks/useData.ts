@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react"
+import { useState, useEffect, useReducer, useRef } from "react"
 import axios from "axios"
 
 import {
@@ -232,6 +232,9 @@ const getDefaultState = <T extends string>(url: T): any => {
   open APIs or consider a paid plan for the full features.
 */
 const useDataApi = (search: string, initialUrl: string) => {
+  // for caching data
+  const cache = useRef<Record<string, object>>({});
+
   const [url, setUrl] = useState<string>(initialUrl)
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -241,8 +244,21 @@ const useDataApi = (search: string, initialUrl: string) => {
   })
 
   useEffect(() => {
+    // we use this to clean up memory in case the UI coomponent is unmounted
+    let cancelRequest = false;
+
     const fetchData = async () => {
       dispatch({ type: FETCH_INIT })
+
+      // cache hit, just return the data
+      if (cache.current[url]) {
+        const result = cache.current[url];
+
+        dispatch({ type: FETCH_SUCCESS, payload: result })
+        return
+      }
+
+      // cache miss, fetch data from third party and populate cache
       try {
         const result: {
           data: ChartData
@@ -251,13 +267,20 @@ const useDataApi = (search: string, initialUrl: string) => {
         // We hit the threshold of 5 calls per minute
         if (result.data.Information) dispatch({ type: FETCH_FAILURE })
 
+        if (cancelRequest) return;
+        cache.current[url] = result.data; // set response in cache;
         dispatch({ type: FETCH_SUCCESS, payload: result.data })
       } catch (error) {
+        if (cancelRequest) return;
         dispatch({ type: FETCH_FAILURE })
       }
     }
 
     if (search) fetchData()
+
+    return function cleanup() {
+      cancelRequest = true;
+    };
   }, [url])
 
   const updateUrl = (url: string) => setUrl(url)
