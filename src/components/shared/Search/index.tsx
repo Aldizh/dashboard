@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react"
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 
 import SearchSVG from "./SearchIcon"
 import { FilterType } from "../../../types/FilterTable"

@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
 import ParticlesBg from "particles-bg"
+import Box from "@mui/material/Box"
+import { Theme } from "@mui/material"
 
 import { StateProvider } from "./context/index"
 import { generateData } from "./context/mockData"
@@ -17,9 +19,7 @@ const [
   chipData
 ] = generateData()
 
-const ListPage = (props: {
-  classes: ClassesType
-}) => {
+const ListPage = () => {
   const [members, setMembers] = useState<Members>(rows)
   const [countryFilterData, setCountryFilterData] = useState(countriesReference)
 
@@ -52,7 +52,12 @@ const ListPage = (props: {
   return (
     <StateProvider initialState={{ chips: chipData, members: rows }}>
       {
-        <div className={props.classes.cardGrid}>
+        <Box
+          sx={(theme: Theme) => ({
+            alignItems: "center",
+            paddingBottom: theme.spacing(8)
+          })}
+        >
           <FilterableList
             countriesReference={countriesReference}
             membershipTypesReference={membershipTypesReference}
@@ -66,7 +71,7 @@ const ListPage = (props: {
           />
           <ParticlesBg type="circle" bg={true} />
           <Outlet />
-        </div>
+        </Box>
       }
     </StateProvider>
   )

@@ -1,6 +1,5 @@
 import React from "react"
-import { Chip } from "@material-ui/core"
-import { createTheme, ThemeProvider } from "@material-ui/core/styles"
+import { Chip } from "@mui/material"
 
 // types
 import type { Members, Chips } from "../../../types/FilterTable"
@@ -9,14 +8,6 @@ import type { Members, Chips } from "../../../types/FilterTable"
 import { getNewMembers } from "./utils"
 import { useListPageContext } from "../context"
 import "../styles.css"
-
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: "#00FFFF"
-    }
-  }
-})
 
 const Toolbar = ({ members }: { members: Members }) => {
   const [data, dispatch] = useListPageContext()
@@ -39,21 +30,19 @@ const Toolbar = ({ members }: { members: Members }) => {
 
   return (
     <React.Fragment>
-      <ThemeProvider theme={theme}>
-        <div className="chipsWrapper">
-          {chips.map((chip) => (
-            <Chip
-              key={chip.code}
-              label={chip.filterText}
-              onDelete={() => {
-                toggleChips(chip)
-              }}
-              className={"memberChip"}
-              color="secondary"
-            />
-          ))}
-        </div>
-      </ThemeProvider>
+      <div className="chipsWrapper">
+        {chips.map((chip) => (
+          <Chip
+            key={chip.code}
+            label={chip.filterText}
+            onDelete={() => {
+              toggleChips(chip)
+            }}
+            className={"memberChip"}
+            color="secondary"
+          />
+        ))}
+      </div>
     </React.Fragment>
   )
 }

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
-import Button from "@material-ui/core/Button"
-import Select from "@material-ui/core/Select"
-import FormControl from "@material-ui/core/FormControl"
-import TextField from "@material-ui/core/TextField"
-import MenuItem from "@material-ui/core/MenuItem"
-import Input from "@material-ui/core/Input"
-import InputLabel from "@material-ui/core/InputLabel"
-import Grid from "@material-ui/core/Grid"
-import { makeStyles } from "@material-ui/core/styles"
+import Button from "@mui/material/Button"
+import Box from "@mui/material/Box"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
+import Container from "@mui/material/Container";
+import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl"
+import TextField from "@mui/material/TextField"
+import MenuItem from "@mui/material/MenuItem"
+import Input from "@mui/material/Input"
+import InputLabel from "@mui/material/InputLabel"
 import currencyMap from "country-currency-map"
 
 // local imports
@@ -17,14 +18,6 @@ import Toast from "../shared/Toast"
 import { useListPageContext } from "./context"
 import infoIcon from "../../images/info.svg"
 import "./styles.css"
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1)
-    }
-  }
-}))
 
 const MemberSetup = (props: {
   countriesReference: Array<ReferenceData>,
@@ -75,7 +68,7 @@ const MemberSetup = (props: {
     }
   }
 
-  const handleSelectChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>, id: string) => {
+  const handleSelectChange = (event: SelectChangeEvent, id: string) => {
     const fieldId = id
     switch (fieldId) {
       case "country":
@@ -122,130 +115,123 @@ const MemberSetup = (props: {
     setDefaults()
   }
 
-  const classes = useStyles()
-
   return (
-    <>
+    <Container>
       <Toast
         toastList={toastList}
         position={"bottom-right"}
         autoDelete={true}
         autoDeleteTime={6000}
       />
-      <Grid
-        container
-        justifyContent='center'
-      >
-        <h3>Add new member</h3>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <FormControl>
-              <InputLabel htmlFor="name">Name</InputLabel>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => handleFormChange(e, "name")}
-              />
-            </FormControl>
-            <FormControl>
-              <InputLabel id="country">Country</InputLabel>
-              <Select
-                labelId="country"
-                id="country"
-                value={country.code}
-                onChange={(e) => handleSelectChange(e, "country")}
-              >
-                {countriesReference.map((option) => (
-                  <MenuItem
-                    id={`${option.code}_cntry`}
-                    key={option.code}
-                    value={option.code}
-                  >
-                    {option.description}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              <InputLabel id="membership">Type</InputLabel>
-              <Select
-                labelId="membership"
-                id="membership"
-                value={membership_type.code}
-                onChange={(e) => handleSelectChange(e, "membership_type")}
-              >
-                {membershipTypesReference.map((option) => (
-                  <MenuItem
-                    id={`${option.code}_membership`}
-                    key={option.code}
-                    value={option.code}
-                  >
-                    {option.description}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              <TextField
-                id="currency"
-                label="Currency"
-                type="currency"
-                value={currency.code}
-              />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>
-              <Input
-                id="annual_fee"
-                value={annual_fee}
-                onChange={(e) => handleFormChange(e, "annual_fee")}
-                disabled={false}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                id="from_date"
-                label="From Date"
-                type="date"
-                value={from_date}
-                onChange={(e) => handleFormChange(e, "from_date")}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                disabled={false}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                id="to_date"
-                label="To Date"
-                type="date"
-                value={to_date}
-                onChange={(e) => handleFormChange(e, "to_date")}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                disabled={false}
-              />
-            </FormControl>
-          </form>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item={true} xs={12} sm={12}>
+      <Box>
+        <FormGroup row={true} sx={(theme) => ({
+          "& > *": { margin: theme.spacing(1) } })
+        }>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <InputLabel htmlFor="name">Name</InputLabel>
+            <Input
+              id="name"
+              value={name}
+              onChange={(e) => handleFormChange(e, "name")}
+            />
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <InputLabel id="country">Country</InputLabel>
+            <Select
+              labelId="country"
+              id="country"
+              value={country.code}
+              onChange={(e) => handleSelectChange(e, "country")}
+            >
+              {countriesReference.map((option) => (
+                <MenuItem
+                  id={`${option.code}_cntry`}
+                  key={option.code}
+                  value={option.code}
+                >
+                  {option.description}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <InputLabel id="membership">Type</InputLabel>
+            <Select
+              labelId="membership"
+              id="membership"
+              value={membership_type.code}
+              onChange={(e) => handleSelectChange(e, "membership_type")}
+            >
+              {membershipTypesReference.map((option) => (
+                <MenuItem
+                  id={`${option.code}_membership`}
+                  key={option.code}
+                  value={option.code}
+                >
+                  {option.description}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <TextField
+              id="currency"
+              label="Currency"
+              type="currency"
+              value={currency.code}
+              variant="standard"
+            />
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <InputLabel htmlFor="annual_fee">Annual Fee</InputLabel>
+            <Input
+              id="annual_fee"
+              value={annual_fee}
+              onChange={(e) => handleFormChange(e, "annual_fee")}
+            />
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <TextField
+              id="from_date"
+              label="From Date"
+              type="date"
+              value={from_date}
+              onChange={(e) => handleFormChange(e, "from_date")}
+              InputLabelProps={{
+                shrink: true
+              }}
+              variant="standard"
+            />
+          </FormControl>
+          <FormControl variant="standard" sx={{marginLeft: 3}}>
+            <TextField
+              id="to_date"
+              label="To Date"
+              type="date"
+              value={to_date}
+              onChange={(e) => handleFormChange(e, "to_date")}
+              InputLabelProps={{
+                shrink: true
+              }}
+                variant="standard"
+            />
+          </FormControl>
+        </FormGroup>
+        <Box>
           <Button
             variant="contained"
             color="secondary"
             onClick={handleAdd}
-            className={"addButton"}
+            sx={{
+              marginTop: 3,
+              fontSize: 12,
+            }}
           >
-            Add
+            Add New Member
           </Button>
-        </Grid>
-      </Grid>
-    </>
+        </Box>
+      </Box>
+    </Container>
   )
 }
 

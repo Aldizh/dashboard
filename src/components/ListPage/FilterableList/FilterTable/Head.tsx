@@ -1,4 +1,3 @@
-import React from "react"
 import PropTypes from "prop-types"
 import {
   TableSortLabel,
@@ -6,12 +5,11 @@ import {
   TableRow,
   TableCell,
   Checkbox
-} from "@material-ui/core"
+} from "@mui/material"
 
 import { headCells } from "./config"
 
 function Head (props: {
-  classes: any,
   onSelectAllClick: (event: any) => void,
   order: string,
   orderBy: string,
@@ -20,7 +18,6 @@ function Head (props: {
   onRequestSort: (event: any, property: string) => void
 }) {
   const {
-    classes,
     onSelectAllClick,
     order,
     orderBy,
@@ -61,7 +58,16 @@ function Head (props: {
               {headCell.label}
               {orderBy === headCell.id
                 ? (
-                <span className={classes.visuallyHidden}>
+                <span style={{
+                    border: 0,
+                    clip: "rect(0 0 0 0)",
+                    height: 1,
+                    margin: -1,
+                    overflow: "hidden",
+                    position: "absolute",
+                    top: 20,
+                    width: 1
+                }}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </span>
                   )
@@ -75,7 +81,6 @@ function Head (props: {
 }
 
 Head.propTypes = {
-  classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,

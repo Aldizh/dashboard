@@ -1,24 +1,11 @@
-import React, { Fragment, useEffect } from "react"
-import { Card, Link } from "@material-ui/core"
-import CardContent from "@material-ui/core/CardContent"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles } from "@material-ui/core/styles"
+import { useEffect } from "react"
+import { Card, Grid, Link } from "@mui/material"
+import CardContent from "@mui/material/CardContent"
+import Typography from "@mui/material/Typography"
 
 import useDataApi from "../../../hooks/useData"
 import { NEWS_SENTIMENT } from "../../../utils/consts"
 import { Feed, ArticleData } from "../../../types/News"
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
-  }
-})
 
 const News = (props: {
   search: string,
@@ -52,15 +39,16 @@ const News = (props: {
     }
   }, [search])
 
-  const classes = useStyles()
-
   return (
-    <Fragment>
+    <Grid sx={{ backgroundColor: "white" }}>
       <h1>Top 5 News Articles</h1>
       {articlesLoading && <div style={{ textAlign: "center" }}>Loading...</div>}
       {feed && !articlesError &&
         feed.splice(0, 5).map(article =>
-          <Card key={article.title} className={classes.root}>
+          <Card key={article.title} sx={{
+            minWidth: 275,
+            backgroundColor: "white"
+          }}>
             <CardContent>
               <Typography>
                 <span>{article.authors[0]} : </span>
@@ -76,7 +64,7 @@ const News = (props: {
           </Card>
         )
       }
-    </Fragment>
+    </Grid>
   )
 }
 

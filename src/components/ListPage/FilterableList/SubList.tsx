@@ -1,22 +1,14 @@
 import { useState } from "react"
-import { withStyles } from "@material-ui/core/styles"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import Checkbox from "@material-ui/core/Checkbox"
+import List from "@mui/material/List"
+import ListItemButton from "@mui/material/ListItemButton"
+import ListItemText from "@mui/material/ListItemText"
+import Checkbox from "@mui/material/Checkbox"
 
 import { useListPageContext } from "../context"
 import { getNewMembers } from "./utils"
 
-const styles = () => ({
-  root: {
-    width: "100%",
-    backgroundColor: "#e5e2e2"
-  }
-})
-
 const SectionList = (props: any) => {
-  const { classes, filterFacets, members, filterBy, isIchecked } = props
+  const { filterFacets, members, filterBy, isIchecked } = props
 
   const [state, setState] = useState({
     checked: [0]
@@ -70,16 +62,14 @@ const SectionList = (props: any) => {
   }
 
   return (
-    <List className={classes.root}>
+    <List>
       {filterFacets.map((item: {
         code: string,
         description: string
       }) => (
-        <ListItem
+        <ListItemButton
           key={`#${item.code}`}
-          dense
-          button
-          onClick={handleToggle(item, filterBy)}
+          onClick={() => handleToggle(item, filterBy)}
         >
           <Checkbox
             checked={isIchecked(item.description)}
@@ -87,10 +77,10 @@ const SectionList = (props: any) => {
             disableRipple
           />
           <ListItemText primary={`(${item.code}) ${item.description}`} />
-        </ListItem>
+        </ListItemButton>
       ))}
     </List>
   )
 }
 
-export default withStyles(styles)(SectionList)
+export default SectionList

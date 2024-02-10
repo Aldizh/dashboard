@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 import { CanvasJSChart } from "canvasjs-react-charts"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import Typography from "@material-ui/core/Typography"
+import Card from "@mui/material/Card"
+import CardContent from "@mui/material/CardContent"
+import Typography from "@mui/material/Typography"
 
 import { DIGITAL_CURRENCY_INTERVAL_KEY } from "../../../utils/consts"
 import { getXData, calculateDataPoints } from "../../../utils/charts"
@@ -70,7 +70,8 @@ const Canvas = (props) => {
         variant="outlined"
         style={{
           margin: "10px auto",
-          width: "70%"
+          width: "70%",
+          backgroundColor: "white"
         }}
       >
         <CardContent>
@@ -89,7 +90,7 @@ const Canvas = (props) => {
         containerProps={{
           width: "100%",
           height: "440px",
-          margin: "auto"
+          margin: "auto",
         }}
         options={options}
         onRef={(ref) => (chartRef.current = ref)}

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { Table, Segment, Grid } from "semantic-ui-react"
+import { useState, useEffect } from "react"
+import { Table, Segment, Grid, Label, Container } from "semantic-ui-react"
 import ParticlesBg from "particles-bg"
 import { Outlet } from "react-router-dom"
 
@@ -69,9 +69,7 @@ const renderGridSubColumns = (item: Item, index: number) => {
   return (
     <Grid columns={4}>
       <Grid.Column>
-        <span>
-          {index}: {taskName}
-        </span>
+        <span><i>{taskName}</i></span>
       </Grid.Column>
       <Grid.Column>
         <span>Status: {item.status}</span>
@@ -153,7 +151,7 @@ export default function ExpandTable() {
 
   const renderItemDetails = (item: Item) => (
     <Segment basic>
-      <h2>2 Active Tasks</h2>
+      <Label><strong>2 Active Tasks</strong></Label>
       {renderGridSubColumns(item, 1)}
       {renderGridSubColumns(item, 2)}
     </Segment>
@@ -161,7 +159,7 @@ export default function ExpandTable() {
 
   return (
     <>
-      <div className="expandTable">
+      <Container>
         <Table selectable>
           <Table.Header>
             <Table.Row>
@@ -174,7 +172,7 @@ export default function ExpandTable() {
           </Table.Header>
           <Table.Body>{allItemRows}</Table.Body>
         </Table>
-      </div>
+      </Container>
       <ParticlesBg type="circle" bg={true} />
       <Outlet />
     </>

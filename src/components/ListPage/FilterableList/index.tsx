@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Theme, styled, useTheme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import InputLabel from "@material-ui/core/InputLabel";
-import Divider from "@material-ui/core/Divider"
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/CloseSharp";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { styled, useTheme } from "@mui/system"
+import { Theme } from "@mui/material"
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import Divider from "@mui/material/Divider"
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/CloseSharp";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import Memberships from "../Memberships"
 import Chips from "./Chips"
@@ -21,35 +22,11 @@ import type { ReferenceData, Members } from "../../../types/FilterTable"
 
 import "../styles.css"
 
-type MainProps = {
-  theme: Theme,
-  open: boolean
-}
-
-const Main = styled("main")(
-  ({ theme, open }: MainProps) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    })
-  })
-);
-
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
 
@@ -76,24 +53,30 @@ export default function Filters (props: {
     isIchecked,
   } = props
 
-  const theme = useTheme()
+  const theme: Theme = useTheme()
   
   const [open, setOpen] = useState(true);
 
   const handleToggle = () => setOpen(!open);
 
   return (
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <Drawer
-          style={{
-            padding: 5,
-            flexShrink: 0,
-            boxSizing: "border-box",
-          }}
-          variant="persistent"
-          anchor="right"
-          open={open}
+    <Box sx={{ flexGrow: 1 }}>
+      <CssBaseline />
+      <Drawer
+        sx={{
+          flexShrink: 0,
+          boxSizing: "border-box",
+        }}
+        variant="persistent"
+        anchor="right"
+        open={open}
+      >
+        <Box
+          sx={(theme) => ({
+            width: 300,
+            backgroundColor: theme.palette.grey[100],
+          })}
+          role="presentation"
         >
           <DrawerHeader className="drawerManageIcon">
             <IconButton onClick={handleToggle}>
@@ -133,45 +116,46 @@ export default function Filters (props: {
             />
           </div>
           <Divider />
-        </Drawer>
-        <Main open={open}>
-          <div className="centerControl">
-            <InputLabel
-              className="burgerLabel"
-              disableAnimation={true}
-            >{open ? "Close" : "Open"} Filters</InputLabel>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleToggle}
-              edge="start"
-              style={{
-                marginRight: 5,
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              aria-label="close drawer"
-              onClick={handleToggle}
-              edge="start"
-              style={{
-                marginRight: 5,
-                ...(!open && { display: "none" }),
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          </div>
-          <Chips members={members} />
-          <FilterTable />
-          <Memberships
-            countriesReference={countriesReference}
-            membershipTypesReference={membershipTypesReference}
-          />
-        </Main>
+        </Box>
+      </Drawer>
+      <Box sx={{ padding: 2 }}>
+        <div className="centerControl">
+          <InputLabel
+            className="burgerLabel"
+            disableAnimation={true}
+          >{open ? "Close" : "Open"} Filters</InputLabel>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleToggle}
+            edge="start"
+            style={{
+              marginRight: 5,
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            aria-label="close drawer"
+            onClick={handleToggle}
+            edge="start"
+            style={{
+              marginRight: 5,
+              ...(!open && { display: "none" }),
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <Chips members={members} />
+        <FilterTable />
+        <Memberships
+          countriesReference={countriesReference}
+          membershipTypesReference={membershipTypesReference}
+        />
       </Box>
+    </Box>
   );
 }

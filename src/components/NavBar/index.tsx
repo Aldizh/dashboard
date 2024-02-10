@@ -1,16 +1,9 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
-import { AppBar, Toolbar } from "@material-ui/core"
-import { createTheme, ThemeProvider } from "@material-ui/core/styles"
-import "./styles.css"
+import { AppBar, Toolbar } from "@mui/material"
+import useTheme from "@mui/material/styles/useTheme"
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#ffd8d8"
-    }
-  }
-})
+import "./styles.css"
 
 const NavBar = () => {
   const handleHomeClickResponsive = () => {
@@ -33,26 +26,28 @@ const NavBar = () => {
     links && links[routeIndex] && links[routeIndex].classList.add("current-link")
   }, [])
 
+  const theme = useTheme()
+
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar
-        position="relative"
-        color="primary"
-        elevation={0}
-      >
-        <Toolbar>
-          <div className="topnav" id="myTopnav">
-            <Link to="/">Home</Link>
-            <Link to="/stocks">Stocks</Link>
-            <Link to="/filter_table">Filter Table</Link>
-            <Link to="/expand_table">Expand Table</Link>
-            <a href={"#"} className="icon" onClick={handleHomeClickResponsive}>
-              <i className="fa fa-bars"></i>
-            </a>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: theme.palette.background.paper,
+        alignItems: "center"
+      }}
+    >
+      <Toolbar>
+        <div className="topnav" id="myTopnav">
+          <Link to="/">Home</Link>
+          <Link to="/stocks">Stocks</Link>
+          <Link to="/filter_table">Filter Table</Link>
+          <Link to="/expand_table">Expand Table</Link>
+          <a href={"#"} className="icon" onClick={handleHomeClickResponsive}>
+            <i className="fa fa-bars"></i>
+          </a>
+        </div>
+      </Toolbar>
+    </AppBar>
   )
 }
 

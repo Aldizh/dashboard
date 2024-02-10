@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { CanvasJS, CanvasJSChart } from "canvasjs-react-charts";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import { getXData, calculateDataPoints } from "../../../utils/charts"
 
 const Comparison = (props) => {
@@ -112,7 +112,8 @@ const Comparison = (props) => {
         variant="outlined"
         style={{
           margin: "10px auto",
-          width: "70%"
+          width: "70%",
+          backgroundColor: "white"
         }}
       >
         <CardContent>

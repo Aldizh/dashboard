@@ -2,8 +2,17 @@
 // Documentation for alpha advantage: https://www.alphavantage.co/documentation/
 
 import React, { useState, useEffect } from "react"
-import ParticlesBg from "particles-bg"
 import { Outlet } from "react-router-dom"
+
+import ParticlesBg from "particles-bg"
+import axios from "axios"
+
+import { Theme } from "@mui/material"
+import FormControl from "@mui/material/FormControl"
+import MenuItem from "@mui/material/MenuItem"
+import InputLabel from "@mui/material/InputLabel"
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Container from "@mui/material/Container";
 
 import useDataApi from "../../hooks/useData"
 import News from "../shared/News"
@@ -19,13 +28,17 @@ import {
   isComparisonStockChart
 } from "./utils"
 
-import { ChartData, FundamentalsMetaData } from "../../types"
+import { ChartData, FundamentalsMetaData, SearchDataMatch } from "../../types"
 
-const Fetcher = ({ classes }: { classes: ClassesType }) => {
+const Fetcher = () => {
   const [userInput, setUserInput] = useState("") // tracks user input
   const [search, setSearch] = useState("") // final ticker symbol
   const [seriesType, setSeriesType] = useState("") // chart type (e.g historical crypto, spy vs aapl)
   const [apiError, setApiError] = useState("")
+
+  const [bestMatches, setBestMatches] = useState<SearchDataMatch[] | []>([])
+
+  const matchValue = bestMatches[0] ? bestMatches[0]["1. symbol"] : ""
 
   const resetState = () => {
     setSearch("")
@@ -93,6 +106,15 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
   } = fundamentals
 
   useEffect(() => {
+    const fetchData = async () => {
+      const { data }: { data: { bestMatches: SearchDataMatch[] }} = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userInput}&apikey=${process.env.API_KEY}`)
+      if (data.bestMatches) setBestMatches(data.bestMatches)
+    }
+
+    if (userInput && !isHistoricalCryptoChart(seriesType)) fetchData()
+  }, [userInput])
+
+  useEffect(() => {
     if (search && !isLoading && isHistoricalStockChart(seriesType)) {
       updateSeriesUrl(getApiUrl(search, seriesType))
     } else if (search && !isLoading && isComparisonStockChart(seriesType)) {
@@ -122,9 +144,22 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
     }
   }, [search, seriesType])
 
+  const handleSearchSelect = (event: SelectChangeEvent) => {
+    const {
+      target: { value },
+    } = event;
+
+    setUserInput(value)
+  };
+
   return (
     <>
-      <div className={classes.cardGrid}>
+      <Container
+        sx={(theme: Theme) => ({
+          textAlign: "center",
+          paddingTop: theme.spacing(2)
+        })}
+      >
         <form
           onSubmit={(event) => {
             event.preventDefault()
@@ -147,48 +182,86 @@ const Fetcher = ({ classes }: { classes: ClassesType }) => {
           <input
             type="text"
             value={userInput}
-            onChange={(event) => setUserInput(event.target.value)}
+            onChange={(event) => {
+              const searchVal = event.target.value
+              setUserInput(searchVal)}
+            }
           />
           <button onClick={() => setSearch(userInput)} type="submit">
             Search
           </button>
+          <Container
+            sx={(theme: Theme) => ({
+              paddingTop: theme.spacing(2),
+            })}
+          >
+            { matchValue && !isHistoricalCryptoChart(seriesType) ?
+              <FormControl>
+                <InputLabel id="search-suggestions" color="info">Suggestions</InputLabel>
+                <Select
+                  label="Suggestions"
+                  labelId="searchSuggestions"
+                  id="search-suggestions"
+                  value={matchValue}
+                  onChange={handleSearchSelect}
+                >
+                  {bestMatches.map((company: SearchDataMatch) => (
+                    <MenuItem
+                      id={company["1. symbol"]}
+                      key={company["1. symbol"]}
+                      value={company["1. symbol"]}
+                      style={{
+                        display: "block",
+                        textAlign: "center",
+                      }}
+                    >
+                      {company["2. name"]}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl> : <div /> }
+          </Container>
         </form>
-        <React.Fragment>
-          {search && !apiError && isComparisonStockChart(seriesType) && (
-            <Compared
+      </Container>
+      <Container
+        sx={(theme: Theme) => ({
+          paddingBottom: theme.spacing(2),
+        })}
+      >
+        {search && !apiError && isComparisonStockChart(seriesType) && (
+          <Compared
+            search={search}
+            data={stockData}
+            isLoading={isLoading}
+            seriesType={seriesType}
+            metrics={fundamentalsData}
+          />
+        )}
+        {search && !apiError && isHistoricalStockChart(seriesType) && (
+          <ExtendedHistory
+            search={search}
+            data={stockData}
+            isLoading={isLoading}
+            seriesType={seriesType}
+            metrics={fundamentalsData}
+          />
+        )}
+        {search && !apiError && isHistoricalCryptoChart(seriesType) && (
+          <>
+            <Crypto
               search={search}
-              data={stockData}
-              isLoading={isLoading}
+              data={cryptoData}
+              isLoading={isCryptoLoading}
               seriesType={seriesType}
-              metrics={fundamentalsData}
             />
-          )}
-          {search && !apiError && isHistoricalStockChart(seriesType) && (
-            <ExtendedHistory
+            <News
               search={search}
-              data={stockData}
-              isLoading={isLoading}
-              seriesType={seriesType}
-              metrics={fundamentalsData}
+              getApiUrl={getApiUrl}
             />
-          )}
-          {search && !apiError && isHistoricalCryptoChart(seriesType) && (
-            <>
-              <Crypto
-                search={search}
-                data={cryptoData}
-                isLoading={isCryptoLoading}
-                seriesType={seriesType}
-              />
-              <News
-                search={search}
-                getApiUrl={getApiUrl}
-              />
-            </>
-          )}
-          {apiError && <b style={{color: "darkred"}}>{apiError}</b>}
-        </React.Fragment>
-      </div>
+          </>
+        )}
+        {apiError && <b style={{color: "darkred"}}>{apiError}</b>}
+      </Container>
       <ParticlesBg
         type="circle"
         bg={true}

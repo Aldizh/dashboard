@@ -58,7 +58,6 @@ const RecentHistory = (props) => {
         containerProps={{
           width: "100%",
           height: "440px",
-          margin: "auto",
         }}
         options={options}
         onRef={(ref) => (chartRef.current = ref)}

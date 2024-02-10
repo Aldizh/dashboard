@@ -4,8 +4,10 @@
   "private": true,
   "homepage": "http://aldizh.github.io/dashboard",
   "dependencies": {
-    "@material-ui/core": "latest",
-    "@material-ui/icons": "^4.11.3",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.7",
+    "@mui/material": "^5.15.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -21,6 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.13",
     "@types/ramda": "^0.29.0",

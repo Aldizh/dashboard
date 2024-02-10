@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
-import { Tooltip, IconButton } from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
-import FilterListIcon from "@material-ui/icons/FilterList"
+import { Tooltip, IconButton } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+import FilterListIcon from "@mui/icons-material/FilterList"
 
 const ToolTip = ({
   numSelected,
