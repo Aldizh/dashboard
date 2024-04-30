@@ -1,6 +1,5 @@
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
-import Paper from "@mui/material/Paper"
 import BottomNavigation from "@mui/material/BottomNavigation"
 import { Theme } from "@mui/material"
 

@@ -197,13 +197,20 @@ const Fetcher = () => {
           >
             { matchValue && !isHistoricalCryptoChart(seriesType) ?
               <FormControl>
-                <InputLabel id="search-suggestions" color="info">Suggestions</InputLabel>
+                <InputLabel
+                  id="search-suggestions"
+                  style={{ fontSize: "16px", color: "#333" }}
+                >Suggestions</InputLabel>
                 <Select
                   label="Suggestions"
                   labelId="searchSuggestions"
                   id="search-suggestions"
                   value={matchValue}
                   onChange={handleSearchSelect}
+                  style={{
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Add box shadow
+                    borderRadius: "4px", // Add border radius
+                  }}
                 >
                   {bestMatches.map((company: SearchDataMatch) => (
                     <MenuItem
@@ -213,6 +220,8 @@ const Fetcher = () => {
                       style={{
                         display: "block",
                         textAlign: "center",
+                        padding: "8px 0",
+                        backgroundColor: "#f5f5f5",
                       }}
                     >
                       {company["2. name"]}

@@ -22,7 +22,7 @@ const calculateDataPoints = (
   type: string
 ): [Array<{ x: Date; y: number }>, number, number] => {
   const dataPoints: Array<{ x: Date; y: number }> = [];
-  const closingAttribute = type === "standard" ? "4. close" : "4b. close (USD)";
+  const closingAttribute = "4. close";
   const timeIntervalKeys = getXData(symbolData, INTERVAL_KEY); // date strings in reverse order
   const timeIntervalValues: any[] = getYData(symbolData, INTERVAL_KEY);
   const lastIndex = timeIntervalKeys.length - 1;

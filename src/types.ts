@@ -111,18 +111,12 @@ type MonthlyTimeSeriesValues = {
   ["7. dividend amount"]: string
 }
 
-type TimeSeriesCryptoDaily = Record<string,
-  {
-    ["1a. open (CNY)"]: string,
-    ["1b. open (USD)"]: string,
-    ["2a. high (CNY)"]: string,
-    ["2b. high (USD)"]: string,
-    ["3a. low (CNY)"]: string,
-    ["3b. low (USD)"]: string,
-    ["4a. close (CNY)"]: string,
-    ["4b. close (USD)"]: string,
-    ["5. volume"]: string,
-    ["6. market cap (USD)"]: string
+type TimeSeriesCryptoDaily = Record<string, {
+  "1. open": string,
+  "2. high": string,
+  "3. low": string,
+  "4. close": string,
+  "5. volume": string,
 }>
 
 // Generic

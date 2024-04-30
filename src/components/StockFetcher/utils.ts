@@ -14,7 +14,7 @@ const getApiUrl = (symbol: string, seriesType: string) => {
     case TIME_SERIES_INTRADAY:
       return `${BASE_URL}&function=${TIME_SERIES_INTRADAY}&symbol=${symbol}&interval=${DEFAULT_INTERVAL}&outputsize=full&adjusted=true` // adjusted for dividends and stock split
     case DIGITAL_CURRENCY_DAILY:
-      return `${BASE_URL}&function=${DIGITAL_CURRENCY_DAILY}&symbol=${symbol}&market=CNY`
+      return `${BASE_URL}&function=${DIGITAL_CURRENCY_DAILY}&symbol=${symbol}&market=USD`
     case "NEWS_SENTIMENT": // TO DO: Needs to adjust based on series type
       return `${BASE_URL}&function=NEWS_SENTIMENT&tickers=CRYPTO:${symbol}`
     default:
