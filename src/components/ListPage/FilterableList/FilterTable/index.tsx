@@ -39,7 +39,8 @@ const EnhancedTableToolbar = (props: {
   return (
     <Toolbar
       sx={{
-        flex: numSelected > 0 ? "1 1 100%" : "inherit"
+        flex: numSelected > 0 ? "1 1 100%" : "inherit",
+        display: "inline-flex"
       }}
       disableGutters={true}
     >

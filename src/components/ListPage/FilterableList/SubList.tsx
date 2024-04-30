@@ -69,7 +69,7 @@ const SectionList = (props: any) => {
       }) => (
         <ListItemButton
           key={`#${item.code}`}
-          onClick={() => handleToggle(item, filterBy)}
+          onClick={handleToggle(item, filterBy)}
         >
           <Checkbox
             checked={isIchecked(item.description)}
